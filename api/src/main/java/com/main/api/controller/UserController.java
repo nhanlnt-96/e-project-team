@@ -33,7 +33,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> registerAccount(@Valid @RequestBody User.RegisterData registerData) {
-        UserDto checkUsernameExist = getUserByUsername(registerData.getUsername());
+        UserAccount checkUsernameExist = getUserByUsername(registerData.getUsername());
 
         if (checkUsernameExist == null) {
             UserAccount userAccount = new UserAccount(registerData.getUsername(), PasswordEncoder.hashPassword(registerData.getPassword()), Constant.USER_ROLE, Constant.ACTIVE_STATUS);
@@ -53,12 +53,22 @@ public class UserController {
         throw new NoResultException("Username is exist");
     }
 
-    private UserDto getUserByUsername(String username) {
-        UserAccount userData = userAccountRepository.findByUsername(username);
-        if (userData != null) {
-            return generateUserDto(userData, userData.getUserInfo());
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> login(@Valid @RequestBody User.LoginData loginData) {
+        UserAccount checkUserExist = getUserByUsername(loginData.getUsername());
+        if (checkUserExist == null) {
+            throw new NoResultException("Username does not exits.");
+        } else {
+            if (PasswordEncoder.verifyPassword(checkUserExist.getPassword(), loginData.getPassword())) {
+                return new ResponseEntity<>(generateUserDto(checkUserExist, checkUserExist.getUserInfo()), HttpStatus.OK);
+            } else {
+                throw new NoResultException("Password incorrect.");
+            }
         }
-        return null;
+    }
+
+    private UserAccount getUserByUsername(String username) {
+        return userAccountRepository.findByUsername(username);
     }
 
     private UserDto generateUserDto(UserAccount userAccount, UserInfo userInfo) {

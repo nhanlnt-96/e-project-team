@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.persistence.NoResultException;
 
@@ -13,7 +14,7 @@ import javax.persistence.NoResultException;
 public class ExceptionHandling {
     @ExceptionHandler(NoResultException.class)
     public ResponseEntity<HttpResponse> noResultException(NoResultException exception) {
-        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return createHttpResponse(HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
     @ResponseBody

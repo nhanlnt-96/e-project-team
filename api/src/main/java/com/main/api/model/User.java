@@ -46,4 +46,35 @@ public class User {
             this.fullName = fullName;
         }
     }
+
+    public static class LoginData {
+        @NotEmpty(message = "username can not be null.")
+        private String username;
+        @NotEmpty(message = "password can not be null.")
+        private String password;
+
+        public LoginData() {
+        }
+
+        public LoginData(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
 }
