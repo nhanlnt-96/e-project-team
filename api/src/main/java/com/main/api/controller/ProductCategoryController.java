@@ -65,6 +65,17 @@ public class ProductCategoryController {
         }
     }
 
+    @DeleteMapping("/remove-category/{categoryId}")
+    public ResponseEntity<String> removeProductCategory(@PathVariable("categoryId") Long categoryId) {
+        ProductCategory checkCategoryExist = getCategoryById(categoryId);
+        if (checkCategoryExist == null) {
+            throw new NoResultException("Category does not exist.");
+        } else {
+            productCategoryRepository.delete(checkCategoryExist);
+            return new ResponseEntity<>("Removed category.", HttpStatus.OK);
+        }
+    }
+
 
     private ProductCategory getCategoryByName(String categoryName) {
         return productCategoryRepository.getProductCategoryByCategoryName(categoryName);
