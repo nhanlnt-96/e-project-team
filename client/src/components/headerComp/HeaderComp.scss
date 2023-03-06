@@ -1,0 +1,89 @@
+@import "src/assets/styles/breakpoints";
+
+.header {
+  &-link {
+    display: none;
+    @include lg {
+      display: block;
+    }
+
+    &__item {
+      position: relative;
+      color: #ffffff;
+
+      &:after {
+        content: '';
+        width: 0;
+        height: 1px;
+        background-color: #ffffff;
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        transition: all .1s ease-in-out;
+      }
+
+      &:hover:after {
+        width: 100%;
+      }
+
+      &.active {
+        &:after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &-toolbar {
+    display: none;
+    @include lg {
+      display: flex;
+    }
+
+    &__item {
+      position: relative;
+
+      &.active {
+        @apply text-link-hover;
+      }
+    }
+  }
+
+  &-drawer {
+    &__container {
+      .header {
+        &-link {
+          display: flex;
+          flex-direction: column;
+
+          &__item {
+            margin-bottom: 24px;
+            width: fit-content;
+            color: #000000;
+
+            &:after {
+              background-color: #000000;
+            }
+
+            &.active {
+              color: #000000;
+            }
+          }
+        }
+
+        &-toolbar {
+          display: flex;
+          justify-content: space-evenly;
+
+          &__item {
+            color: #000000;
+
+            &.active {
+              @apply text-link-hover;
+            }
+          }
+        }
+      }
+    }
+  }
+}
