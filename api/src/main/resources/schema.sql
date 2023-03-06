@@ -21,3 +21,10 @@ create table plant_x_db.user_info
         foreign key (user_id) references plant_x_db.user_account (user_id)
 ) collate = utf8mb3_unicode_ci;
 
+create table plant_x_db.product_category
+(
+    category_id   int auto_increment
+        primary key,
+    category_name varchar(255) not null
+)
+    collate = utf8mb3_unicode_ci;
