@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.persistence.NoResultException;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class ExceptionHandling {
     @ExceptionHandler(NoResultException.class)
     public ResponseEntity<HttpResponse> noResultException(NoResultException exception) {
-        return createHttpResponse(HttpStatus.NOT_FOUND, exception.getMessage());
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
     @ResponseBody

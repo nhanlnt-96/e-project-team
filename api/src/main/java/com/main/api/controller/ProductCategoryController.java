@@ -1,7 +1,6 @@
 package com.main.api.controller;
 
 import com.main.api.dao.ProductCategoryRepository;
-import com.main.api.dto.HttpResponse;
 import com.main.api.dto.ProductCategoryDto;
 import com.main.api.entity.ProductCategory;
 import com.main.api.model.Category;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -48,8 +49,38 @@ public class ProductCategoryController {
         return new ResponseEntity<>(productCategoryDtos, HttpStatus.OK);
     }
 
+    @PutMapping("/update-category")
+    public ResponseEntity<ProductCategoryDto> updateProductCategory(@Valid @RequestBody Category.UpdateProductCategory updateProductCategory) {
+        ProductCategory checkCategoryExist = getCategoryById(updateProductCategory.getCategoryId());
+        if (checkCategoryExist == null) {
+            throw new NoResultException("Category does not exist.");
+        } else {
+            if (checkCategoryExist.getCategoryName().equals(updateProductCategory.getCategoryName()) || updateProductCategory.getCategoryName() == null) {
+                return new ResponseEntity<>(generateCategoryData(checkCategoryExist), HttpStatus.OK);
+            } else {
+                checkCategoryExist.setCategoryName(updateProductCategory.getCategoryName());
+                ProductCategory updateProductCategoryResponse = productCategoryRepository.saveAndFlush(checkCategoryExist);
+                return new ResponseEntity<>(generateCategoryData(updateProductCategoryResponse), HttpStatus.OK);
+            }
+        }
+    }
+
+
     private ProductCategory getCategoryByName(String categoryName) {
         return productCategoryRepository.getProductCategoryByCategoryName(categoryName);
+    }
+
+    private ProductCategory getCategoryById(Long categoryId) {
+        try {
+            ProductCategory productCategory = productCategoryRepository.findById(categoryId).get();
+            if (productCategory.getCategoryId() != null) {
+                return productCategory;
+            } else {
+                return null;
+            }
+        } catch (Exception exception) {
+            return null;
+        }
     }
 
     private ProductCategoryDto generateCategoryData(ProductCategory productCategory) {
