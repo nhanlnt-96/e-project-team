@@ -12,7 +12,7 @@ const { Header } = Layout;
 
 const HeaderComponent: React.FC = () => {
   return (
-    <Header className='bg-transparent sticky p-0'>
+    <Header className='bg-transparent fixed w-full p-0 z-50'>
       <Container isWideScreen={false} className='h-full border-b border-white flex justify-between items-center'>
         <HeaderLink />
         <HeaderDrawer />

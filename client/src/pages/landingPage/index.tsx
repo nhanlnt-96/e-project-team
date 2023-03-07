@@ -1,18 +1,19 @@
-import {Layout} from 'antd';
+import { Layout } from 'antd';
 import HeaderComponent from 'components/headerComp';
-import ProductCard from 'components/productCard';
+import Billboard from 'pages/landingPage/components/billboard';
 import React from 'react';
 
+const { Content } = Layout;
+
 const LandingPage = () => {
-    return (
-        <Layout className='w-screen h-screen'>
-            <HeaderComponent/>
-            <div className='my-3'></div>
-            <div className='max-w-sm w-full mx-auto'>
-                <ProductCard/>
-            </div>
-        </Layout>
-    );
+  return (
+    <Layout className='w-screen h-screen'>
+      <HeaderComponent />
+      <Content>
+        <Billboard />
+      </Content>
+    </Layout>
+  );
 };
 
 export default LandingPage;
