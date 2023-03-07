@@ -1,16 +1,7 @@
 import Billboard from 'pages/clientPage/landingPage/components/billboard';
-import React, {useEffect} from 'react';
-import {getAllCategoryService} from 'services/category';
+import React from 'react';
 
 const LandingPage = () => {
-    useEffect(() => {
-        (async () => {
-            const response = await getAllCategoryService();
-
-            console.log(response);
-        })();
-    }, []);
-
     return (
         <div className='w-full'>
             <Billboard/>

@@ -17,6 +17,10 @@ export const headerLinks: IHeaderLink[] = [
     path: '/'
   },
   {
+    label: 'Shop',
+    path: '/shop'
+  },
+  {
     label: 'About us',
     path: '/about-us'
   },

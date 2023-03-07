@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithoutRef, useMemo } from 'react';
 
-interface IProps extends ComponentPropsWithoutRef<'div'> {
+export interface IProps extends ComponentPropsWithoutRef<'div'> {
   children: string | JSX.Element | JSX.Element[];
   isWideScreen?: boolean;
   className?: string;

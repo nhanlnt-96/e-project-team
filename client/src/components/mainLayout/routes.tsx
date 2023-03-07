@@ -1,5 +1,3 @@
-import LandingPage from 'pages/clientPage/landingPage';
-import Login from 'pages/clientPage/login';
 import { lazy, ReactElement } from 'react';
 
 interface IRoutes {
@@ -16,6 +14,9 @@ interface IRoutesChildren {
 }
 
 const ClientPage = lazy(() => import('pages/clientPage'));
+const LandingPage = lazy(() => import('pages/clientPage/landingPage'));
+const LoginPage = lazy(() => import('pages/clientPage/login'));
+const ProductPage = lazy(() => import('pages/clientPage/productPage'));
 
 export const routes: IRoutes[] = [
   {
@@ -31,7 +32,12 @@ export const routes: IRoutes[] = [
       {
         path: 'login',
         isIndex: false,
-        element: <Login />
+        element: <LoginPage />
+      },
+      {
+        path: '/shop',
+        isIndex: false,
+        element: <ProductPage />
       }
     ]
   }

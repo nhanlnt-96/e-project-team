@@ -4,9 +4,11 @@ import {Outlet} from 'react-router-dom';
 
 const ClientPage = () => {
     return (
-        <div className='w-full overflow-y-auto'>
+        <div className='w-full'>
             <HeaderComponent/>
-            <Outlet/>
+            <div className='w-full bg-black'>
+                <Outlet/>
+            </div>
         </div>
     );
 };

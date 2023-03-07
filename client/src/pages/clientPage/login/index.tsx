@@ -5,7 +5,7 @@ import React from 'react';
 
 const Login = () => {
     return (
-        <div className='w-screen min-h-screen bg-black flex justify-center items-center'>
+        <div className='w-full min-h-screen bg-black flex justify-center items-center'>
             <Container className='grid grid-cols-1 gap-y-5 lg:grid-cols-2 lg:gap-y-0 lg:gap-x-5'>
                 <div className='bg-white w-full text-black p-5 space-y-4 lg:space-y-6'>
                     <div className='py-2 border-b border-black/50'>
