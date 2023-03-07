@@ -15,7 +15,8 @@ module.exports = {
     },
     extend: {
       colors: {
-        'link-hover': '#69b1ff'
+        'link-hover': '#69b1ff',
+        'pewter-blue': '#87A9BC'
       }
     }
   },
