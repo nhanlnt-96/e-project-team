@@ -18,7 +18,7 @@ const LogoSvg: React.FC<{ className: string }> = (props) =>
 
 const Logo: React.FC<IProps> = ({ className = '' }) => {
   return (
-    <Link to='/' className={`block max-w-[155px] w-full text-white ${className}`}>
+    <Link to='/' className={`block max-w-[155px] w-full text-white hover:text-white ${className}`}>
       <div className='w-full relative' style={{ paddingBottom: 'calc(40 / 155 * 100%)' }}>
         <LogoSvg className='absolute w-full h-full left-0 top-0 object-contain' />
       </div>

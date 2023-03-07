@@ -1,5 +1,5 @@
 import {ConfigProvider} from 'antd';
-import LandingPage from 'pages/landingPage';
+import MainLayout from 'components/mainLayout';
 import React from 'react';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
 
     return (
         <ConfigProvider theme={theme}>
-            <LandingPage/>
+            <MainLayout/>
         </ConfigProvider>
     );
 }

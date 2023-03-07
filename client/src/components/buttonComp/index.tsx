@@ -10,7 +10,7 @@ const ButtonComp: React.FC<IProps> = ({ isPrimary = true, className = '', ...pro
   const buttonClassName = useMemo(() => {
     return isPrimary
       ? `bg-white color-black hover:!border-white hover:bg-black hover:!text-white ${className}`
-      : `bg-black border-black color-white hover:!border-black hover:bg-white hover:!text-black ${className}`;
+      : `bg-black border-black text-white hover:!border-black hover:bg-white hover:!text-black ${className}`;
   }, [isPrimary, className]);
 
   return (

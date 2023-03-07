@@ -29,6 +29,12 @@
       ],
       "pages/*": [
         "pages/*"
+      ],
+      "hooks/*": [
+        "hooks/*"
+      ],
+      "constants/*": [
+        "constants/*"
       ]
     }
   },

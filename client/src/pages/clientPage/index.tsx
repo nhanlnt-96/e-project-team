@@ -1,19 +1,19 @@
 import { Layout } from 'antd';
 import HeaderComponent from 'components/headerComp';
-import Billboard from 'pages/landingPage/components/billboard';
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 const { Content } = Layout;
 
-const LandingPage = () => {
+const ClientPage = () => {
   return (
-    <Layout className='w-screen h-screen'>
+    <Layout className='w-screen min-h-screen'>
       <HeaderComponent />
       <Content>
-        <Billboard />
+        <Outlet />
       </Content>
     </Layout>
   );
 };
 
-export default LandingPage;
+export default ClientPage;

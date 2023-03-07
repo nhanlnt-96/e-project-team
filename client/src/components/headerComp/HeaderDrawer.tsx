@@ -31,7 +31,7 @@ const HeaderDrawer: React.FC = () => {
             <Drawer
                 closeIcon={
                     <svg fill='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'
-                         className='w-6 h-6 order-2'>
+                         className='w-6 h-6'>
                         <path
                             clipRule='evenodd'
                             fillRule='evenodd'
@@ -39,7 +39,7 @@ const HeaderDrawer: React.FC = () => {
                         ></path>
                     </svg>
                 }
-                title={<Logo className='text-black order-1'/>}
+                title={<Logo className='!text-black'/>}
                 placement='left'
                 onClose={onClose}
                 open={open}

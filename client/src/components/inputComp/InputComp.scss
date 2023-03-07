@@ -1,0 +1,18 @@
+.input-comp {
+  &:has(input[type="password"]) {
+    &:hover {
+      border-color: #000000 !important;
+      box-shadow: unset !important;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  input[type="password"] {
+    &::placeholder {
+      text-transform: uppercase;
+    }
+  }
+}

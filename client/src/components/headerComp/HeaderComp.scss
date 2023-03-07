@@ -84,6 +84,12 @@
           }
         }
       }
+
+      .ant-drawer-header-title {
+        .ant-drawer-close {
+          order: 2;
+        }
+      }
     }
   }
 }
