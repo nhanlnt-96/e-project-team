@@ -4,7 +4,7 @@ import React from 'react';
 
 const Billboard: React.FC = () => {
     return (
-        <div className='w-screen h-screen relative'>
+        <div className='w-full'>
             <div className='w-full relative pb-ratio-768-1024 lg:pb-ratio-1920-898'>
                 <img src={BillboardImage} alt='wing-tea-billboard'
                      className='w-full h-full absolute left-0 top-0 object-cover lg:object-contain'/>

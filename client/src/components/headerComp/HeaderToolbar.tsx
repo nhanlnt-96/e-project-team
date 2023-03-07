@@ -5,13 +5,6 @@ import {NavLink} from 'react-router-dom';
 const HeaderToolbar: React.FC = () => {
     return (
         <div className='flex-1 flex justify-center items-center lg:space-x-5 xl:space-x-10 header-toolbar'>
-            {headerToolbar.map((toolbar) => (
-                <NavLink key={toolbar.path} to={toolbar.path}
-                         className='text-white flex justify-center items-center space-x-1.5 header-toolbar__item'>
-                    {toolbar.icon}
-                    <span>{toolbar.label}</span>
-                </NavLink>
-            ))}
             <NavLink to='/cart'
                      className='text-white flex justify-center items-center space-x-1.5 header-toolbar__item'>
                 <svg fill='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'
@@ -21,6 +14,13 @@ const HeaderToolbar: React.FC = () => {
                 </svg>
                 <span>(0)</span>
             </NavLink>
+            {headerToolbar.map((toolbar) => (
+                <NavLink key={toolbar.path} to={toolbar.path}
+                         className='text-white flex justify-center items-center space-x-1.5 header-toolbar__item'>
+                    {toolbar.icon}
+                    <span>{toolbar.label}</span>
+                </NavLink>
+            ))}
         </div>
     );
 };

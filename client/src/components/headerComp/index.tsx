@@ -26,7 +26,11 @@ const HeaderComponent: React.FC = () => {
   }, []);
 
   return (
-    <Header className={`sticky top-0 w-full p-0 z-50 ${windowScrolling > 0 ? 'bg-black' : 'bg-black lg:bg-transparent'} lg:fixed`}>
+    <Header
+      className={`sticky top-0 w-full p-0 z-50 transition duration-200 ease-in-out ${
+        windowScrolling > 0 ? 'bg-black' : 'bg-black lg:bg-transparent'
+      } lg:fixed`}
+    >
       <Container isWideScreen={false} className='h-full border-b border-white flex justify-between items-center text-white'>
         <HeaderLink />
         <HeaderDrawer />
