@@ -35,6 +35,12 @@
       ],
       "constants/*": [
         "constants/*"
+      ],
+      "redux/*": [
+        "redux/*"
+      ],
+      "services/*": [
+        "services/*"
       ]
     }
   },
