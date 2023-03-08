@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
+import java.text.Normalizer;
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @RestController
@@ -45,7 +48,9 @@ public class ProductCategoryController {
     @GetMapping("/get-all")
     public ResponseEntity<List<ProductCategoryDto>> getAllProductCategory() {
         List<ProductCategory> productCategories = productCategoryRepository.findAll();
-        List<ProductCategoryDto> productCategoryDtos = productCategories.stream().map(category -> new ProductCategoryDto(category.getCategoryId(), category.getCategoryName())).collect(Collectors.toList());
+        List<ProductCategoryDto> productCategoryDtos =
+                productCategories.stream().map(category -> new ProductCategoryDto(category.getCategoryId(),
+                        category.getCategoryName(), category.getCategorySlug())).collect(Collectors.toList());
         return new ResponseEntity<>(productCategoryDtos, HttpStatus.OK);
     }
 
@@ -59,6 +64,7 @@ public class ProductCategoryController {
                 return new ResponseEntity<>(generateCategoryData(checkCategoryExist), HttpStatus.OK);
             } else {
                 checkCategoryExist.setCategoryName(updateProductCategory.getCategoryName());
+                checkCategoryExist.setCategorySlug(checkCategoryExist.convertCategoryNameToSlug(updateProductCategory.getCategoryName()));
                 ProductCategory updateProductCategoryResponse = productCategoryRepository.saveAndFlush(checkCategoryExist);
                 return new ResponseEntity<>(generateCategoryData(updateProductCategoryResponse), HttpStatus.OK);
             }
@@ -95,6 +101,7 @@ public class ProductCategoryController {
     }
 
     private ProductCategoryDto generateCategoryData(ProductCategory productCategory) {
-        return new ProductCategoryDto(productCategory.getCategoryId(), productCategory.getCategoryName());
+        return new ProductCategoryDto(productCategory.getCategoryId(), productCategory.getCategoryName(),
+                productCategory.getCategorySlug());
     }
 }

@@ -6,12 +6,14 @@ import lombok.Data;
 public class ProductCategoryDto {
     private Long categoryId;
     private String categoryName;
+    private String categorySlug;
 
     public ProductCategoryDto() {
     }
 
-    public ProductCategoryDto(Long categoryId, String categoryName) {
+    public ProductCategoryDto(Long categoryId, String categoryName, String categorySlug) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+        this.categorySlug = categorySlug;
     }
 }

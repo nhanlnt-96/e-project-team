@@ -25,6 +25,8 @@ create table plant_x_db.product_category
 (
     category_id   int auto_increment
         primary key,
-    category_name varchar(255) not null
+    category_name varchar(255) not null,
+    category_slug varchar(255) not null
 )
     collate = utf8mb3_unicode_ci;
+
