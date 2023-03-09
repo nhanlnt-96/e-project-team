@@ -13,7 +13,7 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long userId, String username, String password, int role, Boolean status, UserInfoDto userInfo) {
+    public UserDto(Long userId, String username, int role, Boolean status, UserInfoDto userInfo) {
         this.userId = userId;
         this.username = username;
         this.role = role;

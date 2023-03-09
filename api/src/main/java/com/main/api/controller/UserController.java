@@ -7,13 +7,12 @@ import com.main.api.dto.UserDto;
 import com.main.api.dto.UserInfoDto;
 import com.main.api.entity.UserAccount;
 import com.main.api.entity.UserInfo;
-import com.main.api.model.User;
+import com.main.api.model.UserModel;
 import com.main.api.utils.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
@@ -32,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> registerAccount(@Valid @RequestBody User.RegisterData registerData) {
+    public ResponseEntity<UserDto> registerAccount(@Valid @RequestBody UserModel.RegisterData registerData) {
         UserAccount checkUsernameExist = getUserByUsername(registerData.getUsername());
 
         if (checkUsernameExist == null) {
@@ -54,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDto> login(@Valid @RequestBody User.LoginData loginData) {
+    public ResponseEntity<UserDto> login(@Valid @RequestBody UserModel.LoginData loginData) {
         UserAccount checkUserExist = getUserByUsername(loginData.getUsername());
         if (checkUserExist == null) {
             throw new NoResultException("Username does not exits.");
@@ -74,13 +73,7 @@ public class UserController {
     private UserDto generateUserDto(UserAccount userAccount, UserInfo userInfo) {
         UserDto userDto = new UserDto();
 
-        UserInfoDto userInfoDto = new UserInfoDto();
-        userInfoDto.setUserId(userInfo.getUserId());
-        userInfoDto.setFullName(userInfo.getFullName());
-        userInfoDto.setAddress(userInfo.getAddress());
-        userInfoDto.setPhoneNumber(userInfoDto.getPhoneNumber());
-        userInfoDto.setGender(userInfoDto.getGender());
-        userDto.setRole(userDto.getRole());
+        UserInfoDto userInfoDto = new UserInfoDto(userInfo);
 
         userDto.setUserId(userAccount.getUserId());
         userDto.setUsername(userAccount.getUsername());

@@ -1,5 +1,6 @@
 package com.main.api.dto;
 
+import com.main.api.entity.UserInfo;
 import lombok.Data;
 
 import java.util.Date;
@@ -16,12 +17,12 @@ public class UserInfoDto {
     public UserInfoDto() {
     }
 
-    public UserInfoDto(Long userId, String address, String fullName, String phoneNumber, Date dob, int gender) {
-        this.userId = userId;
-        this.address = address;
-        this.fullName = fullName;
-        this.phoneNumber = phoneNumber;
-        this.dob = dob;
-        this.gender = gender;
+    public UserInfoDto(UserInfo userInfo) {
+        this.userId = userInfo.getUserId();
+        this.address = userInfo.getAddress();
+        this.fullName = userInfo.getFullName();
+        this.phoneNumber = userInfo.getPhoneNumber();
+        this.dob = userInfo.getDob();
+        this.gender = userInfo.getGender();
     }
 }

@@ -1,5 +1,6 @@
 package com.main.api.dto;
 
+import com.main.api.entity.ProductCategory;
 import lombok.Data;
 
 @Data
@@ -11,9 +12,9 @@ public class ProductCategoryDto {
     public ProductCategoryDto() {
     }
 
-    public ProductCategoryDto(Long categoryId, String categoryName, String categorySlug) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-        this.categorySlug = categorySlug;
+    public ProductCategoryDto(ProductCategory productCategory) {
+        this.categoryId = productCategory.getCategoryId();
+        this.categoryName = productCategory.getCategoryName();
+        this.categorySlug = productCategory.getCategorySlug();
     }
 }

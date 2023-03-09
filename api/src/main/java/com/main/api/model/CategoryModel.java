@@ -2,10 +2,8 @@ package com.main.api.model;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
-public class Category {
+public class CategoryModel {
     public static class CreateProductCategory {
         @NotEmpty(message = "categoryName can not be null.")
         private String categoryName;

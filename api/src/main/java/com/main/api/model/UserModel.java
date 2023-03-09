@@ -1,10 +1,8 @@
 package com.main.api.model;
 
-import com.main.api.entity.UserAccount;
-
 import javax.validation.constraints.NotEmpty;
 
-public class User {
+public class UserModel {
     public static class RegisterData {
         @NotEmpty(message = "username can not be null.")
         private String username;
