@@ -26,22 +26,6 @@ import java.util.UUID;
 @RequestMapping("/api/image")
 @CrossOrigin(origins = {"http://localhost:3000"}, allowCredentials = "true")
 public class ImageController {
-    private final ImageRepository imageRepository;
-
-    @Autowired
-    public ImageController(ImageRepository imageRepository) {
-        this.imageRepository = imageRepository;
-    }
-
-    @PostMapping("/upload-image")
-    public ResponseEntity<ImageDto> uploadImage(@RequestParam("image") MultipartFile multipartFile) throws IOException {
-        Image saveImageResponse = handleUploadImage(multipartFile);
-        if (saveImageResponse != null) {
-            return new ResponseEntity<>(new ImageDto(saveImageResponse.getImageId(), saveImageResponse.getImageName()), HttpStatus.CREATED);
-        }
-        throw new NoResultException("Create category failed.");
-    }
-
     @GetMapping("/get-image/{imageName}")
     @ResponseBody
     public ResponseEntity<byte[]> getImage(@PathVariable String imageName) throws IOException {
@@ -53,19 +37,5 @@ public class ImageController {
         } else {
             throw new RuntimeException("Could not find the image");
         }
-    }
-
-    private Image handleUploadImage(MultipartFile multipartFile) throws IOException {
-        String fileName = UUID.randomUUID() + "-" + ConvertStringToSlug.WHITESPACE.matcher(StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()))).replaceAll("-");
-        Files.copy(multipartFile.getInputStream(), Paths.get("upload/images").resolve(fileName));
-
-        Image imageData = new Image(fileName);
-        Image imageUploadResponse = imageRepository.save(imageData);
-
-        if (imageUploadResponse.getImageId() != 0) {
-            return imageUploadResponse;
-        }
-
-        return null;
     }
 }

@@ -16,12 +16,16 @@ public class Image {
     private Long imageId;
     @Column(name = "image_name")
     private String imageName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     public Image() {
     }
 
-    public Image(String imageName) {
+    public Image(String imageName, Product product) {
         this.imageName = imageName;
+        this.product = product;
     }
 
     @Override

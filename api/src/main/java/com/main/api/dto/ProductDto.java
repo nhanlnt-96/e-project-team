@@ -1,27 +1,30 @@
 package com.main.api.dto;
 
+import com.main.api.entity.Image;
 import com.main.api.entity.Product;
 import com.main.api.entity.ProductCategory;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class ProductDto {
     private Long productId;
     private String description;
     private Integer productPrice;
     private String productName;
-    private List<String> imageNames;
-    private ProductCategoryDto productCategoryDto;
+    private List<ImageDto> images;
+    private ProductCategoryDto category;
 
     public ProductDto() {
     }
 
-    public ProductDto(Product product, List<String> imageNames, ProductCategory productCategory) {
+    public ProductDto(Product product, List<ImageDto> images, ProductCategory productCategory) {
         this.productId = product.getProductId();
         this.description = product.getDescription();
         this.productPrice = product.getProductPrice();
         this.productName = product.getProductName();
-        this.imageNames = imageNames;
-        this.productCategoryDto = new ProductCategoryDto(productCategory);
+        this.images = images;
+        this.category = new ProductCategoryDto(productCategory);
     }
 }

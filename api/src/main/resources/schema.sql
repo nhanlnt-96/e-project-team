@@ -34,14 +34,10 @@ create table plant_x_db.image
 (
     image_id   int auto_increment
         primary key,
-    image_data varchar(255) not null
-);
-
-create table plant_x_db.image
-(
-    image_id   int auto_increment
-        primary key,
-    image_name varchar(255) not null
+    image_name int null,
+    product_id int null,
+    constraint product_id
+        foreign key (product_id) references plant_x_db.product (product_id)
 );
 
 create table plant_x_db.product
@@ -56,19 +52,5 @@ create table plant_x_db.product
         foreign key (category_id) references plant_x_db.product_category (category_id)
 )
     collate = utf8mb3_unicode_ci;
-
-
-
-create table plant_x_db.product_image
-(
-    product_image_id int auto_increment
-        primary key,
-    product_id       int not null,
-    image_id         int not null,
-    constraint image_id
-        foreign key (image_id) references plant_x_db.image (image_id),
-    constraint product_id
-        foreign key (product_id) references plant_x_db.product (product_id)
-);
 
 

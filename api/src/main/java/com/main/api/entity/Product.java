@@ -1,9 +1,11 @@
 package com.main.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -23,6 +25,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private ProductCategory category;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    private Set<Image> images;
 
     public Product() {
     }
@@ -31,5 +35,10 @@ public class Product {
         this.description = description;
         this.productName = productName;
         this.productPrice = productPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" + "productId=" + productId + ", description='" + description + '\'' + ", productName='" + productName + '\'' + ", productPrice=" + productPrice + ", category=" + category + ", images=" + images + '}';
     }
 }

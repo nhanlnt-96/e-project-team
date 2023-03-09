@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.api.dao.ImageRepository;
 import com.main.api.dao.ProductCategoryRepository;
-import com.main.api.dao.ProductImageRepository;
 import com.main.api.dao.ProductRepository;
+import com.main.api.dto.ImageDto;
 import com.main.api.dto.ProductDto;
 import com.main.api.entity.*;
 import com.main.api.model.ProductModel;
@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/product")
@@ -31,16 +32,14 @@ import java.util.*;
 public class ProductController {
     private final ProductRepository productRepository;
     private final Validator validator;
-    private final ProductImageRepository productImageRepository;
     private final ProductCategoryRepository productCategoryRepository;
     private final ImageRepository imageRepository;
 
     @Autowired
 
-    public ProductController(ProductRepository productRepository, Validator validator, ProductImageRepository productImageRepository, ProductCategoryRepository productCategoryRepository, ImageRepository imageRepository) {
+    public ProductController(ProductRepository productRepository, Validator validator, ProductCategoryRepository productCategoryRepository, ImageRepository imageRepository) {
         this.productRepository = productRepository;
         this.validator = validator;
-        this.productImageRepository = productImageRepository;
         this.productCategoryRepository = productCategoryRepository;
         this.imageRepository = imageRepository;
     }
@@ -67,27 +66,20 @@ public class ProductController {
 
             Product saveProductResponse = productRepository.save(productData);
             if (saveProductResponse.getProductId() != 0) {
-                List<String> imageNames = new ArrayList<>();
+                List<ImageDto> images = new ArrayList<>();
                 Arrays.stream(productImages).forEach(image -> {
                     Image uploadImageResponse = null;
                     try {
-                        uploadImageResponse = handleUploadImage(image);
+                        uploadImageResponse = handleUploadImage(image, saveProductResponse);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     if (uploadImageResponse != null) {
-                        imageNames.add(uploadImageResponse.getImageName());
-
-                        ProductImage productImageData = new ProductImage();
-
-                        productImageData.setProduct(saveProductResponse);
-                        productImageData.setImage(uploadImageResponse);
-
-                        productImageRepository.save(productImageData);
+                        images.add(new ImageDto(uploadImageResponse.getImageId(), uploadImageResponse.getImageName()));
                     }
                 });
 
-                return new ResponseEntity<>(new ProductDto(saveProductResponse, imageNames, saveProductResponse.getCategory()), HttpStatus.CREATED);
+                return new ResponseEntity<>(new ProductDto(saveProductResponse, images, saveProductResponse.getCategory()), HttpStatus.CREATED);
             }
             throw new NoResultException("Create category failed.");
         } catch (Exception ex) {
@@ -95,11 +87,30 @@ public class ProductController {
         }
     }
 
-    private Image handleUploadImage(MultipartFile multipartFile) throws IOException {
+    @GetMapping("/get-all-product")
+    public ResponseEntity<List<ProductDto>> getAllProduct() {
+        List<Product> productList = productRepository.findAll();
+        List<ProductDto> productDtoList = productList.stream().map(product -> new ProductDto(product,
+                handleGenerateImageDto(product.getImages()),
+                product.getCategory())).collect(Collectors.toList());
+
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
+    private List<ImageDto> handleGenerateImageDto(Set<Image> images) {
+        List<ImageDto> imageDto = new ArrayList<>();
+        for (Image image : images) {
+            imageDto.add(new ImageDto(image.getImageId(), image.getImageName()));
+        }
+
+        return imageDto;
+    }
+
+    private Image handleUploadImage(MultipartFile multipartFile, Product product) throws IOException {
         String fileName = UUID.randomUUID() + "-" + ConvertStringToSlug.WHITESPACE.matcher(StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()))).replaceAll("-");
         Files.copy(multipartFile.getInputStream(), Paths.get("upload/images").resolve(fileName));
 
-        Image imageData = new Image(fileName);
+        Image imageData = new Image(fileName, product);
         Image imageUploadResponse = imageRepository.save(imageData);
 
         if (imageUploadResponse.getImageId() != 0) {
