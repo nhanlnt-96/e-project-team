@@ -18,6 +18,7 @@ const LandingPage = lazy(() => import('pages/clientPage/landingPage'));
 const LoginPage = lazy(() => import('pages/clientPage/login'));
 const FindATeaPage = lazy(() => import('pages/clientPage/findATeaPage'));
 const ProductPage = lazy(() => import('pages/clientPage/productPage'));
+const AdminPage = lazy(() => import('pages/adminPage'));
 
 export const routes: IRoutes[] = [
   {
@@ -46,5 +47,11 @@ export const routes: IRoutes[] = [
         element: <ProductPage />
       }
     ]
+  },
+  {
+    path: '/admin',
+    isPrivate: true,
+    element: <AdminPage />,
+    children: []
   }
 ];

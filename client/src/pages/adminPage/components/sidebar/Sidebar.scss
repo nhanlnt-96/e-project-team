@@ -1,0 +1,9 @@
+.sidebar {
+  &-menu {
+    .ant-menu-item {
+      &:hover {
+        background-color: transparent !important;
+      }
+    }
+  }
+}

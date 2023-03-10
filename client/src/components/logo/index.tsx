@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface IProps {
   className?: string;
+  rootUrl?: string;
 }
 
 const LogoSvg: React.FC<{ className: string }> = (props) =>
@@ -16,9 +17,9 @@ const LogoSvg: React.FC<{ className: string }> = (props) =>
     props
   );
 
-const Logo: React.FC<IProps> = ({ className = '' }) => {
+const Logo: React.FC<IProps> = ({ className = '', rootUrl = '/' }) => {
   return (
-    <Link to='/' className={`block max-w-[155px] w-full text-white hover:text-white ${className}`}>
+    <Link to={rootUrl} className={`block max-w-[155px] w-full text-white hover:text-white ${className}`}>
       <div className='w-full relative' style={{ paddingBottom: 'calc(40 / 155 * 100%)' }}>
         <LogoSvg className='absolute w-full h-full left-0 top-0 object-contain' />
       </div>
