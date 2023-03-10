@@ -5,15 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.api.dao.ImageRepository;
 import com.main.api.dao.ProductCategoryRepository;
 import com.main.api.dao.ProductRepository;
-import com.main.api.dto.ImageDto;
+import com.main.api.dto.ProductImageDto;
 import com.main.api.dto.ProductDto;
 import com.main.api.entity.*;
 import com.main.api.model.ProductModel;
-import com.main.api.utils.ConvertStringToSlug;
+import com.main.api.utils.FileManage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,8 +20,6 @@ import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,15 +30,15 @@ public class ProductController {
     private final ProductRepository productRepository;
     private final Validator validator;
     private final ProductCategoryRepository productCategoryRepository;
-    private final ImageRepository imageRepository;
+    private final ImageRepository productImageRepository;
 
     @Autowired
 
-    public ProductController(ProductRepository productRepository, Validator validator, ProductCategoryRepository productCategoryRepository, ImageRepository imageRepository) {
+    public ProductController(ProductRepository productRepository, Validator validator, ProductCategoryRepository productCategoryRepository, ImageRepository productImageRepository) {
         this.productRepository = productRepository;
         this.validator = validator;
         this.productCategoryRepository = productCategoryRepository;
-        this.imageRepository = imageRepository;
+        this.productImageRepository = productImageRepository;
     }
 
     @PostMapping("/create-product")
@@ -66,16 +63,17 @@ public class ProductController {
 
             Product saveProductResponse = productRepository.save(productData);
             if (saveProductResponse.getProductId() != 0) {
-                List<ImageDto> images = new ArrayList<>();
+                List<ProductImageDto> images = new ArrayList<>();
                 Arrays.stream(productImages).forEach(image -> {
-                    Image uploadImageResponse = null;
+                    ProductImage uploadProductImageResponse = null;
                     try {
-                        uploadImageResponse = handleUploadImage(image, saveProductResponse);
+                        uploadProductImageResponse = handleUploadImage(image, saveProductResponse);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    if (uploadImageResponse != null) {
-                        images.add(new ImageDto(uploadImageResponse.getImageId(), uploadImageResponse.getImageName()));
+                    if (uploadProductImageResponse != null) {
+                        images.add(new ProductImageDto(uploadProductImageResponse.getImageId(),
+                                uploadProductImageResponse.getImageName(), uploadProductImageResponse.getStorageName()));
                     }
                 });
 
@@ -91,30 +89,31 @@ public class ProductController {
     public ResponseEntity<List<ProductDto>> getAllProduct() {
         List<Product> productList = productRepository.findAll();
         List<ProductDto> productDtoList = productList.stream().map(product -> new ProductDto(product,
-                handleGenerateImageDto(product.getImages()),
+                handleGenerateImageDto(product.getProductImages()),
                 product.getCategory())).collect(Collectors.toList());
 
         return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
-    private List<ImageDto> handleGenerateImageDto(Set<Image> images) {
-        List<ImageDto> imageDto = new ArrayList<>();
-        for (Image image : images) {
-            imageDto.add(new ImageDto(image.getImageId(), image.getImageName()));
+    private List<ProductImageDto> handleGenerateImageDto(Set<ProductImage> productImages) {
+        List<ProductImageDto> productImageDto = new ArrayList<>();
+        for (ProductImage productImage : productImages) {
+            productImageDto.add(new ProductImageDto(productImage.getImageId(), productImage.getImageName(),
+                    productImage.getStorageName()));
         }
 
-        return imageDto;
+        return productImageDto;
     }
 
-    private Image handleUploadImage(MultipartFile multipartFile, Product product) throws IOException {
-        String fileName = UUID.randomUUID() + "-" + ConvertStringToSlug.WHITESPACE.matcher(StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()))).replaceAll("-");
-        Files.copy(multipartFile.getInputStream(), Paths.get("upload/images").resolve(fileName));
+    private ProductImage handleUploadImage(MultipartFile multipartFile, Product product) throws IOException {
+        String storageName = "products";
+        String fileName = FileManage.handleUploadImage(storageName, multipartFile);
 
-        Image imageData = new Image(fileName, product);
-        Image imageUploadResponse = imageRepository.save(imageData);
+        ProductImage productImageData = new ProductImage(fileName, storageName, product);
+        ProductImage productImageUploadResponse = productImageRepository.save(productImageData);
 
-        if (imageUploadResponse.getImageId() != 0) {
-            return imageUploadResponse;
+        if (productImageUploadResponse.getImageId() != 0) {
+            return productImageUploadResponse;
         }
 
         return null;

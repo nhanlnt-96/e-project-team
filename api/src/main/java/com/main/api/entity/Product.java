@@ -1,6 +1,5 @@
 package com.main.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +25,7 @@ public class Product {
     @JoinColumn(name = "category_id")
     private ProductCategory category;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
-    private Set<Image> images;
+    private Set<ProductImage> productImages;
 
     public Product() {
     }
@@ -39,6 +38,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "productId=" + productId + ", description='" + description + '\'' + ", productName='" + productName + '\'' + ", productPrice=" + productPrice + ", category=" + category + ", images=" + images + '}';
+        return "Product{" + "productId=" + productId + ", description='" + description + '\'' + ", productName='" + productName + '\'' + ", productPrice=" + productPrice + ", category=" + category + ", images=" + productImages + '}';
     }
 }

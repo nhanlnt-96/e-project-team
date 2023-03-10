@@ -30,7 +30,7 @@ create table plant_x_db.product_category
 )
     collate = utf8mb3_unicode_ci;
 
-create table plant_x_db.image
+create table plant_x_db.productImage
 (
     image_id   int auto_increment
         primary key,

@@ -1,18 +1,26 @@
 package com.main.api.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.api.dao.ProductCategoryRepository;
 import com.main.api.dto.ProductCategoryDto;
 import com.main.api.entity.ProductCategory;
 import com.main.api.model.CategoryModel;
 import com.main.api.utils.ConvertStringToSlug;
+import com.main.api.utils.FileManage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.NoResultException;
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
+import javax.validation.Validator;
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,17 +28,34 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = {"http://localhost:3000"}, allowCredentials = "true")
 public class ProductCategoryController {
     private final ProductCategoryRepository productCategoryRepository;
+    private final Validator validator;
+    private static final String storageName = "categories";
 
     @Autowired
-    public ProductCategoryController(ProductCategoryRepository productCategoryRepository) {
+    public ProductCategoryController(ProductCategoryRepository productCategoryRepository, Validator validator) {
         this.productCategoryRepository = productCategoryRepository;
+        this.validator = validator;
     }
 
     @PostMapping("/create-category")
-    public ResponseEntity<ProductCategoryDto> createProductCategory(@Valid @RequestBody CategoryModel.CreateProductCategory createProductCategory) {
-        ProductCategory productCategoryDto = getCategoryByName(createProductCategory.getCategoryName());
+    public ResponseEntity<ProductCategoryDto> createProductCategory(@RequestParam("createProductCategory") String createProductCategory, @RequestParam("categoryImage") MultipartFile categoryImage) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        CategoryModel.CreateProductCategory productCategoryData = mapper.readValue(createProductCategory, CategoryModel.CreateProductCategory.class);
+        Set<ConstraintViolation<CategoryModel.CreateProductCategory>> constraintViolations = validator.validate(productCategoryData);
+
+        if (!constraintViolations.isEmpty()) {
+            StringBuilder errors = new StringBuilder();
+            constraintViolations.stream().forEach((error) -> {
+                String message = error.getMessage();
+                errors.append(message + ";");
+            });
+            throw new NoResultException(errors.toString());
+        }
+
+        ProductCategory productCategoryDto = getCategoryByName(productCategoryData.getCategoryName());
         if (productCategoryDto == null) {
-            ProductCategory productCategory = new ProductCategory(createProductCategory.getCategoryName());
+            String fileName = FileManage.handleUploadImage(storageName, categoryImage);
+            ProductCategory productCategory = new ProductCategory(productCategoryData.getCategoryName(), fileName, storageName);
             ProductCategory saveProductCategoryResponse = productCategoryRepository.save(productCategory);
             if (saveProductCategoryResponse.getCategoryId() != 0) {
                 return new ResponseEntity<>(generateCategoryData(saveProductCategoryResponse), HttpStatus.CREATED);
