@@ -74,28 +74,50 @@ public class ProductCategoryController {
     }
 
     @PutMapping("/update-category")
-    public ResponseEntity<ProductCategoryDto> updateProductCategory(@Valid @RequestBody CategoryModel.UpdateProductCategory updateProductCategory) {
-        ProductCategory checkCategoryExist = getCategoryById(updateProductCategory.getCategoryId());
+    public ResponseEntity<ProductCategoryDto> updateProductCategory(@RequestParam("categoryImage") MultipartFile categoryImage, @RequestParam("categoryUpdateData") String categoryUpdateData) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        CategoryModel.UpdateProductCategory productCategoryData = mapper.readValue(categoryUpdateData, CategoryModel.UpdateProductCategory.class);
+        Set<ConstraintViolation<CategoryModel.UpdateProductCategory>> constraintViolations = validator.validate(productCategoryData);
+
+        if (!constraintViolations.isEmpty()) {
+            StringBuilder errors = new StringBuilder();
+            constraintViolations.stream().forEach((error) -> {
+                String message = error.getMessage();
+                errors.append(message + ";");
+            });
+            throw new NoResultException(errors.toString());
+        }
+
+        ProductCategory checkCategoryExist = getCategoryById(productCategoryData.getCategoryId());
         if (checkCategoryExist == null) {
             throw new NoResultException("Category does not exist.");
         } else {
-            if (checkCategoryExist.getCategoryName().equals(updateProductCategory.getCategoryName()) || updateProductCategory.getCategoryName() == null) {
-                return new ResponseEntity<>(generateCategoryData(checkCategoryExist), HttpStatus.OK);
-            } else {
-                checkCategoryExist.setCategoryName(updateProductCategory.getCategoryName());
-                checkCategoryExist.setCategorySlug(ConvertStringToSlug.convertCategoryNameToSlug(updateProductCategory.getCategoryName()));
-                ProductCategory updateProductCategoryResponse = productCategoryRepository.saveAndFlush(checkCategoryExist);
-                return new ResponseEntity<>(generateCategoryData(updateProductCategoryResponse), HttpStatus.OK);
+            if (productCategoryData.getCategoryName() != null) {
+                if (checkCategoryExist.getCategoryName().equals(productCategoryData.getCategoryName()) || productCategoryData.getCategoryName() == null) {
+                    return new ResponseEntity<>(generateCategoryData(checkCategoryExist), HttpStatus.OK);
+                } else {
+                    checkCategoryExist.setCategoryName(productCategoryData.getCategoryName());
+                    checkCategoryExist.setCategorySlug(ConvertStringToSlug.convertCategoryNameToSlug(productCategoryData.getCategoryName()));
+                }
             }
+            if (categoryImage.getOriginalFilename() != null) {
+                FileManage.handleRemoveImage(checkCategoryExist.getStorageName(), checkCategoryExist.getCategoryImageName());
+                String fileName = FileManage.handleUploadImage(storageName, categoryImage);
+                checkCategoryExist.setCategoryImageName(fileName);
+            }
+
+            ProductCategory updateProductCategoryResponse = productCategoryRepository.saveAndFlush(checkCategoryExist);
+            return new ResponseEntity<>(generateCategoryData(updateProductCategoryResponse), HttpStatus.OK);
         }
     }
 
     @DeleteMapping("/remove-category/{categoryId}")
-    public ResponseEntity<String> removeProductCategory(@PathVariable("categoryId") Long categoryId) {
+    public ResponseEntity<String> removeProductCategory(@PathVariable("categoryId") Long categoryId) throws IOException {
         ProductCategory checkCategoryExist = getCategoryById(categoryId);
         if (checkCategoryExist == null) {
             throw new NoResultException("Category does not exist.");
         } else {
+            FileManage.handleRemoveImage(checkCategoryExist.getStorageName(), checkCategoryExist.getCategoryImageName());
             productCategoryRepository.delete(checkCategoryExist);
             return new ResponseEntity<>("Removed category.", HttpStatus.OK);
         }
