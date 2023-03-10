@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 
 const HeaderToolbar: React.FC = () => {
     return (
-        <div className='flex-1 flex justify-center items-center lg:space-x-5 xl:space-x-10 header-toolbar'>
+        <div className='flex-1 flex justify-center items-center lg:justify-end lg:space-x-5 xl:space-x-10 header-toolbar'>
             <NavLink to='/cart'
                      className='text-white flex justify-center items-center space-x-1.5 header-toolbar__item'>
                 <svg fill='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'

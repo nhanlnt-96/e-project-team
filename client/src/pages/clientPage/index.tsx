@@ -6,7 +6,7 @@ const ClientPage = () => {
     return (
         <div className='w-full'>
             <HeaderComponent/>
-            <div className='w-full bg-black'>
+            <div className='w-full h-full bg-black flex flex-col min-h-screen'>
                 <Outlet/>
             </div>
         </div>
