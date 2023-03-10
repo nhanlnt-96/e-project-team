@@ -1,8 +1,11 @@
 import BillboardImage from 'assets/images/billboard-image.png';
 import ButtonComp from 'components/buttonComp';
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 
 const Billboard: React.FC = () => {
+    const navigate = useNavigate();
+
     return (
         <div className='w-full'>
             <div className='w-full relative pb-ratio-768-1024 lg:pb-ratio-1920-898'>
@@ -14,7 +17,7 @@ const Billboard: React.FC = () => {
                         <span className='font-light'>Make your tea time</span>
                         <span className='font-playfair-display italic'>best with only wing tea</span>
                     </h1>
-                    <ButtonComp>Shop now</ButtonComp>
+                    <ButtonComp onClick={() => navigate('/find-a-tea')}>Find a tea now</ButtonComp>
                 </div>
             </div>
         </div>
