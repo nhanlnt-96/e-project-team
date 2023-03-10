@@ -28,3 +28,31 @@
     }
   }
 }
+
+@layer components {
+  .nav-link__hover {
+    position: relative;
+    color: #ffffff;
+
+    &:after {
+      content: '';
+      width: 0;
+      height: 1px;
+      background-color: #ffffff;
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      transition: all .1s ease-in-out;
+    }
+
+    &:hover:after {
+      width: 100%;
+    }
+
+    &.active {
+      &:after {
+        width: 100%;
+      }
+    }
+  }
+}

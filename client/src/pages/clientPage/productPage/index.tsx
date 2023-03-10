@@ -1,15 +1,10 @@
-import PageContainer from 'components/pageContainer';
-import Title from 'components/title';
-import CategorySwiper from 'pages/clientPage/productPage/CategorySwiper';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 const ProductPage = () => {
-    return (
-        <PageContainer>
-            <Title title='Shop' subtitle='Select category below to view product base on category.'/>
-            <CategorySwiper/>
-        </PageContainer>
-    );
+  const { categorySlug } = useParams();
+
+  return <div className='text-white'>{categorySlug}</div>;
 };
 
 export default ProductPage;

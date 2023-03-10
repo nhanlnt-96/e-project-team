@@ -16,6 +16,7 @@ interface IRoutesChildren {
 const ClientPage = lazy(() => import('pages/clientPage'));
 const LandingPage = lazy(() => import('pages/clientPage/landingPage'));
 const LoginPage = lazy(() => import('pages/clientPage/login'));
+const FindATeaPage = lazy(() => import('pages/clientPage/findATeaPage'));
 const ProductPage = lazy(() => import('pages/clientPage/productPage'));
 
 export const routes: IRoutes[] = [
@@ -35,7 +36,12 @@ export const routes: IRoutes[] = [
         element: <LoginPage />
       },
       {
-        path: '/shop',
+        path: '/find-a-tea',
+        isIndex: false,
+        element: <FindATeaPage />
+      },
+      {
+        path: '/shop/:categorySlug',
         isIndex: false,
         element: <ProductPage />
       }
