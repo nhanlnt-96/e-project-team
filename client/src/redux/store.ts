@@ -1,7 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import getAllCategoryReducer from './categoryManage/getAllCategorySlice';
+
 export const store = configureStore({
-  reducer: {}
+  reducer: {
+    getAllCategoryReducer: getAllCategoryReducer
+  }
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

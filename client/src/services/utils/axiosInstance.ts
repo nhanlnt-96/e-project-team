@@ -10,7 +10,7 @@ axiosInstance.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    return error.message;
+    return Promise.reject(error.response.data.message || error.message);
   }
 );
 

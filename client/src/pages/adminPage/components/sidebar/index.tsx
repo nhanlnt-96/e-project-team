@@ -1,6 +1,6 @@
 import './Sidebar.scss';
 
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
 import ButtonComp from 'components/buttonComp';
 import Logo from 'components/logo';
 import { sidebarData } from 'pages/adminPage/components/sidebar/configs';
@@ -15,7 +15,14 @@ const Sidebar: React.FC = () => {
   return (
     <Sider trigger={null} collapsible collapsed={collapsed} className='!bg-white' width={340}>
       <div className='w-full flex justify-between items-center py-2 px-3'>
-        {!collapsed ? <Logo rootUrl='/admin' className='!text-black' /> : <></>}
+        {!collapsed ? (
+          <div className='w-full flex justify-center items-center space-x-2.5'>
+            <Logo rootUrl='/admin' className='!text-black' />
+            <p className='mt-auto text-lg font-medium'>AdminPage</p>
+          </div>
+        ) : (
+          <></>
+        )}
         <ButtonComp isPrimary={false} className={`!px-2 ${collapsed ? 'mx-auto' : ''}`} onClick={() => setCollapsed(!collapsed)}>
           <svg
             fill='none'
@@ -30,15 +37,13 @@ const Sidebar: React.FC = () => {
           </svg>
         </ButtonComp>
       </div>
-      <Menu mode='inline' className='space-y-4 sidebar-menu'>
+      <div className='space-y-6 flex flex-col p-4'>
         {sidebarData.map((item) => (
-          <Menu.Item title='' key={item.path} className={`flex items-center ${collapsed ? 'text-center' : 'text-left'}`}>
-            <NavLink to={item.path} className='after:bg-black nav-link__hover'>
-              {!collapsed ? item.label : item.label.substring(0, 1)}
-            </NavLink>
-          </Menu.Item>
+          <NavLink key={item.path} to={item.path} className='text-black w-fit after:bg-black nav-link__hover'>
+            {!collapsed ? item.label : item.label.substring(0, 3)}
+          </NavLink>
         ))}
-      </Menu>
+      </div>
     </Sider>
   );
 };

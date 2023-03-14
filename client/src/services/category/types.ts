@@ -5,3 +5,8 @@ export interface ICategoryData {
   categoryImageName: string;
   storageName: string;
 }
+
+export interface ICreateCategoryData {
+  categoryName: string;
+  categoryImage: File | null;
+}

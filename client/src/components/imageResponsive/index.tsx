@@ -11,7 +11,7 @@ interface IProps extends ComponentPropsWithoutRef<'div'> {
   imageProps: IImageProps;
 }
 
-const ImageResponsive: React.FC<IProps> = ({ width, height, className = '', imageProps, ...props }) => {
+const ImageResponsive: React.FC<IProps> = ({ width, height, className = '', imageProps: { imageClassName, ...imageProps }, ...props }) => {
   const paddingBottom = useMemo(() => {
     return (height / width) * 100;
   }, [width, height]);
@@ -22,7 +22,7 @@ const ImageResponsive: React.FC<IProps> = ({ width, height, className = '', imag
         {...imageProps}
         src={imageProps.src}
         alt={imageProps.alt}
-        className={`w-full h-full absolute left-0 top-0 object-cover ${imageProps.imageClassName || ''}`}
+        className={`w-full h-full absolute left-0 top-0 object-cover ${imageClassName || ''}`}
       />
     </div>
   );

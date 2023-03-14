@@ -1,0 +1,22 @@
+@import "src/assets/styles/index";
+
+.file-upload {
+  &__input {
+    &:hover + .file-upload__button {
+      background-color: #000000;
+      color: #ffffff;
+    }
+  }
+
+  &__button {
+    &-error {
+      border-color: $antd-status-error;
+      color: $antd-status-error;
+    }
+
+    &-warning {
+      border-color: $antd-status-warning;
+      color: $antd-status-warning;
+    }
+  }
+}
