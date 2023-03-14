@@ -1,6 +1,6 @@
 import ButtonComp from 'components/buttonComp';
 import ModalComp from 'components/modalComp';
-import CategoryForm from 'pages/adminPage/categoryManage/categoryForm';
+import CategoryDetailForm from 'pages/adminPage/categoryManage/viewDetailCategoryBtn/CategoryDetailForm';
 import React, { useState } from 'react';
 import { ICategoryData } from 'services/category';
 
@@ -32,9 +32,9 @@ const ViewDetailCategoryBtn: React.FC<IProps> = ({ categoryData }) => {
           <path strokeLinecap='round' strokeLinejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'></path>
         </svg>
       </ButtonComp>
-      {/* <ModalComp onPressOk={handleCloseModal} onCloseModal={handleCloseModal} isOpenModal={isShowModal} title={categoryData.categoryName}>*/}
-      {/*  <CategoryForm useFormFor='view' categoryData={categoryData} />*/}
-      {/* </ModalComp>*/}
+      <ModalComp onPressOk={handleCloseModal} onCloseModal={handleCloseModal} isOpenModal={isShowModal} title={categoryData.categoryName}>
+        <CategoryDetailForm categoryData={categoryData} />
+      </ModalComp>
     </>
   );
 };

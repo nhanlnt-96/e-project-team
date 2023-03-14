@@ -13,7 +13,7 @@ const Sidebar: React.FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   return (
-    <Sider trigger={null} collapsible collapsed={collapsed} className='!bg-white' width={340}>
+    <Sider trigger={null} collapsible collapsed={collapsed} className='!bg-white z-50' width={340}>
       <div className='w-full flex justify-between items-center py-2 px-3'>
         {!collapsed ? (
           <div className='w-full flex justify-center items-center space-x-2.5'>
