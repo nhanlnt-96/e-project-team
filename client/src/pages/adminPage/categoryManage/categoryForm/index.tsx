@@ -10,9 +10,10 @@ import { fileToDataUri } from 'utils/fileToDataUri';
 
 interface IProps {
   formik: FormikProps<ICreateCategoryData>;
+  isLoading?: boolean;
 }
 
-const CategoryForm: React.FC<IProps> = ({ formik }) => {
+const CategoryForm: React.FC<IProps> = ({ formik, isLoading }) => {
   const [imageUri, setImageUri] = useState<string>('');
 
   useEffect(() => {
@@ -35,12 +36,14 @@ const CategoryForm: React.FC<IProps> = ({ formik }) => {
           id='categoryName'
           value={formik.values.categoryName}
           onChange={formik.handleChange}
+          disabled={isLoading}
         />
         {handleDisplayErrorMsg<ICreateCategoryData>(formik, 'categoryName')}
       </div>
       <div className='w-full space-y-2'>
         <label htmlFor='categoryImage'>Category Image</label>
         <FileUpload
+          disabled={isLoading}
           status={handleCheckErrorStatus<ICreateCategoryData>(formik, 'categoryImage')}
           id='categoryImage'
           name='categoryImage'
@@ -64,7 +67,7 @@ const CategoryForm: React.FC<IProps> = ({ formik }) => {
         )}
         {handleDisplayErrorMsg<ICreateCategoryData>(formik, 'categoryImage')}
       </div>
-      <ButtonComp isPrimary={false} htmlType='submit' className='ml-auto'>
+      <ButtonComp loading={isLoading} isPrimary={false} htmlType='submit' className='ml-auto'>
         Ok
       </ButtonComp>
     </form>

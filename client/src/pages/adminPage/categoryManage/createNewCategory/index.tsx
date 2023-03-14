@@ -13,6 +13,7 @@ const CreateNewCategoryBtn: React.FC = () => {
     const dispatch = useAppDispatch();
     const [messageApi, contextHolder] = message.useMessage();
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
+    const [isCreatingCategory, setIsCreatingCategory] = useState<boolean>(false);
 
     const initialValues: ICreateCategoryData = {
         categoryName: '',
@@ -28,6 +29,7 @@ const CreateNewCategoryBtn: React.FC = () => {
             categoryImage: Yup.mixed().required('Category image is required.')
         }),
         onSubmit: async (values) => {
+            setIsCreatingCategory(true);
             try {
                 const response = await createCategoryService(values);
 
@@ -49,6 +51,8 @@ const CreateNewCategoryBtn: React.FC = () => {
                     content: error as string
                 });
             }
+
+            setIsCreatingCategory(false);
         }
     });
     const handleOpenModal = () => setIsShowModal(true);
@@ -66,7 +70,7 @@ const CreateNewCategoryBtn: React.FC = () => {
                 Create new category
             </ButtonComp>
             <ModalComp onCloseModal={handleCloseModal} isOpenModal={isShowModal} title='Create new category'>
-                <CategoryForm formik={formik}/>
+                <CategoryForm isLoading={isCreatingCategory} formik={formik}/>
             </ModalComp>
         </>
     );

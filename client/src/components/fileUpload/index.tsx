@@ -12,7 +12,10 @@ const FileUpload: React.FC<IProps> = ({ status, ...props }) => {
   return (
     <div className='w-full relative overflow-hidden file-upload'>
       <input {...props} type='file' className='absolute cursor-pointer w-full h-full left-0 top-0 opacity-0 z-10 file-upload__input' />
-      <ButtonComp className={`w-full border-black space-x-2 file-upload__button ${status ? `file-upload__button-${status}` : ''}`}>
+      <ButtonComp
+        disabled={props.disabled}
+        className={`w-full border-black space-x-2 file-upload__button ${status ? `file-upload__button-${status}` : ''}`}
+      >
         <svg
           fill='none'
           stroke='currentColor'

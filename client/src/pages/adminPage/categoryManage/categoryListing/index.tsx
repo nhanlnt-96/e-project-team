@@ -8,7 +8,7 @@ import { ICategoryData } from 'services/category';
 
 const CategoryListing = () => {
   const dispatch = useAppDispatch();
-  const { categoryData, isLoading, error } = useAppSelector(categoryDataSelector);
+  const { categoryData, isLoading } = useAppSelector(categoryDataSelector);
 
   useEffect(() => {
     if (!categoryData.length) dispatch(getAllCategoryThunk());
