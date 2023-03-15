@@ -20,6 +20,7 @@ const FindATeaPage = lazy(() => import('pages/clientPage/findATeaPage'));
 const ProductPage = lazy(() => import('pages/clientPage/productPage'));
 const AdminPage = lazy(() => import('pages/adminPage'));
 const CategoryManagePage = lazy(() => import('pages/adminPage/categoryManage'));
+const ProductManagePage = lazy(() => import('pages/adminPage/productManage'));
 
 export const routes: IRoutes[] = [
   {
@@ -58,6 +59,11 @@ export const routes: IRoutes[] = [
         path: 'category-manage',
         isIndex: false,
         element: <CategoryManagePage />
+      },
+      {
+        path: 'product-manage',
+        isIndex: false,
+        element: <ProductManagePage />
       }
     ]
   }

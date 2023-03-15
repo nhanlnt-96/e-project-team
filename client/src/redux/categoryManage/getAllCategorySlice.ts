@@ -1,4 +1,5 @@
 import { getAllCategoryService, ICategoryData } from 'services/category';
+import { addPropertyKeyToArray } from 'utils/addPropertyKeyToArray';
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
@@ -34,10 +35,7 @@ export const getAllCategorySlice = createSlice({
     });
 
     builder.addCase(getAllCategoryThunk.fulfilled, (state, action) => {
-      state.categoryData = action.payload.map((category) => ({
-        ...category,
-        key: String(category.categoryId)
-      }));
+      state.categoryData = addPropertyKeyToArray<ICategoryData>(action.payload, 'categoryId');
 
       state.isLoading = false;
 

@@ -1,6 +1,7 @@
 import { PRODUCT_API_ENDPOINT } from 'services/product/configs';
+import { IProductData } from 'services/product/types';
 import axiosInstance from 'services/utils/axiosInstance';
 
-const getAllProductService = async () => axiosInstance.get(`${PRODUCT_API_ENDPOINT}/get-all-product`);
+const getAllProductService = async (): Promise<IProductData[]> => await axiosInstance.get(`${PRODUCT_API_ENDPOINT}/get-all-product`);
 
 export default getAllProductService;

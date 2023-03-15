@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import getAllCategoryReducer from './categoryManage/getAllCategorySlice';
+import getAllProductReducer from './productManage/getAllProductSlice';
 
 export const store = configureStore({
   reducer: {
-    getAllCategoryReducer: getAllCategoryReducer
+    getAllCategoryReducer: getAllCategoryReducer,
+    getAllProductReducer: getAllProductReducer
   }
 });
 
