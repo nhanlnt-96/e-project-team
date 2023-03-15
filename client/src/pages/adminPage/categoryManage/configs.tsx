@@ -1,6 +1,7 @@
 import { ColumnsType } from 'antd/es/table';
 import RemoveCategoryButton from 'pages/adminPage/categoryManage/removeCategoryButton';
-import ViewDetailCategoryBtn from 'pages/adminPage/categoryManage/viewDetailCategoryBtn';
+import UpdateCategoryButton from 'pages/adminPage/categoryManage/updateCategoryButton';
+import ViewDetailCategoryButton from 'pages/adminPage/categoryManage/viewDetailCategoryButton';
 import { ICategoryData } from 'services/category';
 
 export const columns: ColumnsType<ICategoryData> = [
@@ -33,7 +34,8 @@ export const columns: ColumnsType<ICategoryData> = [
     key: 'action',
     render: (_, record) => (
       <div className='flex space-x-2'>
-        <ViewDetailCategoryBtn categoryData={record} />
+        <ViewDetailCategoryButton categoryData={record} />
+        <UpdateCategoryButton categoryData={record} />
         <RemoveCategoryButton categoryId={record.categoryId} categoryName={record.categoryName} />
       </div>
     )

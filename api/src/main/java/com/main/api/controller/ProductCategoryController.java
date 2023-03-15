@@ -11,6 +11,7 @@ import com.main.api.utils.FileManage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -74,7 +75,7 @@ public class ProductCategoryController {
     }
 
     @PutMapping("/update-category")
-    public ResponseEntity<ProductCategoryDto> updateProductCategory(@RequestParam("categoryImage") MultipartFile categoryImage, @RequestParam("categoryUpdateData") String categoryUpdateData) throws IOException {
+    public ResponseEntity<ProductCategoryDto> updateProductCategory(@RequestParam("categoryImage") @Nullable MultipartFile categoryImage, @RequestParam("categoryUpdateData") String categoryUpdateData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         CategoryModel.UpdateProductCategory productCategoryData = mapper.readValue(categoryUpdateData, CategoryModel.UpdateProductCategory.class);
         Set<ConstraintViolation<CategoryModel.UpdateProductCategory>> constraintViolations = validator.validate(productCategoryData);
@@ -100,10 +101,12 @@ public class ProductCategoryController {
                     checkCategoryExist.setCategorySlug(ConvertStringToSlug.convertCategoryNameToSlug(productCategoryData.getCategoryName()));
                 }
             }
-            if (categoryImage.getOriginalFilename() != null) {
-                FileManage.handleRemoveImage(checkCategoryExist.getStorageName(), checkCategoryExist.getCategoryImageName());
-                String fileName = FileManage.handleUploadImage(storageName, categoryImage);
-                checkCategoryExist.setCategoryImageName(fileName);
+            if (categoryImage != null) {
+                if (categoryImage.getOriginalFilename() != null) {
+                    FileManage.handleRemoveImage(checkCategoryExist.getStorageName(), checkCategoryExist.getCategoryImageName());
+                    String fileName = FileManage.handleUploadImage(storageName, categoryImage);
+                    checkCategoryExist.setCategoryImageName(fileName);
+                }
             }
 
             ProductCategory updateProductCategoryResponse = productCategoryRepository.saveAndFlush(checkCategoryExist);

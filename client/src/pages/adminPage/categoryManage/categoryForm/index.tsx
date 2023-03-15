@@ -5,13 +5,16 @@ import { FormikProps } from 'formik';
 import { handleCheckErrorStatus, handleDisplayErrorMsg } from 'helpers/formik';
 import React from 'react';
 import { ICreateCategoryData } from 'services/category';
+import { validateObject } from 'utils/validateObject';
 
 interface IProps {
   formik: FormikProps<ICreateCategoryData>;
   isLoading?: boolean;
+  imageUrl?: string;
+  isDisabledSubmitButton?: boolean;
 }
 
-const CategoryForm: React.FC<IProps> = ({ formik, isLoading }) => {
+const CategoryForm: React.FC<IProps> = ({ formik, isLoading, imageUrl, isDisabledSubmitButton }) => {
   return (
     <form onSubmit={formik.handleSubmit} className='w-full space-y-4'>
       <div className='w-full space-y-2'>
@@ -31,6 +34,7 @@ const CategoryForm: React.FC<IProps> = ({ formik, isLoading }) => {
       <div className='w-full space-y-2'>
         <label htmlFor='categoryImage'>Category Image</label>
         <ImageUpload
+          imageUrl={imageUrl}
           disabled={isLoading}
           status={handleCheckErrorStatus<ICreateCategoryData>(formik, 'categoryImage')}
           id='categoryImage'
@@ -40,7 +44,13 @@ const CategoryForm: React.FC<IProps> = ({ formik, isLoading }) => {
         />
         {handleDisplayErrorMsg<ICreateCategoryData>(formik, 'categoryImage')}
       </div>
-      <ButtonComp loading={isLoading} isPrimary={false} htmlType='submit' className='ml-auto'>
+      <ButtonComp
+        loading={isLoading}
+        isPrimary={false}
+        htmlType='submit'
+        className='ml-auto'
+        disabled={isDisabledSubmitButton}
+      >
         Ok
       </ButtonComp>
     </form>

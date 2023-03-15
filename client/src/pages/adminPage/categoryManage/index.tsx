@@ -1,6 +1,6 @@
 import Title from 'components/title';
 import CategoryListing from 'pages/adminPage/categoryManage/categoryListing';
-import CreateNewCategory from 'pages/adminPage/categoryManage/createNewCategory';
+import CreateNewCategory from 'pages/adminPage/categoryManage/createNewCategoryButton';
 import SectionContainer from 'pages/adminPage/components/sectionContainer';
 import React from 'react';
 
