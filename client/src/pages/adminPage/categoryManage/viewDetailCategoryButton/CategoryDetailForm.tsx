@@ -9,18 +9,22 @@ interface IProps {
 
 const CategoryDetailForm: React.FC<IProps> = ({ categoryData }) => {
   return (
-    <div className='w-full space-y-4'>
+    <div className='w-full space-y-6'>
       <div className='w-full flex justify-between space-x-2'>
         <p className='text-gray-500 shrink-0'>Category Id</p>
         <p className='text-right'>{categoryData.categoryId}</p>
       </div>
-      <div className='w-full flex justify-between space-x-2'>
+      <div className='w-full flex flex-col justify-center space-y-2'>
         <p className='text-gray-500 shrink-0'>Category Name</p>
-        <p className='text-right'>{categoryData.categoryName}</p>
+        <p className='text-left'>{categoryData.categoryName}</p>
       </div>
-      <div className='w-full flex justify-between space-x-2'>
+      <div className='w-full flex flex-col justify-center space-y-2'>
         <p className='text-gray-500 shrink-0'>Category Slug</p>
-        <p className='text-right'>{categoryData.categorySlug}</p>
+        <p className='text-left'>{categoryData.categorySlug}</p>
+      </div>
+      <div className='w-full flex flex-col justify-center space-y-2'>
+        <p className='text-gray-500 shrink-0'>Category Description</p>
+        <p className='text-left' dangerouslySetInnerHTML={{ __html: categoryData.categoryDescription }} />
       </div>
       <div className='w-full flex flex-col space-y-2'>
         <p className='text-gray-500 shrink-0'>Category Image</p>

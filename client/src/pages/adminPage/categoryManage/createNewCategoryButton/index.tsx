@@ -18,6 +18,7 @@ const CreateNewCategoryButton: React.FC = () => {
 
     const initialValues: ICreateCategoryData = {
         categoryName: '',
+        categoryDescription: '',
         categoryImage: null
     };
 
@@ -26,6 +27,7 @@ const CreateNewCategoryButton: React.FC = () => {
         enableReinitialize: true,
         validationSchema: Yup.object({
             categoryName: Yup.string().required('Category name can not be null.'),
+            categoryDescription: Yup.string().required('Category description can not be null.'),
             categoryImage: Yup.mixed().required('Category image is required.')
         }),
         onSubmit: async (values) => {

@@ -23,6 +23,7 @@ const UpdateCategoryButton: React.FC<IProps> = ({ categoryData }) => {
 
   const initialValues: ICreateCategoryData = {
     categoryName: _.get(categoryData, 'categoryName', ''),
+    categoryDescription: _.get(categoryData, 'categoryDescription', ''),
     categoryImage: null
   };
 
@@ -31,6 +32,7 @@ const UpdateCategoryButton: React.FC<IProps> = ({ categoryData }) => {
     enableReinitialize: true,
     validationSchema: Yup.object({
       categoryName: Yup.string().notRequired(),
+      categoryDescription: Yup.string().notRequired(),
       categoryImage: Yup.mixed().notRequired()
     }),
     onSubmit: async (values) => {
@@ -40,6 +42,7 @@ const UpdateCategoryButton: React.FC<IProps> = ({ categoryData }) => {
           categoryId: categoryData.categoryId
         };
         if (values.categoryName !== categoryData.categoryName) updateData.categoryName = values.categoryName;
+        if (values.categoryDescription !== categoryData.categoryDescription) updateData.categoryDescription = values.categoryDescription;
         if (values.categoryImage) updateData.categoryImage = values.categoryImage;
         const response = await updateCategoryService(updateData);
 
@@ -94,7 +97,11 @@ const UpdateCategoryButton: React.FC<IProps> = ({ categoryData }) => {
       </ButtonComp>
       <ModalComp onCloseModal={handleCloseModal} isOpenModal={isShowModal} title={`Update category: ${categoryData.categoryName}`}>
         <CategoryForm
-          isDisabledSubmitButton={formik.values.categoryName === categoryData.categoryName && !formik.values.categoryImage}
+          isDisabledSubmitButton={
+            formik.values.categoryName === categoryData.categoryName &&
+            formik.values.categoryDescription === categoryData.categoryDescription &&
+            !formik.values.categoryImage
+          }
           isLoading={isUpdatingCategory}
           formik={formik}
           imageUrl={imageLinkGeneration(categoryData.storageName, categoryData.categoryImageName)}
