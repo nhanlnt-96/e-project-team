@@ -56,7 +56,7 @@ public class ProductCategoryController {
         ProductCategory productCategoryDto = getCategoryByName(productCategoryData.getCategoryName());
         if (productCategoryDto == null) {
             String fileName = FileManage.handleUploadImage(storageName, categoryImage);
-            ProductCategory productCategory = new ProductCategory(productCategoryData.getCategoryName(), fileName, storageName);
+            ProductCategory productCategory = new ProductCategory(productCategoryData.getCategoryName(), fileName, storageName, productCategoryData.getCategoryDescription());
             ProductCategory saveProductCategoryResponse = productCategoryRepository.save(productCategory);
             if (saveProductCategoryResponse.getCategoryId() != 0) {
                 return new ResponseEntity<>(generateCategoryData(saveProductCategoryResponse), HttpStatus.CREATED);
@@ -108,6 +108,9 @@ public class ProductCategoryController {
                     checkCategoryExist.setCategoryImageName(fileName);
                 }
             }
+            if (productCategoryData.getCategoryDescription() != null) {
+                checkCategoryExist.setCategoryDescription(productCategoryData.getCategoryDescription());
+            }
 
             ProductCategory updateProductCategoryResponse = productCategoryRepository.saveAndFlush(checkCategoryExist);
             return new ResponseEntity<>(generateCategoryData(updateProductCategoryResponse), HttpStatus.OK);
@@ -124,6 +127,13 @@ public class ProductCategoryController {
             productCategoryRepository.delete(checkCategoryExist);
             return new ResponseEntity<>("Removed category.", HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/get-category-by-slug/{categorySlug}")
+    public ResponseEntity<ProductCategoryDto> getCategoryBySlug(@PathVariable("categorySlug") String categorySlug) {
+        ProductCategory productCategory = productCategoryRepository.getProductCategoryByCategorySlug(categorySlug);
+        ProductCategoryDto productCategoryDto = new ProductCategoryDto(productCategory);
+        return new ResponseEntity<>(productCategoryDto, HttpStatus.OK);
     }
 
 

@@ -24,21 +24,24 @@ public class ProductCategory {
     private String categoryImageName;
     @Column(name = "storage_name")
     private String storageName;
+    @Column(name = "category_description")
+    private String categoryDescription;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private Set<Product> products;
 
     public ProductCategory() {
     }
 
-    public ProductCategory(String categoryName, String categoryImageName, String storageName) {
+    public ProductCategory(String categoryName, String categoryImageName, String storageName, String categoryDescription) {
         this.categoryName = categoryName;
         this.categorySlug = ConvertStringToSlug.convertCategoryNameToSlug(categoryName);
         this.categoryImageName = categoryImageName;
         this.storageName = storageName;
+        this.categoryDescription = categoryDescription;
     }
 
     @Override
     public String toString() {
-        return "ProductCategory{" + "categoryId=" + categoryId + ", categoryName='" + categoryName + '\'' + ", categorySlug='" + categorySlug + '\'' + ", categoryImageName='" + categoryImageName + '\'' + ", storageName='" + storageName + '\'' + ", products=" + products + '}';
+        return "ProductCategory{" + "categoryId=" + categoryId + ", categoryName='" + categoryName + '\'' + ", categorySlug='" + categorySlug + '\'' + ", categoryImageName='" + categoryImageName + '\'' + ", storageName='" + storageName + '\'' + ", categoryDescription='" + categoryDescription + '\'' + ", products=" + products + '}';
     }
 }

@@ -102,7 +102,7 @@ public class ProductController {
         List<Product> productList =
                 productRepository.findAll(Specification.where(ProductSpecification.filterByCategorySlug(categorySlug)));
         List<ProductDto> productDtoList = productList.stream().map(product -> new ProductDto(product, handleGenerateImageDto(product.getProductImages()), product.getCategory())).collect(Collectors.toList());
-        System.out.println(categorySlug);
+
         return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 

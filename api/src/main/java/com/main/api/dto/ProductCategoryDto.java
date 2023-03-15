@@ -10,6 +10,7 @@ public class ProductCategoryDto {
     private String categorySlug;
     private String categoryImageName;
     private String storageName;
+    private String categoryDescription;
 
     public ProductCategoryDto() {
     }
@@ -20,5 +21,6 @@ public class ProductCategoryDto {
         this.categorySlug = productCategory.getCategorySlug();
         this.categoryImageName = productCategory.getCategoryImageName();
         this.storageName = productCategory.getStorageName();
+        this.categoryDescription = productCategory.getCategoryDescription();
     }
 }
