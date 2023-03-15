@@ -17,7 +17,9 @@ module.exports = {
       colors: {
         'link-hover': '#69b1ff',
         'pewter-blue': '#87A9BC',
-        'light-silver': '#d9d9d9'
+        'light-silver': '#d9d9d9',
+        'antd-status-error': '#ff4d4f',
+        'antd-status-warning': '#faad14'
       },
       padding: {
         'ratio-768-1024': 'calc(1024 / 768 * 100%)',

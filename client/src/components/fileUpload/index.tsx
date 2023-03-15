@@ -4,11 +4,11 @@ import { InputStatus } from 'antd/es/_util/statusUtils';
 import ButtonComp from 'components/buttonComp';
 import React, { ComponentPropsWithoutRef } from 'react';
 
-interface IProps extends ComponentPropsWithoutRef<'input'> {
+export interface IFileUploadProps extends ComponentPropsWithoutRef<'input'> {
   status?: InputStatus;
 }
 
-const FileUpload: React.FC<IProps> = ({ status, ...props }) => {
+const FileUpload: React.FC<IFileUploadProps> = ({ status, ...props }) => {
   return (
     <div className='w-full relative overflow-hidden file-upload'>
       <input {...props} type='file' className='absolute cursor-pointer w-full h-full left-0 top-0 opacity-0 z-10 file-upload__input' />

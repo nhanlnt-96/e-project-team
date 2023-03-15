@@ -22,7 +22,6 @@ const CreateNewCategoryBtn: React.FC = () => {
 
     const formik = useFormik<ICreateCategoryData>({
         initialValues: initialValues,
-        validateOnChange: false,
         enableReinitialize: true,
         validationSchema: Yup.object({
             categoryName: Yup.string().required('Category name can not be null.'),
