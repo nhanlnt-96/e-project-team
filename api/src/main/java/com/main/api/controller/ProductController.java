@@ -9,8 +9,10 @@ import com.main.api.dto.ProductImageDto;
 import com.main.api.dto.ProductDto;
 import com.main.api.entity.*;
 import com.main.api.model.ProductModel;
+import com.main.api.specification.ProductSpecification;
 import com.main.api.utils.FileManage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.Validator;
 import java.io.IOException;
 import java.util.*;
@@ -31,6 +34,7 @@ public class ProductController {
     private final Validator validator;
     private final ProductCategoryRepository productCategoryRepository;
     private final ImageRepository productImageRepository;
+    private static final String storageName = "products";
 
     @Autowired
 
@@ -72,8 +76,7 @@ public class ProductController {
                         throw new RuntimeException(e);
                     }
                     if (uploadProductImageResponse != null) {
-                        images.add(new ProductImageDto(uploadProductImageResponse.getImageId(),
-                                uploadProductImageResponse.getImageName(), uploadProductImageResponse.getStorageName()));
+                        images.add(new ProductImageDto(uploadProductImageResponse.getImageId(), uploadProductImageResponse.getImageName(), uploadProductImageResponse.getStorageName()));
                     }
                 });
 
@@ -88,25 +91,31 @@ public class ProductController {
     @GetMapping("/get-all-product")
     public ResponseEntity<List<ProductDto>> getAllProduct() {
         List<Product> productList = productRepository.findAll();
-        List<ProductDto> productDtoList = productList.stream().map(product -> new ProductDto(product,
-                handleGenerateImageDto(product.getProductImages()),
-                product.getCategory())).collect(Collectors.toList());
+        List<ProductDto> productDtoList = productList.stream().map(product -> new ProductDto(product, handleGenerateImageDto(product.getProductImages()), product.getCategory())).collect(Collectors.toList());
 
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/product-search")
+    public ResponseEntity<List<ProductDto>> getProductByCategory(@RequestParam(value = "categorySlug",
+            defaultValue = "all") String categorySlug) {
+        List<Product> productList =
+                productRepository.findAll(Specification.where(ProductSpecification.filterByCategorySlug(categorySlug)));
+        List<ProductDto> productDtoList = productList.stream().map(product -> new ProductDto(product, handleGenerateImageDto(product.getProductImages()), product.getCategory())).collect(Collectors.toList());
+        System.out.println(categorySlug);
         return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
     private List<ProductImageDto> handleGenerateImageDto(Set<ProductImage> productImages) {
         List<ProductImageDto> productImageDto = new ArrayList<>();
         for (ProductImage productImage : productImages) {
-            productImageDto.add(new ProductImageDto(productImage.getImageId(), productImage.getImageName(),
-                    productImage.getStorageName()));
+            productImageDto.add(new ProductImageDto(productImage.getImageId(), productImage.getImageName(), productImage.getStorageName()));
         }
 
         return productImageDto;
     }
 
     private ProductImage handleUploadImage(MultipartFile multipartFile, Product product) throws IOException {
-        String storageName = "products";
         String fileName = FileManage.handleUploadImage(storageName, multipartFile);
 
         ProductImage productImageData = new ProductImage(fileName, storageName, product);
