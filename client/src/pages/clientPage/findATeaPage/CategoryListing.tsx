@@ -1,18 +1,18 @@
 import ImageResponsive from 'components/imageResponsive';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
-import {getAllCategoryService, ICategoryData} from 'services/category';
+import {getAllCategoryThunk} from 'redux/categoryManage/getAllCategorySlice';
+import {categoryDataSelector} from 'redux/categoryManage/selector';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {imageLinkGeneration} from 'utils/imageLinkGeneration';
 
 const CategoryListing: React.FC = () => {
     const navigate = useNavigate();
-    const [categoryData, setCategoryData] = useState<ICategoryData[]>([]);
+    const dispatch = useAppDispatch();
+    const {categoryData} = useAppSelector(categoryDataSelector);
 
     useEffect(() => {
-        (async () => {
-            const fetchCategoryResponse = await getAllCategoryService();
-            if (fetchCategoryResponse.length) setCategoryData(fetchCategoryResponse);
-        })();
+        if (!categoryData.length) dispatch(getAllCategoryThunk());
     }, []);
 
     const handleGenerateCategoryUrl = useCallback((categorySlug: string) => {
