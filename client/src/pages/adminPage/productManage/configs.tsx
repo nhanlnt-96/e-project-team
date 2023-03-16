@@ -1,4 +1,5 @@
 import {ColumnsType} from 'antd/es/table';
+import ViewDetailProductButton from 'pages/adminPage/productManage/viewDetailProductButton';
 import {IProductData} from 'services/product/types';
 import {convertPrice} from 'utils/convertPrice';
 
@@ -39,6 +40,11 @@ export const columns: ColumnsType<IProductData> = [
     },
     {
         title: 'Action',
-        key: 'action'
+        key: 'action',
+        render: (_, record) => (
+            <div className='flex space-x-2'>
+                <ViewDetailProductButton productData={record}/>
+            </div>
+        )
     }
 ];

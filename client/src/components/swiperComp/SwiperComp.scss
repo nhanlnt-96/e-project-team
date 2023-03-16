@@ -1,0 +1,44 @@
+@import 'src/assets/styles/index';
+
+.swiper-comp {
+  &__container {
+    .swiper-button {
+      &-prev, &-next {
+        position: fixed;
+        width: fit-content;
+
+        &:after {
+          font-size: 14px;
+          color: #000000;
+        }
+      }
+
+      &-prev {
+        left: 0;
+      }
+
+      &-next {
+        right: 0;
+      }
+    }
+
+    .swiper-pagination {
+      &-progressbar {
+        background-color: $light-silver;
+        border-radius: 20px;
+        overflow: hidden;
+
+        &-fill {
+          background-color: $link-hover;
+        }
+      }
+
+      &-horizontal {
+        position: relative;
+        top: unset;
+        bottom: 0;
+        margin-top: 6px;
+      }
+    }
+  }
+}
