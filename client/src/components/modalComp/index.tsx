@@ -10,9 +10,10 @@ interface IProps extends ModalProps {
   onCloseModal: () => void;
   onPressOk?: () => void;
   isOpenModal: boolean;
+  modalWidth?: number;
 }
 
-const ModalComp: React.FC<IProps> = ({ children, isOpenModal, isLoading = false, onCloseModal, onPressOk, ...props }) => {
+const ModalComp: React.FC<IProps> = ({ children, isOpenModal, isLoading = false, onCloseModal, onPressOk, modalWidth = 600, ...props }) => {
   return (
     <Modal
       {...props}
@@ -20,6 +21,7 @@ const ModalComp: React.FC<IProps> = ({ children, isOpenModal, isLoading = false,
       centered
       onCancel={onCloseModal}
       confirmLoading={isLoading}
+      width={modalWidth}
       className='modal-container'
       footer={
         onPressOk

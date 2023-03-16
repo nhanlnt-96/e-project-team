@@ -1,33 +1,15 @@
-import Title from 'components/title';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { categoryDataSelector } from 'redux/categoryManage/selector';
-import { useAppSelector } from 'redux/hooks';
-import { productSearchService } from 'services/product';
-import { IProductData } from 'services/product/types';
+import PageContainer from 'components/pageContainer';
+import CategoryBanner from 'pages/clientPage/productPage/CategoryBanner';
+import ProductListing from 'pages/clientPage/productPage/ProductListing';
+import React from 'react';
 
 const ProductPage = () => {
-  const { categorySlug } = useParams();
-  const { categoryData } = useAppSelector(categoryDataSelector);
-  const [productData, setProductData] = useState<IProductData[]>([]);
-  const [isFetchingData, setIsFetchingData] = useState<boolean>(true);
-
-  useEffect(() => {
-    productSearchService(categorySlug as string)
-      .then((response) => setProductData(response))
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsFetchingData(false);
-      });
-  }, []);
-
-  return (
-    <div className='w-full'>
-      <Title title={''} />
-    </div>
-  );
+    return (
+        <PageContainer isWideScreen={false} pageContainerClassName='space-y-14'>
+            <CategoryBanner/>
+            <ProductListing/>
+        </PageContainer>
+    );
 };
 
 export default ProductPage;

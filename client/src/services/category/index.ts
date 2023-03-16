@@ -9,3 +9,5 @@ export { default as createCategoryService } from './createCategoryService';
 export { default as removeCategoryService } from './removeCategoryService';
 
 export { default as updateCategoryService } from './updateCategoryService';
+
+export { default as getCategoryBySlugService } from './getCategoryBySlugService';

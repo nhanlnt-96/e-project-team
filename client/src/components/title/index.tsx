@@ -19,11 +19,11 @@ const Title: React.FC<IProps> = ({
   ...props
 }) => {
   return (
-    <div className={`w-full space-y-1.5 text-white text-center ${rootClassName}`}>
+    <div className={`w-full space-y-2 text-white text-center ${rootClassName}`}>
       <TitleTag {...props} className={`font-playfair-display italic font-normal capitalize text-3xl md:text-4xl ${titleClassName || ''}`}>
         {title}
       </TitleTag>
-      {subtitle ? <p className={`font-light sm:text-lg ${subTitleClassName}`}>{subtitle}</p> : <></>}
+      {subtitle ? <div className={`font-light sm:text-lg ${subTitleClassName}`} dangerouslySetInnerHTML={{ __html: subtitle as string }} /> : <></>}
     </div>
   );
 };

@@ -19,7 +19,8 @@ module.exports = {
         'pewter-blue': '#87A9BC',
         'light-silver': '#d9d9d9',
         'antd-status-error': '#ff4d4f',
-        'antd-status-warning': '#faad14'
+        'antd-status-warning': '#faad14',
+        'taupe-gray': '#8f8987'
       },
       padding: {
         'ratio-768-1024': 'calc(1024 / 768 * 100%)',
