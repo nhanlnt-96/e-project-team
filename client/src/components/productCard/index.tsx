@@ -2,8 +2,8 @@ import ImageResponsive from 'components/imageResponsive';
 import CardHoverFeatures from 'components/productCard/CardHoverFeatures';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IProductData } from 'services/product/types';
-import {convertPrice} from 'utils/convertPrice';
+import { IProductData } from 'services/product';
+import { convertPrice } from 'utils/convertPrice';
 import { imageLinkGeneration } from 'utils/imageLinkGeneration';
 
 interface IProps {

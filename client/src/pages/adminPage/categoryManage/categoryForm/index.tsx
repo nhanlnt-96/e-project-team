@@ -43,7 +43,7 @@ const CategoryForm: React.FC<IProps> = ({ formik, isLoading, imageUrl, isDisable
       <div className='w-full space-y-2'>
         <label htmlFor='categoryImage'>Category Image</label>
         <ImageUpload
-          imageUrl={imageUrl}
+          imageUrl={[imageUrl] as string[]}
           disabled={isLoading}
           status={handleCheckErrorStatus<ICreateCategoryData>(formik, 'categoryImage')}
           id='categoryImage'

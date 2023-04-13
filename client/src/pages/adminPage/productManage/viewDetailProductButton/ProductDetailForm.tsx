@@ -1,7 +1,7 @@
 import ImageResponsive from 'components/imageResponsive';
 import SwiperComp from 'components/swiperComp';
 import React from 'react';
-import { IProductData } from 'services/product/types';
+import { IProductData } from 'services/product';
 import { SwiperSlide } from 'swiper/react';
 import { convertPrice } from 'utils/convertPrice';
 import { imageLinkGeneration } from 'utils/imageLinkGeneration';

@@ -1,14 +1,18 @@
+import './EditorComp.scss';
+
+import { InputStatus } from 'antd/es/_util/statusUtils';
 import React from 'react';
 
 import { Editor, IAllProps } from '@tinymce/tinymce-react';
 
 interface IProps extends IAllProps {
   editorHeight?: number;
+  status?: InputStatus;
 }
 
-const EditorComp: React.FC<IProps> = ({ editorHeight = 500, ...props }) => {
+const EditorComp: React.FC<IProps> = ({ editorHeight = 500, status, ...props }) => {
   return (
-    <div className='w-full'>
+    <div className={`w-full editor-comp editor-comp-status__${status}`}>
       <Editor
         {...props}
         apiKey={process.env.REACT_APP_TINY_EDITOR_API_KEY}

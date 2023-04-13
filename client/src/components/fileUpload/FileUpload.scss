@@ -10,13 +10,11 @@
 
   &__button {
     &-error {
-      border-color: $antd-status-error;
-      color: $antd-status-error;
+      border-color: $antd-status-error !important;
     }
 
     &-warning {
-      border-color: $antd-status-warning;
-      color: $antd-status-warning;
+      border-color: $antd-status-warning !important;
     }
   }
 }

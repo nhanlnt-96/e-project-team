@@ -2,7 +2,7 @@ import ButtonComp from 'components/buttonComp';
 import ModalComp from 'components/modalComp';
 import ProductDetailForm from 'pages/adminPage/productManage/viewDetailProductButton/ProductDetailForm';
 import React, { useState } from 'react';
-import { IProductData } from 'services/product/types';
+import { IProductData } from 'services/product';
 
 interface IProps {
   productData: IProductData;

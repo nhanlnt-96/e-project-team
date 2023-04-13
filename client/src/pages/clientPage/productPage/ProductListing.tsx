@@ -1,8 +1,7 @@
 import ProductCard from 'components/productCard';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {productSearchService} from 'services/product';
-import {IProductData} from 'services/product/types';
+import {IProductData, productSearchService} from 'services/product';
 
 const ProductListing: React.FC = () => {
     const {categorySlug} = useParams();

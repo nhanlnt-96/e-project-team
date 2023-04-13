@@ -1,0 +1,43 @@
+@import "src/assets/styles/index";
+
+.select-comp {
+  &__container {
+    width: 100%;
+
+    .ant-select {
+      &-selector {
+        border-color: #000000 !important;
+        border-radius: unset;
+        height: 38px !important;
+      }
+
+      &-selection {
+        &-item {
+          line-height: 38px !important;
+        }
+
+        &-search-input {
+          height: 38px !important;
+        }
+      }
+    }
+  }
+
+  &-status {
+    &__error {
+      .ant-select-selector {
+        border-color: $antd-status-error !important;
+      }
+    }
+
+    &__warning {
+      .ant-select-selector {
+        border-color: $antd-status-warning !important;
+      }
+    }
+  }
+}
+
+.ant-select-focused:where(.css-dev-only-do-not-override-1lyb8t).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector {
+  box-shadow: unset !important;
+}

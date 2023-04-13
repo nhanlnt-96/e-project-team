@@ -1,6 +1,6 @@
 import {ColumnsType} from 'antd/es/table';
 import ViewDetailProductButton from 'pages/adminPage/productManage/viewDetailProductButton';
-import {IProductData} from 'services/product/types';
+import {IProductData} from 'services/product';
 import {convertPrice} from 'utils/convertPrice';
 
 export const columns: ColumnsType<IProductData> = [

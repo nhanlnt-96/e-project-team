@@ -1,0 +1,19 @@
+@import "src/assets/styles/index";
+
+.editor-comp {
+  &-status__error {
+    .tox {
+      &-tinymce {
+        border-color: $antd-status-error;
+      }
+    }
+  }
+
+  &-status__warning {
+    .tox {
+      &-tinymce {
+        border-color: $antd-status-warning;
+      }
+    }
+  }
+}

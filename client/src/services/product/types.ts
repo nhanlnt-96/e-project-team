@@ -14,3 +14,11 @@ export interface IProductData {
   images: IImage[];
   category: ICategoryData;
 }
+
+export interface ICreateProductData {
+  productName: string;
+  productPrice: number;
+  categoryId: number;
+  description: string;
+  image: File | null;
+}

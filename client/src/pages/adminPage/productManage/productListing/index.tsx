@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getAllProductThunk } from 'redux/productManage/getAllProductSlice';
 import { productDataSelector } from 'redux/productManage/selector';
-import { IProductData } from 'services/product/types';
+import { IProductData } from 'services/product';
 
 const ProductListing: React.FC = () => {
   const dispatch = useAppDispatch();

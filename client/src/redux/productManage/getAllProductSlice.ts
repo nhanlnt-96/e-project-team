@@ -1,5 +1,4 @@
-import { getAllProductService } from 'services/product';
-import { IProductData } from 'services/product/types';
+import { getAllProductService, IProductData } from 'services/product';
 import { addPropertyKeyToArray } from 'utils/addPropertyKeyToArray';
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
