@@ -1,27 +1,31 @@
 import ButtonComp from 'components/buttonComp';
 import EditorComp from 'components/editorComp';
 import ImageUpload from 'components/imageUpload';
+import ImagePreview from 'components/imageUpload/ImagePreview';
 import InputComp from 'components/inputComp';
-import { FormikProps } from 'formik';
 import { handleCheckErrorStatus, handleDisplayErrorMsg } from 'helpers/formik';
+import useCategoryFormik, { ICategoryFormikValues } from 'pages/adminPage/categoryManage/categoryForm/useCategoryFormik';
 import React from 'react';
-import { ICreateCategoryData } from 'services/category';
+import { ICategoryData } from 'services/category';
+import { imageLinkGeneration } from 'utils/imageLinkGeneration';
 
 interface IProps {
-  formik: FormikProps<ICreateCategoryData>;
+  // eslint-disable-next-line no-unused-vars
+  onSubmit: (values: ICategoryFormikValues) => void;
   isLoading?: boolean;
-  imageUrl?: string;
-  isDisabledSubmitButton?: boolean;
+  categoryData?: ICategoryData;
 }
 
-const CategoryForm: React.FC<IProps> = ({ formik, isLoading, imageUrl, isDisabledSubmitButton }) => {
+const CategoryForm: React.FC<IProps> = ({ onSubmit, isLoading, categoryData }) => {
+  const formik = useCategoryFormik(onSubmit, categoryData);
+
   return (
     <form onSubmit={formik.handleSubmit} className='w-full space-y-4'>
       <div className='w-full space-y-2'>
         <label htmlFor='categoryName'>Category Name</label>
         <InputComp
           type='text'
-          status={handleCheckErrorStatus<ICreateCategoryData>(formik, 'categoryName')}
+          status={handleCheckErrorStatus<ICategoryFormikValues>(formik, 'categoryName')}
           placeholder='Category name'
           name='categoryName'
           id='categoryName'
@@ -29,7 +33,7 @@ const CategoryForm: React.FC<IProps> = ({ formik, isLoading, imageUrl, isDisable
           onChange={formik.handleChange}
           disabled={isLoading}
         />
-        {handleDisplayErrorMsg<ICreateCategoryData>(formik, 'categoryName')}
+        {handleDisplayErrorMsg<ICategoryFormikValues>(formik, 'categoryName')}
       </div>
       <div className='w-full space-y-2'>
         <label htmlFor='categoryDescription'>Category Description</label>
@@ -38,22 +42,27 @@ const CategoryForm: React.FC<IProps> = ({ formik, isLoading, imageUrl, isDisable
           value={formik.values.categoryDescription}
           onEditorChange={(content) => formik.setFieldValue('categoryDescription', content)}
         />
-        {handleDisplayErrorMsg<ICreateCategoryData>(formik, 'categoryDescription')}
+        {handleDisplayErrorMsg<ICategoryFormikValues>(formik, 'categoryDescription')}
       </div>
+      {categoryData?.categoryName ? (
+        <div className='w-full space-y-2'>
+          <label>Category Image Uploaded</label>
+          <ImagePreview uri={imageLinkGeneration(categoryData.storageName, categoryData.categoryImageName)} />
+        </div>
+      ) : (
+        <></>
+      )}
       <div className='w-full space-y-2'>
         <label htmlFor='categoryImage'>Category Image</label>
         <ImageUpload
-          imageUrl={[imageUrl] as string[]}
           disabled={isLoading}
-          status={handleCheckErrorStatus<ICreateCategoryData>(formik, 'categoryImage')}
-          id='categoryImage'
-          name='categoryImage'
-          onChange={(event) => formik.setFieldValue('categoryImage', event.currentTarget.files?.[0])}
+          status={handleCheckErrorStatus<ICategoryFormikValues>(formik, 'categoryImage')}
           onRemoveImage={() => formik.setFieldValue('categoryImage', null)}
+          onChange={(event) => formik.setFieldValue('categoryImage', event?.target?.files?.[0])}
         />
-        {handleDisplayErrorMsg<ICreateCategoryData>(formik, 'categoryImage')}
+        {handleDisplayErrorMsg<ICategoryFormikValues>(formik, 'categoryImage')}
       </div>
-      <ButtonComp loading={isLoading} isPrimary={false} htmlType='submit' className='ml-auto' disabled={isDisabledSubmitButton}>
+      <ButtonComp loading={isLoading} isPrimary={false} htmlType='submit' className='ml-auto'>
         Ok
       </ButtonComp>
     </form>

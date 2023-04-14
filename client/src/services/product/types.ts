@@ -20,5 +20,5 @@ export interface ICreateProductData {
   productPrice: number;
   categoryId: number;
   description: string;
-  image: File | null;
+  image: File[] | null;
 }

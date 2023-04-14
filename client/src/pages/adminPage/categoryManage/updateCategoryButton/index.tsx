@@ -1,15 +1,13 @@
 import { message } from 'antd';
 import ButtonComp from 'components/buttonComp';
+import Loading from 'components/loading';
 import ModalComp from 'components/modalComp';
-import { useFormik } from 'formik';
-import _ from 'lodash';
 import CategoryForm from 'pages/adminPage/categoryManage/categoryForm';
+import { ICategoryFormikValues } from 'pages/adminPage/categoryManage/categoryForm/useCategoryFormik';
 import React, { useState } from 'react';
 import { getAllCategoryThunk } from 'redux/categoryManage/getAllCategorySlice';
 import { useAppDispatch } from 'redux/hooks';
-import { ICategoryData, ICreateCategoryData, IUpdateCategoryData, updateCategoryService } from 'services/category';
-import { imageLinkGeneration } from 'utils/imageLinkGeneration';
-import * as Yup from 'yup';
+import { ICategoryData, IUpdateCategoryData, updateCategoryService } from 'services/category';
 
 interface IProps {
   categoryData: ICategoryData;
@@ -21,58 +19,41 @@ const UpdateCategoryButton: React.FC<IProps> = ({ categoryData }) => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [isUpdatingCategory, setIsUpdatingCategory] = useState<boolean>(false);
 
-  const initialValues: ICreateCategoryData = {
-    categoryName: _.get(categoryData, 'categoryName', ''),
-    categoryDescription: _.get(categoryData, 'categoryDescription', ''),
-    categoryImage: null
-  };
-
-  const formik = useFormik<ICreateCategoryData>({
-    initialValues: initialValues,
-    enableReinitialize: true,
-    validationSchema: Yup.object({
-      categoryName: Yup.string().notRequired(),
-      categoryDescription: Yup.string().notRequired(),
-      categoryImage: Yup.mixed().notRequired()
-    }),
-    onSubmit: async (values) => {
-      setIsUpdatingCategory(true);
-      try {
-        const updateData: IUpdateCategoryData = {
-          categoryId: categoryData.categoryId
-        };
-        if (values.categoryName !== categoryData.categoryName) updateData.categoryName = values.categoryName;
-        if (values.categoryDescription !== categoryData.categoryDescription) updateData.categoryDescription = values.categoryDescription;
-        if (values.categoryImage) updateData.categoryImage = values.categoryImage;
-        const response = await updateCategoryService(updateData);
-
-        if (response) {
-          messageApi.open({
-            type: 'success',
-            content: 'Category is updated.'
-          });
-
-          dispatch(getAllCategoryThunk());
-
-          handleCloseModal();
-        }
-      } catch (error) {
-        messageApi.open({
-          type: 'error',
-          content: error as string
-        });
-      }
-
-      setIsUpdatingCategory(false);
-    }
-  });
-
   const handleOpenModal = () => setIsShowModal(true);
 
   const handleCloseModal = () => {
     setIsShowModal(false);
+  };
 
-    formik.resetForm();
+  const handleUpdateCategory = async (values: ICategoryFormikValues) => {
+    setIsUpdatingCategory(true);
+    try {
+      const updateData: IUpdateCategoryData = {
+        categoryId: categoryData.categoryId
+      };
+      if (values.categoryName !== categoryData.categoryName) updateData.categoryName = values.categoryName;
+      if (values.categoryDescription !== categoryData.categoryDescription) updateData.categoryDescription = values.categoryDescription;
+      if (values.categoryImage) updateData.categoryImage = values.categoryImage;
+      const response = await updateCategoryService(updateData);
+
+      if (response) {
+        messageApi.open({
+          type: 'success',
+          content: 'Category is updated.'
+        });
+
+        dispatch(getAllCategoryThunk());
+
+        handleCloseModal();
+      }
+    } catch (error) {
+      messageApi.open({
+        type: 'error',
+        content: error as string
+      });
+    }
+
+    setIsUpdatingCategory(false);
   };
 
   return (
@@ -95,18 +76,10 @@ const UpdateCategoryButton: React.FC<IProps> = ({ categoryData }) => {
           ></path>
         </svg>
       </ButtonComp>
-      <ModalComp onCloseModal={handleCloseModal} isOpenModal={isShowModal} title={`Update category: ${categoryData.categoryName}`}>
-        <CategoryForm
-          isDisabledSubmitButton={
-            formik.values.categoryName === categoryData.categoryName &&
-            formik.values.categoryDescription === categoryData.categoryDescription &&
-            !formik.values.categoryImage
-          }
-          isLoading={isUpdatingCategory}
-          formik={formik}
-          imageUrl={imageLinkGeneration(categoryData.storageName, categoryData.categoryImageName)}
-        />
+      <ModalComp onCloseModal={handleCloseModal} isOpenModal={isShowModal} title={`Update category: ${categoryData.categoryName}`} destroyOnClose>
+        <CategoryForm isLoading={isUpdatingCategory} onSubmit={handleUpdateCategory} categoryData={categoryData} />
       </ModalComp>
+      {isUpdatingCategory ? <Loading isLoadingMask={true} /> : <></>}
     </>
   );
 };

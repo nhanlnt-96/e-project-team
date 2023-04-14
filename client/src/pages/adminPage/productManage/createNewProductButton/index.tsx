@@ -1,59 +1,68 @@
-import {message} from 'antd';
+import { message } from 'antd';
 import ButtonComp from 'components/buttonComp';
+import Loading from 'components/loading';
 import ModalComp from 'components/modalComp';
-import {useFormik} from 'formik';
 import ProductForm from 'pages/adminPage/productManage/productForm';
-import React, {useState} from 'react';
-import {ICreateProductData} from 'services/product';
-import * as Yup from 'yup';
+import { IProductFormikValues } from 'pages/adminPage/productManage/productForm/useProductFormik';
+import React, { useState } from 'react';
+import { useAppDispatch } from 'redux/hooks';
+import { getAllProductThunk } from 'redux/productManage/getAllProductSlice';
+import { createProductService, ICreateProductData } from 'services/product';
 
 const CreateNewProductButton: React.FC = () => {
-    const [messageApi, contextHolder] = message.useMessage();
-    const [isShowModal, setIsShowModal] = useState<boolean>(false);
-    const [isCreatingProduct, setIsCreatingProduct] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const [messageApi, contextHolder] = message.useMessage();
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const [isCreatingProduct, setIsCreatingProduct] = useState<boolean>(false);
+  const handleOpenModal = () => setIsShowModal(true);
 
-    const initialValues: ICreateProductData = {
-        productName: '',
-        productPrice: 0,
-        description: '',
-        image: null,
-        categoryId: 0
-    };
+  const handleCloseModal = () => {
+    setIsShowModal(false);
+  };
 
-    const formik = useFormik({
-        initialValues: initialValues,
-        enableReinitialize: true,
-        validationSchema: Yup.object({
-            productName: Yup.string().required('Product name can not be null.'),
-            productPrice: Yup.number().min(1, 'Product price can not be smaller or equal 0.').typeError('Product price must a number.'),
-            description: Yup.string().required('Product description can not be null.'),
-            image: Yup.mixed().required('Product image must be have at least 1.'),
-            categoryId: Yup.number().min(1, 'Please select a category.').typeError('Please select a category.')
-        }),
-        onSubmit: (values) => {
-            console.log(values);
-        }
-    });
-    const handleOpenModal = () => setIsShowModal(true);
+  const handleCreateNewProduct = async (values: IProductFormikValues) => {
+    setIsCreatingProduct(true);
+    try {
+      const productData: ICreateProductData = {
+        categoryId: values.categoryId,
+        productName: values.productName,
+        productPrice: values.productPrice,
+        description: values.description,
+        image: values.productImages
+      };
+      const response = await createProductService(productData);
+      if (response) {
+        messageApi.open({
+          type: 'success',
+          content: 'Product is created.'
+        });
 
-    const handleCloseModal = () => {
-        setIsShowModal(false);
+        dispatch(getAllProductThunk());
 
-        formik.resetForm();
-    };
+        handleCloseModal();
+      }
+    } catch (error) {
+      messageApi.open({
+        type: 'error',
+        content: error as string
+      });
+    }
 
-    return (
-        <>
-            {contextHolder}
-            <ButtonComp onClick={handleOpenModal} isPrimary={false}>
-                Create new product
-            </ButtonComp>
-            <ModalComp onCloseModal={handleCloseModal} isOpenModal={isShowModal} title='Create new product'>
-                <ProductForm formik={formik} isLoading={isCreatingProduct} isDisabledSubmitButton={false}/>
-                {/* !validateObject<ICreateProductData>(formik.values)*/}
-            </ModalComp>
-        </>
-    );
+    setIsCreatingProduct(false);
+  };
+
+  return (
+    <>
+      {contextHolder}
+      <ButtonComp onClick={handleOpenModal} isPrimary={false}>
+        Create new product
+      </ButtonComp>
+      <ModalComp onCloseModal={handleCloseModal} isOpenModal={isShowModal} title='Create new product' destroyOnClose>
+        <ProductForm isLoading={isCreatingProduct} onSubmit={handleCreateNewProduct} />
+      </ModalComp>
+      {isCreatingProduct ? <Loading isLoadingMask={true} /> : <></>}
+    </>
+  );
 };
 
 export default CreateNewProductButton;

@@ -1,1 +1,16 @@
-export * from './screenBreakpoints';
+/* eslint-disable no-unused-vars */
+export enum ScreenBreakPoints {
+  SM_BREAKPOINT = 640,
+  MD_BREAKPOINT = 768,
+  LG_BREAKPOINT = 1024,
+  XL_BREAKPOINT = 1280,
+  XXL_BREAKPOINT = 1536,
+  XXXL_BREAKPOINT = 1920
+}
+
+export enum AllowNumber {
+  MIN_PRODUCT_PRICE = 1,
+
+  MIN_ALLOW_UPLOAD_PRODUCT_IMAGE = 1,
+  MAXIMUM_ALLOW_UPLOAD_PRODUCT_IMAGE = 5
+}

@@ -26,7 +26,7 @@ const RemoveCategoryButton: React.FC<IProps> = ({ categoryId, categoryName }) =>
       if (response) {
         messageApi.open({
           type: 'success',
-          content: response as unknown as string
+          content: 'Removed category'
         });
 
         dispatch(getAllCategoryThunk());

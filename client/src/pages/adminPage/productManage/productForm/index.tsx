@@ -2,36 +2,51 @@ import ButtonComp from 'components/buttonComp';
 import EditorComp from 'components/editorComp';
 import ImageUpload from 'components/imageUpload';
 import InputComp from 'components/inputComp';
-import { FormikProps } from 'formik';
+import { AllowNumber } from 'constants/index';
 import { handleCheckErrorStatus, handleDisplayErrorMsg } from 'helpers/formik';
+import _ from 'lodash';
 import CategorySelect from 'pages/adminPage/productManage/productForm/CategorySelect';
-import React from 'react';
-import { ICreateProductData } from 'services/product';
+import useProductFormik, { IProductFormikValues } from 'pages/adminPage/productManage/productForm/useProductFormik';
+import React, { useCallback } from 'react';
+import { IProductData } from 'services/product';
 
 interface IProps {
-  formik: FormikProps<ICreateProductData>;
   isLoading: boolean;
-  imageUrl?: string | string[];
-  isDisabledSubmitButton: boolean;
+  productData?: IProductData;
+  // eslint-disable-next-line no-unused-vars
+  onSubmit: (values: IProductFormikValues) => void;
 }
 
-const ProductForm: React.FC<IProps> = ({ formik, isLoading, imageUrl, isDisabledSubmitButton }) => {
+const ProductForm: React.FC<IProps> = ({ isLoading, productData, onSubmit }) => {
+  const formik = useProductFormik(onSubmit, productData);
+
+  const handleRemoveImage = useCallback(
+    (index: number) => {
+      const productImagesTemp = _.clone(formik.values.productImages);
+
+      productImagesTemp?.splice(index, 1);
+
+      formik.setFieldValue('productImages', productImagesTemp);
+    },
+    [formik.values.productImages]
+  );
+
   return (
     <form onSubmit={formik.handleSubmit} className='w-full space-y-4'>
       <div className='w-full space-y-2'>
         <label htmlFor='productName'>Category</label>
         <CategorySelect
-          status={handleCheckErrorStatus<ICreateProductData>(formik, 'categoryId')}
+          status={handleCheckErrorStatus<IProductFormikValues>(formik, 'categoryId')}
           value={formik.values.categoryId}
           onChange={(value) => formik.setFieldValue('categoryId', value)}
         />
-        {handleDisplayErrorMsg<ICreateProductData>(formik, 'categoryId')}
+        {handleDisplayErrorMsg<IProductFormikValues>(formik, 'categoryId')}
       </div>
       <div className='w-full space-y-2'>
         <label htmlFor='productName'>Product Name</label>
         <InputComp
           type='text'
-          status={handleCheckErrorStatus<ICreateProductData>(formik, 'productName')}
+          status={handleCheckErrorStatus<IProductFormikValues>(formik, 'productName')}
           placeholder='Product name'
           name='productName'
           id='productName'
@@ -39,13 +54,13 @@ const ProductForm: React.FC<IProps> = ({ formik, isLoading, imageUrl, isDisabled
           onChange={formik.handleChange}
           disabled={isLoading}
         />
-        {handleDisplayErrorMsg<ICreateProductData>(formik, 'productName')}
+        {handleDisplayErrorMsg<IProductFormikValues>(formik, 'productName')}
       </div>
       <div className='w-full space-y-2'>
         <label htmlFor='productPrice'>Product Price</label>
         <InputComp
           type='number'
-          status={handleCheckErrorStatus<ICreateProductData>(formik, 'productPrice')}
+          status={handleCheckErrorStatus<IProductFormikValues>(formik, 'productPrice')}
           placeholder='Product price'
           name='productPrice'
           id='productPrice'
@@ -53,7 +68,7 @@ const ProductForm: React.FC<IProps> = ({ formik, isLoading, imageUrl, isDisabled
           onChange={formik.handleChange}
           disabled={isLoading}
         />
-        {handleDisplayErrorMsg<ICreateProductData>(formik, 'productPrice')}
+        {handleDisplayErrorMsg<IProductFormikValues>(formik, 'productPrice')}
       </div>
       <div className='w-full space-y-2'>
         <label htmlFor='description'>Product Description</label>
@@ -61,24 +76,24 @@ const ProductForm: React.FC<IProps> = ({ formik, isLoading, imageUrl, isDisabled
           editorHeight={300}
           value={formik.values.description}
           onEditorChange={(content) => formik.setFieldValue('description', content)}
-          status={handleCheckErrorStatus<ICreateProductData>(formik, 'description')}
+          status={handleCheckErrorStatus<IProductFormikValues>(formik, 'description')}
         />
-        {handleDisplayErrorMsg<ICreateProductData>(formik, 'description')}
+        {handleDisplayErrorMsg<IProductFormikValues>(formik, 'description')}
       </div>
       <div className='w-full space-y-2'>
-        <label htmlFor='images'>Product Image(s)</label>
+        <label htmlFor='productImages'>
+          Product Image(s) ({formik.values.productImages.length}/{AllowNumber.MAXIMUM_ALLOW_UPLOAD_PRODUCT_IMAGE})
+        </label>
         <ImageUpload
           disabled={isLoading}
-          status={handleCheckErrorStatus<ICreateProductData>(formik, 'image')}
-          id='categoryImage'
-          name='categoryImage'
+          status={handleCheckErrorStatus<IProductFormikValues>(formik, 'productImages')}
+          onRemoveImage={(index) => handleRemoveImage(index as number)}
           multiple={true}
-          onChange={(event) => formik.setFieldValue('image', event.currentTarget.files)}
-          onRemoveImage={() => formik.setFieldValue('image', null)}
+          onChange={(event) => formik.setFieldValue('productImages', Array.from(event?.target?.files as FileList))}
         />
-        {handleDisplayErrorMsg<ICreateProductData>(formik, 'image')}
+        {handleDisplayErrorMsg<IProductFormikValues>(formik, 'productImages')}
       </div>
-      <ButtonComp loading={isLoading} isPrimary={false} htmlType='submit' className='ml-auto' disabled={isDisabledSubmitButton}>
+      <ButtonComp loading={isLoading} isPrimary={false} htmlType='submit' className='ml-auto'>
         Ok
       </ButtonComp>
     </form>
