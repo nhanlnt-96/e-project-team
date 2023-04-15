@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,14 +20,17 @@ import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validator;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/category")
 @CrossOrigin(origins = {"http://localhost:3000"}, allowCredentials = "true")
+@Validated
 public class ProductCategoryController {
     private final ProductCategoryRepository productCategoryRepository;
     private final Validator validator;
@@ -51,6 +55,9 @@ public class ProductCategoryController {
                 errors.append(message + ";");
             });
             throw new NoResultException(errors.toString());
+        }
+        if (Objects.requireNonNull(categoryImage.getOriginalFilename()).isEmpty()) {
+            throw new NoResultException("Product category image can not be null.");
         }
 
         ProductCategory productCategoryDto = getCategoryByName(productCategoryData.getCategoryName());
@@ -132,8 +139,12 @@ public class ProductCategoryController {
     @GetMapping("/get-category-by-slug/{categorySlug}")
     public ResponseEntity<ProductCategoryDto> getCategoryBySlug(@PathVariable("categorySlug") String categorySlug) {
         ProductCategory productCategory = productCategoryRepository.getProductCategoryByCategorySlug(categorySlug);
-        ProductCategoryDto productCategoryDto = new ProductCategoryDto(productCategory);
-        return new ResponseEntity<>(productCategoryDto, HttpStatus.OK);
+        if (productCategory != null) {
+            ProductCategoryDto productCategoryDto = new ProductCategoryDto(productCategory);
+            return new ResponseEntity<>(productCategoryDto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
     }
 
 

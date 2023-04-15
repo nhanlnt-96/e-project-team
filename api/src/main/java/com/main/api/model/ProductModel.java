@@ -58,4 +58,64 @@ public class ProductModel {
             this.categoryId = categoryId;
         }
     }
+
+    public static class UpdateProduct {
+        @NotNull(message = "productId can not be null.")
+        private Long productId;
+        private String description;
+        private String productName;
+        private Integer productPrice;
+        private Long categoryId;
+
+        public UpdateProduct() {
+        }
+
+        public UpdateProduct(Long productId, String description, String productName, Integer productPrice, Long categoryId) {
+            this.productId = productId;
+            this.description = description;
+            this.productName = productName;
+            this.productPrice = productPrice;
+            this.categoryId = categoryId;
+        }
+
+        public Long getProductId() {
+            return productId;
+        }
+
+        public void setProductId(Long productId) {
+            this.productId = productId;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public void setProductName(String productName) {
+            this.productName = productName;
+        }
+
+        public Integer getProductPrice() {
+            return productPrice;
+        }
+
+        public void setProductPrice(Integer productPrice) {
+            this.productPrice = productPrice;
+        }
+
+        public Long getCategoryId() {
+            return categoryId;
+        }
+
+        public void setCategoryId(Long categoryId) {
+            this.categoryId = categoryId;
+        }
+    }
 }
