@@ -1,5 +1,6 @@
 import 'assets/styles/index.scss';
 
+import Loading from 'components/loading';
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -12,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <React.StrictMode>
-    <Suspense fallback={<div>loading...</div>}>
+    <Suspense fallback={<Loading isPageLoading />}>
       <Provider store={store}>
         <BrowserRouter>
           <App />

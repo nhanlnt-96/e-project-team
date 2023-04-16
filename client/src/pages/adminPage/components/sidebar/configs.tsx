@@ -1,3 +1,5 @@
+import { RouteBasePath } from 'constants/index';
+
 interface ISidebarData {
   label: string;
   path: string;
@@ -6,10 +8,10 @@ interface ISidebarData {
 export const sidebarData: ISidebarData[] = [
   {
     label: 'Category Manage',
-    path: 'category-manage'
+    path: RouteBasePath.ADMIN_CATEGORY_MANAGE_PAGE_BASE_PATH
   },
   {
     label: 'Product Manage',
-    path: 'product-manage'
+    path: RouteBasePath.ADMIN_PRODUCT_MANAGE_PAGE_BASE_PATH
   }
 ];

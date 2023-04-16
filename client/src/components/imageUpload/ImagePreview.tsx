@@ -4,7 +4,7 @@ import React from 'react';
 
 interface IProps {
   uri: string;
-    // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars
   onRemoveImage?: (uri: string) => void;
 }
 
@@ -37,6 +37,7 @@ const ImagePreview: React.FC<IProps> = ({ uri, onRemoveImage }) => {
         <></>
       )}
       <ImageResponsive
+        isPreview
         width={472}
         height={168}
         imageProps={{

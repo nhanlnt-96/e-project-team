@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="87d24697-62c5-49b3-a8b1-1243874cb2c6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productListingPage/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/imageResponsive/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/imageResponsive/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/imageUpload/ImagePreview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/imageUpload/ImagePreview.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/loading/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/loading/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/mainLayout/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/mainLayout/routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/constants/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/constants/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManage/categoryForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/categoryForm/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManage/categoryForm/useCategoryFormik.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/categoryForm/useCategoryFormik.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManage/categoryListing/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/categoryListing/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManage/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManage/createNewCategoryButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/createNewCategoryButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManage/removeCategoryButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/removeCategoryButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManage/updateCategoryButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/updateCategoryButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManage/viewDetailCategoryButton/CategoryDetailForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/viewDetailCategoryButton/CategoryDetailForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManage/viewDetailCategoryButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/viewDetailCategoryButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/components/sidebar/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/components/sidebar/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManage/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManage/createNewProductButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/addNewProductPage/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManage/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManage/productForm/CategorySelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productForm/CategorySelect.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManage/productForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productForm/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManage/productForm/useProductFormik.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productForm/useProductFormik.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManage/productListing/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManage/viewDetailProductButton/ProductDetailForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/viewDetailProductButton/ProductDetailForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManage/viewDetailProductButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/viewDetailProductButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/productManage/getAllProductSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/productManage/getAllProductSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/productManage/selector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/productManage/selector.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/product/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/product/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/product/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/product/types.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+        <option value="SCSS File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2ORZPnEXkhfSJx9rtYyaLkfNvC5" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "client/ci-product-manage",
+    "js.linters.configure.manually.selectedeslint": "true",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/eslint",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "prettierjs.PrettierConfiguration.Package": "/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/prettier",
+    "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
+    "ts.external.directory.path": "/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/redux/productManage" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="87d24697-62c5-49b3-a8b1-1243874cb2c6" name="Changes" comment="" />
+      <created>1681525334493</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1681525334493</updated>
+      <workItem from="1681525337992" duration="8512000" />
+      <workItem from="1681560490641" duration="964000" />
+      <workItem from="1681610439146" duration="5623000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

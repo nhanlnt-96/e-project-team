@@ -1,6 +1,6 @@
 import { ICategoryData } from 'services/category';
 
-interface IImage {
+export interface IImage {
   imageId: number;
   imageName: string;
   storageName: string;

@@ -12,7 +12,7 @@ interface IProps {
 
 const Loading: React.FC<IProps> = ({ isPageLoading = false, isLoadingMask = false, className = '' }) => {
   const loadingContainerClass = useMemo(() => {
-    return isPageLoading ? 'w-screen h-screen bg-black text-white' : 'w-full h-full text-inherit';
+    return isPageLoading ? 'w-screen h-screen bg-white text-black' : 'w-full h-full text-inherit';
   }, [isPageLoading]);
 
   return !isLoadingMask ? <TeaCupLoading className={[loadingContainerClass, className].join(' ')} /> : <CircleLoading className={className} />;

@@ -1,6 +1,5 @@
 import { Layout } from 'antd';
 import Sidebar from 'pages/adminPage/components/sidebar';
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 const { Content } = Layout;

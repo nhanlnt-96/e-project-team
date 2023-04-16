@@ -14,3 +14,18 @@ export enum AllowNumber {
   MIN_ALLOW_UPLOAD_PRODUCT_IMAGE = 1,
   MAXIMUM_ALLOW_UPLOAD_PRODUCT_IMAGE = 5
 }
+
+export enum RouteBasePath {
+  CLIENT_FIND_A_TEA_BASE_PATH = 'find-a-tea',
+  CLIENT_PRODUCT_PAGE_BASE_PATH = 'shop',
+
+  LOGIN_BASE_PATH = 'login',
+
+  ADMIN_PAGE_BASE_PATH = '/admin',
+
+  ADMIN_CATEGORY_MANAGE_PAGE_BASE_PATH = '/admin/category-manage',
+
+  ADMIN_PRODUCT_MANAGE_PAGE_BASE_PATH = '/admin/product-manage',
+  ADMIN_ADD_NEW_PRODUCT_PAGE_BASE_PATH = 'add-new-product',
+  ADMIN_UPDATE_PRODUCT_PAGE_BASE_PATH = 'update-product',
+}

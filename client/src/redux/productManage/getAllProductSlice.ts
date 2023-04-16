@@ -1,14 +1,10 @@
+import { generateProductDataObject } from 'redux/productManage/utils';
 import { getAllProductService, IProductData } from 'services/product';
-import { addPropertyKeyToArray } from 'utils/addPropertyKeyToArray';
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-interface IProductDataResponse extends IProductData {
-  key: string;
-}
-
 interface IGetAllProductSlice {
-  productData: IProductDataResponse[];
+  productData: IProductData[];
   isLoading: boolean;
   error: string | null;
 }
@@ -35,7 +31,7 @@ export const getAllProductSlice = createSlice({
     });
 
     builder.addCase(getAllProductThunk.fulfilled, (state, action) => {
-      state.productData = addPropertyKeyToArray<IProductData>(action.payload, 'productId');
+      state.productData = action.payload.map((product) => generateProductDataObject(product));
 
       state.isLoading = false;
 
