@@ -1,5 +1,6 @@
 import { ColumnsType } from 'antd/es/table';
 import RemoveNetWeightButton from 'pages/adminPage/netWeightManage/removeNetWeightButton';
+import UpdateNetWeightButton from 'pages/adminPage/netWeightManage/updateNetWeightButton';
 import ViewNetWeightDetailButton from 'pages/adminPage/netWeightManage/viewNetWeightDetailButton';
 import { INetWeightData } from 'services/netWeight';
 
@@ -35,6 +36,7 @@ export const columns: ColumnsType<INetWeightData> = [
     render: (_, record) => (
       <div className='flex space-x-2'>
         <ViewNetWeightDetailButton netWeightData={record} />
+        <UpdateNetWeightButton netWeightData={record} />
         <RemoveNetWeightButton netWeightId={record.netWeightId} netWeightLabel={record.netWeightLabel} />
       </div>
     )
