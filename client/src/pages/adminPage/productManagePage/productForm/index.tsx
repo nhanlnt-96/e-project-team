@@ -3,13 +3,14 @@ import EditorComp from 'components/editorComp';
 import ImageUpload from 'components/imageUpload';
 import InputComp from 'components/inputComp';
 import { AllowNumber } from 'constants/index';
-import { handleCheckErrorStatus, handleDisplayErrorMsg } from 'helpers/formik';
+import { handleCheckErrorStatus, handleDisableSubmitButton, handleDisplayErrorMsg } from 'helpers/formik';
 import _ from 'lodash';
 import CategorySelect from 'pages/adminPage/productManagePage/productForm/CategorySelect';
 import ProductImageUploaded from 'pages/adminPage/productManagePage/productForm/ProductImageUploaded';
 import useProductFormik, { IProductFormikValues } from 'pages/adminPage/productManagePage/productForm/useProductFormik';
 import React, { useCallback } from 'react';
 import { IProductData } from 'services/product';
+import { validateObject } from 'utils/validateObject';
 
 interface IProps {
   isLoading: boolean;
@@ -95,7 +96,19 @@ const ProductForm: React.FC<IProps> = ({ isLoading, productData, onSubmit }) => 
         />
         {handleDisplayErrorMsg<IProductFormikValues>(formik, 'productImages')}
       </div>
-      <ButtonComp loading={isLoading} isPrimary={false} htmlType='submit' className='ml-auto'>
+      <ButtonComp
+        loading={isLoading}
+        isPrimary={false}
+        htmlType='submit'
+        className='ml-auto'
+        disabled={
+          !validateObject<IProductFormikValues>(formik.values) ||
+          !formik.values.productImages.length ||
+          (productData &&
+            (formik.values.categoryId === productData.category.categoryId ||
+              handleDisableSubmitButton<IProductFormikValues, IProductData>(formik.values, productData as IProductData)))
+        }
+      >
         Ok
       </ButtonComp>
     </form>

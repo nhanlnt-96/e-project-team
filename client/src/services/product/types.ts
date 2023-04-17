@@ -22,3 +22,12 @@ export interface ICreateProductData {
   description: string;
   image: File[] | null;
 }
+
+export interface IUpdateProductData {
+  productId: number;
+  productName?: string;
+  productPrice?: number;
+  categoryId?: number;
+  description?: string;
+  image?: File[];
+}

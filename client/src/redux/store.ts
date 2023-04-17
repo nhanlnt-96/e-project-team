@@ -4,13 +4,15 @@ import getAllCategoryReducer from './categoryManage/getAllCategorySlice';
 import getAllProductReducer from './productManage/getAllProductSlice';
 import getProductByIdReducer from './productManage/getProductByIdSlice';
 import removeProductImageReducer from './productManage/removeProductImageSlice';
+import updateProductReducer from './productManage/updateProductSlice';
 
 export const store = configureStore({
   reducer: {
     getAllCategoryReducer: getAllCategoryReducer,
     getAllProductReducer: getAllProductReducer,
     getProductByIdReducer: getProductByIdReducer,
-    removeProductImageReducer: removeProductImageReducer
+    removeProductImageReducer: removeProductImageReducer,
+    updateProductReducer: updateProductReducer
   }
 });
 
