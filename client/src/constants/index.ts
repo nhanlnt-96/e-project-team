@@ -28,4 +28,6 @@ export enum RouteBasePath {
   ADMIN_PRODUCT_MANAGE_PAGE_BASE_PATH = '/admin/product-manage',
   ADMIN_ADD_NEW_PRODUCT_PAGE_BASE_PATH = 'add-new-product',
   ADMIN_UPDATE_PRODUCT_PAGE_BASE_PATH = 'update-product',
+
+  ADMIN_NET_WEIGHT_MANAGE_PAGE_BASE_PATH = '/admin/net-weight-manage'
 }

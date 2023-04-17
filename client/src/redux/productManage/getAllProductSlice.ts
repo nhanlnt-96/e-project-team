@@ -15,7 +15,7 @@ const initialState: IGetAllProductSlice = {
   error: null
 };
 
-export const getAllProductThunk = createAsyncThunk('productManage/fetchAllProduct', async () => {
+export const getAllProductThunk = createAsyncThunk('productManage/getAllProduct', async () => {
   return await getAllProductService();
 });
 

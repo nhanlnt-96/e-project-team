@@ -25,6 +25,7 @@ const ProductManagePage = lazy(() => import('pages/adminPage/productManagePage')
 const ProductListingPage = lazy(() => import('pages/adminPage/productManagePage/productListingPage'));
 const AddNewProductPage = lazy(() => import('pages/adminPage/productManagePage/addNewProductPage'));
 const EditProductPage = lazy(() => import('pages/adminPage/productManagePage/editProductPage'));
+const NetWeightManagePage = lazy(() => import('pages/adminPage/netWeightManage'));
 
 export const routes: IRoutes[] = [
   {
@@ -87,5 +88,11 @@ export const routes: IRoutes[] = [
         isIndex: false
       }
     ]
+  },
+  {
+    path: RouteBasePath.ADMIN_NET_WEIGHT_MANAGE_PAGE_BASE_PATH,
+    isPrivate: true,
+    element: <NetWeightManagePage />,
+    children: []
   }
 ];

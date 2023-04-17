@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import getAllCategoryReducer from './categoryManage/getAllCategorySlice';
+import getAllNetWeightReducer from './netWeightManage/getAllNetWeightSlice';
 import getAllProductReducer from './productManage/getAllProductSlice';
 import getProductByIdReducer from './productManage/getProductByIdSlice';
 import removeProductImageReducer from './productManage/removeProductImageSlice';
@@ -12,7 +13,8 @@ export const store = configureStore({
     getAllProductReducer: getAllProductReducer,
     getProductByIdReducer: getProductByIdReducer,
     removeProductImageReducer: removeProductImageReducer,
-    updateProductReducer: updateProductReducer
+    updateProductReducer: updateProductReducer,
+    getAllNetWeightReducer: getAllNetWeightReducer
   }
 });
 

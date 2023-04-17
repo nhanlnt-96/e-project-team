@@ -1,9 +1,9 @@
 import Title from 'components/title';
+import { useEffectOnce } from 'hooks/useEffectOnce';
 import DataTable from 'pages/adminPage/components/datatable';
 import SectionContainer from 'pages/adminPage/components/sectionContainer';
 import AddNewProductButton from 'pages/adminPage/productManagePage/addNewProductPage/AddNewProductButton';
 import { columns } from 'pages/adminPage/productManagePage/configs';
-import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getAllProductThunk } from 'redux/productManage/getAllProductSlice';
 import { productDataSelector } from 'redux/productManage/selector';
@@ -14,9 +14,9 @@ const ProductListingPage = () => {
   const dispatch = useAppDispatch();
   const { productData, isLoading } = useAppSelector(productDataSelector);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     if (!productData.length) dispatch(getAllProductThunk());
-  }, [productData]);
+  });
 
   return (
     <SectionContainer>
