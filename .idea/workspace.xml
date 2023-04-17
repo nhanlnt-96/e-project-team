@@ -6,13 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="87d24697-62c5-49b3-a8b1-1243874cb2c6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/mainLayout/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/mainLayout/routes.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/constants/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/constants/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/categoryListing/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/categoryListing/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/components/sidebar/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/components/sidebar/configs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productListingPage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productListingPage/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/productManage/getAllProductSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/productManage/getAllProductSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/netWeight/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/netWeight/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/netWeight/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/netWeight/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +79,7 @@
       <workItem from="1681610439146" duration="7920000" />
       <workItem from="1681705296353" duration="332000" />
       <workItem from="1681706337409" duration="1274000" />
-      <workItem from="1681728857256" duration="2151000" />
+      <workItem from="1681728857256" duration="3456000" />
     </task>
     <servers />
   </component>

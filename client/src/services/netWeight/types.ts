@@ -3,3 +3,8 @@ export interface INetWeightData {
   netWeightLabel: string;
   netWeightValue: number;
 }
+
+export interface ICreateNetWeightData {
+  netWeightLabel: string;
+  netWeightValue: number;
+}
