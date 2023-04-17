@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87d24697-62c5-49b3-a8b1-1243874cb2c6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/upload/images/products/26d1685b-1fdb-457e-8d43-3e83a711a963-Screenshot-from-2023-04-14-14-26-51.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/upload/images/products/9c35f806-1a9d-4ecd-af75-73dd982ca3a2-Screenshot-from-2023-04-14-14-49-58.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/helpers/formik.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/helpers/formik.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/hooks/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/hooks/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/editProductPage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/editProductPage/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productForm/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/productManage/selector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/productManage/selector.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/product/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/product/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/product/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/product/types.ts" afterDir="false" />
-    </list>
+    <list default="true" id="87d24697-62c5-49b3-a8b1-1243874cb2c6" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
