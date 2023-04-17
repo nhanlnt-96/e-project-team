@@ -7,3 +7,5 @@ export * from './configs';
 export { default as getAllNetWeightService } from './getAllNetWeightService';
 
 export { default as createNewNetWeightService } from './createNewNetWeightService';
+
+export { default as removeNetWeightService } from './removeNetWeightService';
