@@ -1,6 +1,6 @@
 import ImageResponsive from 'components/imageResponsive';
 import CardHoverFeatures from 'components/productCard/CardHoverFeatures';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { IProductData } from 'services/product';
 import { convertPrice } from 'utils/convertPrice';
@@ -11,6 +11,10 @@ interface IProps {
 }
 
 const ProductCard: React.FC<IProps> = ({ productData }) => {
+  const productDetailPath = useMemo(() => {
+    return `${productData.productId}`;
+  }, [productData]);
+
   return (
     <div className='w-full group'>
       <div className='w-full relative'>
@@ -22,11 +26,11 @@ const ProductCard: React.FC<IProps> = ({ productData }) => {
             alt: `${productData.productName}`
           }}
         />
-        <CardHoverFeatures className='group-hover:flex' />
+        <CardHoverFeatures className='group-hover:flex' viewDetailPath={productDetailPath} />
       </div>
       <div className='w-full py-2 px-4 text-center space-y-1'>
         <h2 className='font-playfair-display capitalize text-inherit truncate italic font-normal text-2xl'>
-          <Link to={'/'} className='hover:text-link-hover'>
+          <Link to={productDetailPath} className='hover:text-link-hover'>
             {productData.productName}
           </Link>
         </h2>
