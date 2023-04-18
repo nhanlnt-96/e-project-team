@@ -1,8 +1,8 @@
-import { message } from 'antd';
 import { SvgIcons } from 'assets/icons/svgIcons';
 import ButtonComp from 'components/buttonComp';
 import ModalComp from 'components/modalComp';
 import React, { useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
 import { getAllCategoryThunk } from 'redux/categoryManage/getAllCategorySlice';
 import { useAppDispatch } from 'redux/hooks';
 import { removeCategoryService } from 'services/category';
@@ -14,7 +14,6 @@ interface IProps {
 
 const RemoveCategoryButton: React.FC<IProps> = ({ categoryId, categoryName }) => {
   const dispatch = useAppDispatch();
-  const [messageApi, contextHolder] = message.useMessage();
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [isRemovingCategory, setIsRemovingCategory] = useState<boolean>(false);
   const handleCloseModal = () => setIsShowModal(false);
@@ -25,20 +24,14 @@ const RemoveCategoryButton: React.FC<IProps> = ({ categoryId, categoryName }) =>
       const response = await removeCategoryService(categoryId);
 
       if (response) {
-        messageApi.open({
-          type: 'success',
-          content: 'Removed category'
-        });
+        toast.success(response);
 
         dispatch(getAllCategoryThunk());
 
         handleCloseModal();
       }
     } catch (error) {
-      messageApi.open({
-        type: 'error',
-        content: error as string
-      });
+      toast.error(error as string);
     } finally {
       setIsRemovingCategory(false);
     }
@@ -46,7 +39,6 @@ const RemoveCategoryButton: React.FC<IProps> = ({ categoryId, categoryName }) =>
 
   return (
     <>
-      {contextHolder}
       <ButtonComp className='!px-4' onClick={() => setIsShowModal(true)}>
         {SvgIcons.Trash}
       </ButtonComp>

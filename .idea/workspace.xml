@@ -6,9 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="87d24697-62c5-49b3-a8b1-1243874cb2c6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/configs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/netWeight/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/netWeight/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/netWeight/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/netWeight/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/createNewCategoryButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/createNewCategoryButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/removeCategoryButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/removeCategoryButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/updateCategoryButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/updateCategoryButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/createNewNetWeightButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/createNewNetWeightButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/removeNetWeightButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/removeNetWeightButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/updateNetWeightButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/updateNetWeightButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/addNewProductPage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/addNewProductPage/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/editProductPage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/editProductPage/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productForm/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/removeProductButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/removeProductButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/productManage/removeProductImageSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/productManage/removeProductImageSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/productManage/updateProductSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/productManage/updateProductSlice.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +29,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="SCSS File" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -78,7 +88,8 @@
       <workItem from="1681610439146" duration="7920000" />
       <workItem from="1681705296353" duration="332000" />
       <workItem from="1681706337409" duration="1274000" />
-      <workItem from="1681728857256" duration="4796000" />
+      <workItem from="1681728857256" duration="6409000" />
+      <workItem from="1681796082460" duration="3708000" />
     </task>
     <servers />
   </component>

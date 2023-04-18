@@ -3,14 +3,13 @@ import EditorComp from 'components/editorComp';
 import ImageUpload from 'components/imageUpload';
 import InputComp from 'components/inputComp';
 import { AllowNumber } from 'constants/index';
-import { handleCheckErrorStatus, handleDisableSubmitButton, handleDisplayErrorMsg } from 'helpers/formik';
+import { handleCheckErrorStatus, handleDisplayErrorMsg } from 'helpers/formik';
 import _ from 'lodash';
 import CategorySelect from 'pages/adminPage/productManagePage/productForm/CategorySelect';
 import ProductImageUploaded from 'pages/adminPage/productManagePage/productForm/ProductImageUploaded';
 import useProductFormik, { IProductFormikValues } from 'pages/adminPage/productManagePage/productForm/useProductFormik';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { IProductData } from 'services/product';
-import { validateObject } from 'utils/validateObject';
 
 interface IProps {
   isLoading: boolean;
@@ -32,6 +31,17 @@ const ProductForm: React.FC<IProps> = ({ isLoading, productData, onSubmit }) => 
     },
     [formik.values.productImages]
   );
+
+  const handleDisableSubmitButton = useMemo(() => {
+    return (
+      productData &&
+      formik.values.categoryId === productData.category.categoryId &&
+      !formik.values.productImages.length &&
+      formik.values.productName === productData.productName &&
+      formik.values.productPrice === productData.productPrice &&
+      productData.description === productData.description
+    );
+  }, [formik.values, productData]);
 
   return (
     <form onSubmit={formik.handleSubmit} className='w-full max-w-5xl mx-auto space-y-4'>
@@ -96,19 +106,7 @@ const ProductForm: React.FC<IProps> = ({ isLoading, productData, onSubmit }) => 
         />
         {handleDisplayErrorMsg<IProductFormikValues>(formik, 'productImages')}
       </div>
-      <ButtonComp
-        loading={isLoading}
-        isPrimary={false}
-        htmlType='submit'
-        className='ml-auto'
-        disabled={
-          !validateObject<IProductFormikValues>(formik.values) ||
-          !formik.values.productImages.length ||
-          (productData &&
-            (formik.values.categoryId === productData.category.categoryId ||
-              handleDisableSubmitButton<IProductFormikValues, IProductData>(formik.values, productData as IProductData)))
-        }
-      >
+      <ButtonComp loading={isLoading} isPrimary={false} htmlType='submit' className='ml-auto' disabled={handleDisableSubmitButton}>
         Ok
       </ButtonComp>
     </form>

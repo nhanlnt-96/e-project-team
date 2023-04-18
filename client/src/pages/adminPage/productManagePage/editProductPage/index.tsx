@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import { SvgIcons } from 'assets/icons/svgIcons';
 import Loading from 'components/loading';
 import ModalComp from 'components/modalComp';
@@ -8,11 +7,11 @@ import { useEffectOnce } from 'hooks/useEffectOnce';
 import SectionContainer from 'pages/adminPage/components/sectionContainer';
 import ProductForm from 'pages/adminPage/productManagePage/productForm';
 import { IProductFormikValues } from 'pages/adminPage/productManagePage/productForm/useProductFormik';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getProductByIdThunk } from 'redux/productManage/getProductByIdSlice';
-import { productDetailSelector } from 'redux/productManage/selector';
+import { productDetailSelector, updateProductSelector } from 'redux/productManage/selector';
 import { updateProductThunk } from 'redux/productManage/updateProductSlice';
 import { IUpdateProductData } from 'services/product';
 
@@ -20,9 +19,8 @@ const EditProductPage = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isLoading: isFetchingProductData, productData, error } = useAppSelector(productDetailSelector);
-  const [messageApi, contextHolder] = message.useMessage();
-  const [isUpdatingProduct, setIsUpdatingProduct] = useState<boolean>(false);
+  const { isLoading: isFetchingProductData, productData } = useAppSelector(productDetailSelector);
+  const { isUpdating } = useAppSelector(updateProductSelector);
 
   useEffectOnce(() => {
     dispatch(getProductByIdThunk(Number.parseInt(productId as string)));
@@ -50,11 +48,10 @@ const EditProductPage = () => {
 
   return !isFetchingProductData ? (
     <>
-      {contextHolder}
       <SectionContainer>
         <Title title={'Update Product'} titleClassName='text-black' rootClassName='border-b border-black pb-2' />
         {productData ? (
-          <ProductForm isLoading={isUpdatingProduct} onSubmit={handleUpdateProduct} productData={productData} />
+          <ProductForm isLoading={isUpdating} onSubmit={handleUpdateProduct} productData={productData} />
         ) : (
           <ModalComp onCloseModal={handleGoToPrevPage} isOpenModal={true}>
             <div className='w-full flex flex-col justify-center items-center space-y-2'>

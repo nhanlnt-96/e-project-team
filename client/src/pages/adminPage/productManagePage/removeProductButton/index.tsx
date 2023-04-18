@@ -1,8 +1,8 @@
-import { message } from 'antd';
 import { SvgIcons } from 'assets/icons/svgIcons';
 import ButtonComp from 'components/buttonComp';
 import ModalComp from 'components/modalComp';
 import React, { useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useAppDispatch } from 'redux/hooks';
 import { getAllProductThunk } from 'redux/productManage/getAllProductSlice';
 import { removeProductService } from 'services/product';
@@ -14,7 +14,6 @@ interface IProps {
 
 const RemoveProductButton: React.FC<IProps> = ({ productId, productName }) => {
   const dispatch = useAppDispatch();
-  const [messageApi, contextHolder] = message.useMessage();
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [isRemovingProduct, setIsRemovingProduct] = useState<boolean>(false);
   const handleCloseModal = () => setIsShowModal(false);
@@ -25,20 +24,14 @@ const RemoveProductButton: React.FC<IProps> = ({ productId, productName }) => {
       const response = await removeProductService(productId);
 
       if (response) {
-        messageApi.open({
-          type: 'success',
-          content: 'Removed product'
-        });
+        toast.success('Product is removed.');
 
         dispatch(getAllProductThunk());
 
         handleCloseModal();
       }
     } catch (error) {
-      messageApi.open({
-        type: 'error',
-        content: error as string
-      });
+      toast.error(error as string);
     } finally {
       setIsRemovingProduct(false);
     }
@@ -46,7 +39,6 @@ const RemoveProductButton: React.FC<IProps> = ({ productId, productName }) => {
 
   return (
     <>
-      {contextHolder}
       <ButtonComp className='!px-4' onClick={() => setIsShowModal(true)}>
         {SvgIcons.Trash}
       </ButtonComp>

@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { getAllProductThunk } from 'redux/productManage/getAllProductSlice';
 import { getProductByIdThunk } from 'redux/productManage/getProductByIdSlice';
 import { IUpdateProductData, updateProductService } from 'services/product';
@@ -39,12 +40,16 @@ export const updateProductSlice = createSlice({
     });
 
     builder.addCase(updateProductThunk.fulfilled, (state) => {
+      toast.success('Product is updated.');
+
       state.isUpdating = false;
 
       state.isSuccess = true;
     });
 
     builder.addCase(updateProductThunk.rejected, (state, action) => {
+      toast.success(action.payload);
+
       state.isUpdating = false;
 
       state.isSuccess = false;

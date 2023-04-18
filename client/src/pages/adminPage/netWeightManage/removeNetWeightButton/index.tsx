@@ -2,6 +2,7 @@ import { SvgIcons } from 'assets/icons/svgIcons';
 import ButtonComp from 'components/buttonComp';
 import ModalComp from 'components/modalComp';
 import React, { useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useAppDispatch } from 'redux/hooks';
 import { getAllNetWeightThunk } from 'redux/netWeightManage/getAllNetWeightSlice';
 import { removeNetWeightService } from 'services/netWeight';
@@ -22,12 +23,14 @@ const RemoveNetWeightButton: React.FC<IProps> = ({ netWeightLabel, netWeightId }
     try {
       const response = await removeNetWeightService(netWeightId);
       if (response) {
+        toast.success('Net weight is removed.');
+
         dispatch(getAllNetWeightThunk());
 
         handleCloseModal();
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error as string);
     } finally {
       setIsRemovingNetWeight(false);
     }

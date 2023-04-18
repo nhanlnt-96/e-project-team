@@ -4,6 +4,7 @@ import ModalComp from 'components/modalComp';
 import NetWeightForm from 'pages/adminPage/netWeightManage/netWeightForm';
 import { INetWeightFormikValue } from 'pages/adminPage/netWeightManage/netWeightForm/useNetWeightFormik';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { useAppDispatch } from 'redux/hooks';
 import { getAllNetWeightThunk } from 'redux/netWeightManage/getAllNetWeightSlice';
 import { createNewNetWeightService, ICreateNetWeightData } from 'services/netWeight';
@@ -25,12 +26,14 @@ const CreateNewNetWeightButton: React.FC = () => {
     try {
       const response = await createNewNetWeightService(netWeightData);
       if (response) {
+        toast.success('Net weight is created.');
+
         dispatch(getAllNetWeightThunk());
 
         handleCloseModal();
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error as string);
     } finally {
       setIsLoading(false);
     }

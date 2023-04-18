@@ -4,6 +4,7 @@ import ModalComp from 'components/modalComp';
 import NetWeightForm from 'pages/adminPage/netWeightManage/netWeightForm';
 import { INetWeightFormikValue } from 'pages/adminPage/netWeightManage/netWeightForm/useNetWeightFormik';
 import React, { useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useAppDispatch } from 'redux/hooks';
 import { getAllNetWeightThunk } from 'redux/netWeightManage/getAllNetWeightSlice';
 import { INetWeightData, IUpdateNetWeightData, updateNetWeightService } from 'services/netWeight';
@@ -33,12 +34,14 @@ const UpdateNetWeightButton: React.FC<IProps> = ({ netWeightData }) => {
         if (values.netWeightValue != netWeightData.netWeightValue) updateData.netWeightValue = values.netWeightValue;
         const response = await updateNetWeightService(updateData);
         if (response) {
+          toast.success('Net weight is updated.');
+
           dispatch(getAllNetWeightThunk());
 
           handleCloseModal();
         }
       } catch (error) {
-        console.log(error);
+        toast.error(error as string);
       } finally {
         setIsUpdating(false);
       }

@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { getProductByIdThunk } from 'redux/productManage/getProductByIdSlice';
 import { removeProductImageService } from 'services/product';
 
@@ -41,12 +42,16 @@ export const removeProductImageSlice = createSlice({
     });
 
     builder.addCase(removeProductImageThunk.fulfilled, (state) => {
+      toast.success('Product image is removed.');
+
       state.isRemoving = false;
 
       state.isSuccess = true;
     });
 
     builder.addCase(removeProductImageThunk.rejected, (state, action) => {
+      toast.error(action.payload);
+
       state.isRemoving = false;
 
       state.isSuccess = false;
