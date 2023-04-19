@@ -19,8 +19,6 @@ public class Product {
     private String description;
     @Column(name = "product_name")
     private String productName;
-    @Column(name = "product_price")
-    private Integer productPrice;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private ProductCategory category;
@@ -32,14 +30,20 @@ public class Product {
     public Product() {
     }
 
-    public Product(String description, String productName, Integer productPrice) {
+    public Product(String description, String productName) {
         this.description = description;
         this.productName = productName;
-        this.productPrice = productPrice;
     }
 
     @Override
     public String toString() {
-        return "Product{" + "productId=" + productId + ", description='" + description + '\'' + ", productName='" + productName + '\'' + ", productPrice=" + productPrice + ", category=" + category + ", images=" + productImages + '}';
+        return "Product{" +
+                "productId=" + productId +
+                ", description='" + description + '\'' +
+                ", productName='" + productName + '\'' +
+                ", category=" + category +
+                ", productImages=" + productImages +
+                ", productQuantities=" + productQuantities +
+                '}';
     }
 }

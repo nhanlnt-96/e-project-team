@@ -12,13 +12,17 @@ public class ProductModel {
         @NotNull(message = "quantity can not be null.")
 //        @Min(value = 1, message = "quantity can not be smaller than 1.")
         private Integer quantity;
+        @NotNull(message = "price can not be null.")
+//        @Min(value = 1, message = "price can not be smaller than 1.")
+        private Integer price;
 
         public ProductQuantityList() {
         }
 
-        public ProductQuantityList(Long netWeightId, Integer quantity) {
+        public ProductQuantityList(Long netWeightId, Integer quantity, Integer price) {
             this.netWeightId = netWeightId;
             this.quantity = quantity;
+            this.price = price;
         }
 
         public Long getNetWeightId() {
@@ -36,6 +40,14 @@ public class ProductModel {
         public void setQuantity(Integer quantity) {
             this.quantity = quantity;
         }
+
+        public Integer getPrice() {
+            return price;
+        }
+
+        public void setPrice(Integer price) {
+            this.price = price;
+        }
     }
 
     public static class CreateProduct {
@@ -43,8 +55,6 @@ public class ProductModel {
         private String description;
         @NotEmpty(message = "productName can not be null.")
         private String productName;
-        @NotNull(message = "productPrice can not be null.")
-        private Integer productPrice;
         @NotNull(message = "categoryId can not be null.")
         private Long categoryId;
 
@@ -68,14 +78,6 @@ public class ProductModel {
             this.productName = productName;
         }
 
-        public Integer getProductPrice() {
-            return productPrice;
-        }
-
-        public void setProductPrice(Integer productPrice) {
-            this.productPrice = productPrice;
-        }
-
         public Long getCategoryId() {
             return categoryId;
         }
@@ -90,17 +92,15 @@ public class ProductModel {
         private Long productId;
         private String description;
         private String productName;
-        private Integer productPrice;
         private Long categoryId;
 
         public UpdateProduct() {
         }
 
-        public UpdateProduct(Long productId, String description, String productName, Integer productPrice, Long categoryId) {
+        public UpdateProduct(Long productId, String description, String productName, Long categoryId) {
             this.productId = productId;
             this.description = description;
             this.productName = productName;
-            this.productPrice = productPrice;
             this.categoryId = categoryId;
         }
 
@@ -126,14 +126,6 @@ public class ProductModel {
 
         public void setProductName(String productName) {
             this.productName = productName;
-        }
-
-        public Integer getProductPrice() {
-            return productPrice;
-        }
-
-        public void setProductPrice(Integer productPrice) {
-            this.productPrice = productPrice;
         }
 
         public Long getCategoryId() {
