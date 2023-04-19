@@ -24,7 +24,7 @@ const RemoveCategoryButton: React.FC<IProps> = ({ categoryId, categoryName }) =>
       const response = await removeCategoryService(categoryId);
 
       if (response) {
-        toast.success(response);
+        toast.success('Removed category.');
 
         dispatch(getAllCategoryThunk());
 

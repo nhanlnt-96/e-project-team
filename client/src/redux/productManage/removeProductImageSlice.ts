@@ -50,7 +50,7 @@ export const removeProductImageSlice = createSlice({
     });
 
     builder.addCase(removeProductImageThunk.rejected, (state, action) => {
-      toast.error(action.payload);
+      toast.error(action.payload as string);
 
       state.isRemoving = false;
 

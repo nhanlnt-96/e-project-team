@@ -48,7 +48,7 @@ export const updateProductSlice = createSlice({
     });
 
     builder.addCase(updateProductThunk.rejected, (state, action) => {
-      toast.success(action.payload);
+      toast.success(action.payload as string);
 
       state.isUpdating = false;
 

@@ -25,6 +25,31 @@ const ProductDetailForm: React.FC<IProps> = ({ productData }) => {
         <p className='text-gray-500 shrink-0'>Product Price</p>
         <p className='text-left'>{convertPrice(productData.productPrice)}</p>
       </div>
+      {productData.productQuantityDtoList.length ? (
+        <div className='w-full flex flex-col justify-center space-y-2'>
+          <p className='text-gray-500 shrink-0'>Product Quantity</p>
+          <table className='table-auto border-collapse border border-black'>
+            <thead>
+              <tr>
+                <th className='border border-black'>Quantity Id</th>
+                <th className='border border-black'>Net Weight</th>
+                <th className='border border-black'>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productData.productQuantityDtoList.map((quantity) => (
+                <tr key={quantity.quantityId}>
+                  <td className='border border-black text-center'>{quantity.quantityId}</td>
+                  <td className='border border-black text-center'>{quantity.netWeightDto?.netWeightLabel}</td>
+                  <td className='border border-black text-center'>{quantity.quantity}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <></>
+      )}
       <div className='w-full flex flex-col justify-center space-y-2'>
         <p className='text-gray-500 shrink-0'>Category Name</p>
         <p className='text-left'>{productData.category.categoryName}</p>
