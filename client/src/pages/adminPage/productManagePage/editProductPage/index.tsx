@@ -33,7 +33,6 @@ const EditProductPage = () => {
       };
       if (values.categoryId !== productData?.category.categoryId) updateData.categoryId = values.categoryId;
       if (values.productName !== productData?.productName) updateData.productName = values.productName;
-      if (values.productPrice !== productData?.productPrice) updateData.productPrice = values.productPrice;
       if (values.description !== productData?.description) updateData.description = values.description;
       if (values.productImages.length) updateData.image = values.productImages;
 

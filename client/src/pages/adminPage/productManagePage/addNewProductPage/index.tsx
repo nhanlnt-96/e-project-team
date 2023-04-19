@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import Loading from 'components/loading';
 import Title from 'components/title';
 import SectionContainer from 'pages/adminPage/components/sectionContainer';
@@ -22,7 +21,7 @@ const AddNewProductPage = () => {
       const productData: ICreateProductData = {
         categoryId: values.categoryId,
         productName: values.productName,
-        productPrice: values.productPrice,
+        productQuantityList: values.productQuantityList,
         description: values.description,
         image: values.productImages
       };

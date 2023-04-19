@@ -3,7 +3,6 @@ import EditProductButton from 'pages/adminPage/productManagePage/editProductPage
 import RemoveProductButton from 'pages/adminPage/productManagePage/removeProductButton';
 import ViewDetailProductButton from 'pages/adminPage/productManagePage/viewDetailProductButton';
 import { IProductData } from 'services/product';
-import { convertPrice } from 'utils/convertPrice';
 
 export const columns: ColumnsType<IProductData> = [
   {
@@ -22,12 +21,6 @@ export const columns: ColumnsType<IProductData> = [
 
       return 0;
     }
-  },
-  {
-    title: 'Product Price',
-    dataIndex: 'productPrice',
-    sorter: (prev, next) => prev.productPrice - next.productPrice,
-    render: (_, record) => convertPrice(record.productPrice)
   },
   {
     title: 'Category Name',

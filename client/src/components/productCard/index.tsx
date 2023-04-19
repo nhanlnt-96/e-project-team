@@ -30,7 +30,7 @@ const ProductCard: React.FC<IProps> = ({ productData }) => {
             {productData.productName}
           </Link>
         </h2>
-        <p className='text-pewter-blue font-medium'>{convertPrice(productData.productPrice)}</p>
+        <p className='text-pewter-blue font-medium'>{convertPrice(productData.productQuantityDtoList[0].price)}</p>
       </div>
     </div>
   );

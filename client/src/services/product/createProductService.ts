@@ -7,12 +7,19 @@ const createProductService = async (productData: ICreateProductData) => {
 
   const createProductData = {
     productName: productData.productName,
-    productPrice: productData.productPrice,
     categoryId: productData.categoryId,
     description: productData.description
   };
 
+  const productQuantityList = productData.productQuantityList.map((quantity) => ({
+    netWeightId: quantity.netWeightId,
+    quantity: quantity.quantity,
+    price: quantity.price
+  }));
+
   formData.append('createProductData', JSON.stringify(createProductData));
+
+  formData.append('productQuantityList', JSON.stringify(productQuantityList));
 
   if (productData.image?.length) {
     for (const img of productData.image) {

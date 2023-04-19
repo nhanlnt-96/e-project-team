@@ -10,13 +10,13 @@ export interface IImage {
 export interface IProductQuantity {
   quantityId: number;
   quantity: number;
+  price: number;
   netWeightDto: INetWeightData | null;
 }
 
 export interface IProductData {
   productId: number;
   description: string;
-  productPrice: number;
   productName: string;
   images: IImage[];
   category: ICategoryData;
@@ -25,16 +25,19 @@ export interface IProductData {
 
 export interface ICreateProductData {
   productName: string;
-  productPrice: number;
   categoryId: number;
   description: string;
   image: File[] | null;
+  productQuantityList: {
+    netWeightId: number;
+    quantity: number;
+    price: number;
+  }[];
 }
 
 export interface IUpdateProductData {
   productId: number;
   productName?: string;
-  productPrice?: number;
   categoryId?: number;
   description?: string;
   image?: File[];

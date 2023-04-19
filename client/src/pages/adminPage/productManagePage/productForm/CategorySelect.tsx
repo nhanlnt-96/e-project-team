@@ -1,20 +1,28 @@
 import SelectComp, { ISelectCompProps } from 'components/selectComp';
-import React, { useEffect, useMemo } from 'react';
+import { useEffectOnce } from 'hooks/useEffectOnce';
+import React, { useMemo } from 'react';
 import { getAllCategoryThunk } from 'redux/categoryManage/getAllCategorySlice';
 import { categoryDataSelector } from 'redux/categoryManage/selector';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 
 interface IProps extends ISelectCompProps {}
 
+interface ICategorySelect {
+  value: number;
+  label: string;
+  disabled?: boolean;
+}
+
 const CategorySelect: React.FC<IProps> = ({ ...props }) => {
   const dispatch = useAppDispatch();
   const { isLoading, categoryData } = useAppSelector(categoryDataSelector);
 
   const categorySelectData = useMemo(() => {
-    const categoryDefaultData = [
+    const categoryDefaultData: ICategorySelect[] = [
       {
         value: 0,
-        label: 'Select Category'
+        label: 'Select Category',
+        disabled: true
       }
     ];
 
@@ -28,11 +36,11 @@ const CategorySelect: React.FC<IProps> = ({ ...props }) => {
     return categoryDefaultData;
   }, [categoryData]);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     if (!categoryData.length) {
       dispatch(getAllCategoryThunk());
     }
-  }, [categoryData]);
+  });
 
   return <SelectComp {...props} loading={isLoading} options={categorySelectData} />;
 };

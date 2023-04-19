@@ -6,8 +6,12 @@ import * as Yup from 'yup';
 
 export interface IProductFormikValues {
   productName: string;
-  productPrice: number;
   description: string;
+  productQuantityList: {
+    netWeightId: number;
+    quantity: number;
+    price: number;
+  }[];
   productImages: File[];
   categoryId: number;
 }
@@ -16,7 +20,7 @@ export interface IProductFormikValues {
 const useProductFormik = (onSubmit: (values: IProductFormikValues) => void, productData?: IProductData) => {
   const initialValues: IProductFormikValues = {
     productName: _.get(productData, 'productName', ''),
-    productPrice: _.get(productData, 'productPrice', 0),
+    productQuantityList: [],
     description: _.get(productData, 'description', ''),
     productImages: [],
     categoryId: _.get(productData?.category, 'categoryId', 0)
@@ -27,9 +31,25 @@ const useProductFormik = (onSubmit: (values: IProductFormikValues) => void, prod
     enableReinitialize: true,
     validationSchema: Yup.object({
       productName: Yup.string().required('Product name can not be null.'),
-      productPrice: Yup.number()
-        .min(AllowNumber.MIN_PRODUCT_PRICE, 'Product price can not be smaller or equal 0.')
-        .typeError('Product price must a number.'),
+      productQuantityList: Yup.lazy((value) => {
+        if (productData?.productQuantityDtoList.length) {
+          return Yup.array(
+            Yup.object().shape({
+              netWeightId: Yup.number(),
+              quantity: Yup.number(),
+              price: Yup.number()
+            })
+          ).notRequired();
+        }
+
+        return Yup.array(
+          Yup.object().shape({
+            netWeightId: Yup.number(),
+            quantity: Yup.number(),
+            price: Yup.number()
+          })
+        ).min(1, 'Quantity and Price must have at least 1 record.');
+      }),
       description: Yup.string().required('Product description can not be null.'),
       productImages: Yup.lazy(() => {
         if (productData?.images.length) {
