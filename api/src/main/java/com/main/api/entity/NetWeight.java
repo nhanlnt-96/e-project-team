@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "net_weight")
@@ -18,6 +19,8 @@ public class NetWeight {
     private String netWeightLabel;
     @Column(name = "net_weight_value")
     private Integer netWeightValue;
+    @OneToMany(mappedBy = "netWeight")
+    private Set<ProductQuantity> productQuantities;
 
     public NetWeight() {
     }

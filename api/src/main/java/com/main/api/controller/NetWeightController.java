@@ -1,6 +1,7 @@
 package com.main.api.controller;
 
 import com.main.api.dao.NetWeightRepository;
+import com.main.api.dto.NetWeightDto;
 import com.main.api.entity.NetWeight;
 import com.main.api.model.NetWeightModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,7 +28,7 @@ public class NetWeightController {
     }
 
     @PostMapping("/create-net-weight")
-    public ResponseEntity<NetWeight> createNetWeight(@Valid @RequestBody NetWeightModel.CreateNetWeight netWeightData) {
+    public ResponseEntity<NetWeightDto> createNetWeight(@Valid @RequestBody NetWeightModel.CreateNetWeight netWeightData) {
         NetWeight checkNetWeightLabelExist = getNetWeightByLabel(netWeightData.getNetWeightLabel());
         NetWeight checkNetWeightValueExist = getNetWeightByValue(netWeightData.getNetWeightValue());
         if (checkNetWeightLabelExist != null) {
@@ -38,20 +40,25 @@ public class NetWeightController {
         NetWeight netWeight = new NetWeight(netWeightData.getNetWeightLabel(), netWeightData.getNetWeightValue());
         NetWeight saveNetWeightResponse = netWeightRepository.save(netWeight);
         if (saveNetWeightResponse.getNetWeightId() != 0) {
-            return new ResponseEntity<>(netWeight, HttpStatus.CREATED);
+            return new ResponseEntity<>(generateNetWeightDto(netWeight), HttpStatus.CREATED);
         }
         throw new NoResultException("Create net weight failed.");
     }
 
     @GetMapping("/get-net-weight")
-    public ResponseEntity<List<NetWeight>> getAllNetWeight() {
+    public ResponseEntity<List<NetWeightDto>> getAllNetWeight() {
         List<NetWeight> netWeightList = netWeightRepository.findAll();
+        List<NetWeightDto> netWeightDtoList = new ArrayList<>();
 
-        return new ResponseEntity<>(netWeightList, HttpStatus.OK);
+        for (NetWeight netWeight : netWeightList) {
+            netWeightDtoList.add(generateNetWeightDto(netWeight));
+        }
+
+        return new ResponseEntity<>(netWeightDtoList, HttpStatus.OK);
     }
 
     @PutMapping("/update-net-weight")
-    public ResponseEntity<NetWeight> updateNetWeight(@Valid @RequestBody NetWeightModel.UpdateNetWeight netWeightData) {
+    public ResponseEntity<NetWeightDto> updateNetWeight(@Valid @RequestBody NetWeightModel.UpdateNetWeight netWeightData) {
         NetWeight checkNetWeightExist = getNetWeightById(netWeightData.getNetWeightId());
         if (checkNetWeightExist == null) {
             throw new NoResultException("Net weight does not exist.");
@@ -62,7 +69,7 @@ public class NetWeightController {
             checkNetWeightExist.setNetWeightValue(netWeightData.getNetWeightValue());
 
         NetWeight updateNetWeightResponse = netWeightRepository.saveAndFlush(checkNetWeightExist);
-        return new ResponseEntity<>(updateNetWeightResponse, HttpStatus.OK);
+        return new ResponseEntity<>(generateNetWeightDto(updateNetWeightResponse), HttpStatus.OK);
     }
 
     @DeleteMapping("/remove-net-weight/{netWeightId}")
@@ -86,5 +93,9 @@ public class NetWeightController {
 
     private NetWeight getNetWeightByValue(Integer netWeightValue) {
         return netWeightRepository.findNetWeightByNetWeightValue(netWeightValue);
+    }
+
+    private NetWeightDto generateNetWeightDto(NetWeight netWeight) {
+        return new NetWeightDto(netWeight.getNetWeightId(), netWeight.getNetWeightLabel(), netWeight.getNetWeightValue());
     }
 }

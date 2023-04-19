@@ -5,20 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="87d24697-62c5-49b3-a8b1-1243874cb2c6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/createNewCategoryButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/createNewCategoryButton/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/removeCategoryButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/removeCategoryButton/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/updateCategoryButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/categoryManagePage/updateCategoryButton/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/createNewNetWeightButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/createNewNetWeightButton/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/removeNetWeightButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/removeNetWeightButton/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/updateNetWeightButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/netWeightManage/updateNetWeightButton/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/addNewProductPage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/addNewProductPage/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/editProductPage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/editProductPage/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/productForm/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/removeProductButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/adminPage/productManagePage/removeProductButton/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/productManage/removeProductImageSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/productManage/removeProductImageSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/productManage/updateProductSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/productManage/updateProductSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +25,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2ORZPnEXkhfSJx9rtYyaLkfNvC5" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -45,30 +36,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;client/ci-product-manage&quot;,
-    &quot;js.linters.configure.manually.selectedeslint&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/nhanlnt/Documents/personal/e-project-team/client/src/hooks&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/eslint&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.linters.eslint&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "client/ci-product-manage",
+    "js.linters.configure.manually.selectedeslint": "true",
+    "last_opened_file_path": "/home/nhanlnt/Documents/personal/e-project-team",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/eslint",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "prettierjs.PrettierConfiguration.Package": "/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/prettier",
+    "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
+    "ts.external.directory.path": "/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/client/src/hooks" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -89,7 +81,7 @@
       <workItem from="1681705296353" duration="332000" />
       <workItem from="1681706337409" duration="1274000" />
       <workItem from="1681728857256" duration="6409000" />
-      <workItem from="1681796082460" duration="3708000" />
+      <workItem from="1681796082460" duration="4174000" />
     </task>
     <servers />
   </component>

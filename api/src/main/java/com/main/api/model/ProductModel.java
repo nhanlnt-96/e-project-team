@@ -1,11 +1,43 @@
 package com.main.api.model;
 
-import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class ProductModel {
+    public static class ProductQuantityList {
+        @NotNull(message = "netWeightId can not be null.")
+        private Long netWeightId;
+        @NotNull(message = "quantity can not be null.")
+//        @Min(value = 1, message = "quantity can not be smaller than 1.")
+        private Integer quantity;
+
+        public ProductQuantityList() {
+        }
+
+        public ProductQuantityList(Long netWeightId, Integer quantity) {
+            this.netWeightId = netWeightId;
+            this.quantity = quantity;
+        }
+
+        public Long getNetWeightId() {
+            return netWeightId;
+        }
+
+        public void setNetWeightId(Long netWeightId) {
+            this.netWeightId = netWeightId;
+        }
+
+        public Integer getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(Integer quantity) {
+            this.quantity = quantity;
+        }
+    }
+
     public static class CreateProduct {
         @NotEmpty(message = "description can not be null.")
         private String description;
@@ -19,12 +51,6 @@ public class ProductModel {
         public CreateProduct() {
         }
 
-        public CreateProduct(String description, String productName, Integer productPrice, Long categoryId) {
-            this.description = description;
-            this.productName = productName;
-            this.productPrice = productPrice;
-            this.categoryId = categoryId;
-        }
 
         public String getDescription() {
             return description;

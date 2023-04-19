@@ -26,6 +26,8 @@ public class Product {
     private ProductCategory category;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
     private Set<ProductImage> productImages;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    private Set<ProductQuantity> productQuantities;
 
     public Product() {
     }
