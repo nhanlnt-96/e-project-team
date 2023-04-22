@@ -15,3 +15,5 @@ export { default as getProductByIdService } from './getProductByIdService';
 export { default as removeProductImageService } from './removeProductImageService';
 
 export { default as updateProductService } from './updateProductService';
+
+export { default as removeProductQuantityService } from './removeProductQuantityService';

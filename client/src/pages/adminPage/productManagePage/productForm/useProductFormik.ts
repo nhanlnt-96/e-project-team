@@ -4,14 +4,16 @@ import _ from 'lodash';
 import { IProductData } from 'services/product';
 import * as Yup from 'yup';
 
+export interface IProductQuantityFormikValues {
+  netWeightId: number;
+  quantity: number;
+  price: number;
+}
+
 export interface IProductFormikValues {
   productName: string;
   description: string;
-  productQuantityList: {
-    netWeightId: number;
-    quantity: number;
-    price: number;
-  }[];
+  productQuantityList: IProductQuantityFormikValues[];
   productImages: File[];
   categoryId: number;
 }

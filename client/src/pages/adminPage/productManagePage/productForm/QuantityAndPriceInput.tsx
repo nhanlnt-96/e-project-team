@@ -1,15 +1,35 @@
 import { useProductFormContext } from 'context/index';
 import { FormikProps } from 'formik';
+import { useEffectOnce } from 'hooks/useEffectOnce';
 import _ from 'lodash';
 import QuantityAndPriceInputItem, { IQuantityPriceValue } from 'pages/adminPage/productManagePage/productForm/QuantityAndPriceInputItem';
-import { IProductFormikValues } from 'pages/adminPage/productManagePage/productForm/useProductFormik';
-import React, { useCallback, useState } from 'react';
+import { IProductFormikValues, IProductQuantityFormikValues } from 'pages/adminPage/productManagePage/productForm/useProductFormik';
+import React, { useCallback } from 'react';
+import { IProductData } from 'services/product';
 import { validateObject } from 'utils/validateObject';
 
-const QuantityAndPriceInput: React.FC = () => {
+interface IProps {
+  productData?: IProductData;
+}
+
+const QuantityAndPriceInput: React.FC<IProps> = ({ productData }) => {
   const { formik: formikContext } = useProductFormContext();
   const formik = formikContext as FormikProps<IProductFormikValues>;
-  const [numberOfItem, setNumberOfItem] = useState<number>(formik.values.productQuantityList.length || 1);
+
+  useEffectOnce(() => {
+    if (productData && productData.productQuantityDtoList.length) {
+      const productQuantityList: IProductQuantityFormikValues[] = [];
+      for (const quantityPrice of productData.productQuantityDtoList) {
+        productQuantityList.push({
+          price: _.get(quantityPrice, 'price', 0),
+          quantity: _.get(quantityPrice, 'quantity', 0),
+          netWeightId: _.get(quantityPrice.netWeightDto, 'netWeightId', 0)
+        });
+      }
+
+      formik.setFieldValue('productQuantityList', productQuantityList);
+    }
+  });
 
   const handleAddQuantityPrice = useCallback(
     (values: IQuantityPriceValue) => {
@@ -18,9 +38,6 @@ const QuantityAndPriceInput: React.FC = () => {
         const quantityPriceExist = productQuantityListTemp.find((quantity) => quantity.netWeightId == values.netWeightId);
 
         if (!quantityPriceExist) {
-          // INFO: add new line when save
-          setNumberOfItem((prevState) => (prevState += 1));
-
           productQuantityListTemp.push(values);
         } else {
           const indexOfExistQuantityPrice = productQuantityListTemp.indexOf(quantityPriceExist);
@@ -40,8 +57,18 @@ const QuantityAndPriceInput: React.FC = () => {
 
   return (
     <div className='w-full space-y-2'>
-      {[...new Array(numberOfItem)].map((_, index) => (
-        <QuantityAndPriceInputItem key={index} onAddQuantityAndPrice={handleAddQuantityPrice} />
+      {[...new Array(formik.values.productQuantityList.length + 1)].map((value, index) => (
+        <QuantityAndPriceInputItem
+          key={index}
+          onAddQuantityAndPrice={handleAddQuantityPrice}
+          defaultValues={formik.values.productQuantityList[index]}
+          quantityId={
+            productData?.productQuantityDtoList.find(
+              (product) => product?.netWeightDto?.netWeightId === formik.values.productQuantityList[index]?.netWeightId
+            )?.quantityId
+          }
+          productId={productData?.productId}
+        />
       ))}
     </div>
   );

@@ -240,8 +240,8 @@ public class ProductController {
                         throw new NoResultException("Quantity of net weight [" + item.getNetWeightId() + "] can not be smaller than 1.");
                     if (item.getPrice() < 1)
                         throw new NoResultException("Price of net weight [" + item.getNetWeightId() + "] can not be smaller than 1.");
-                    ProductQuantity checkExist = checkProductExist.getProductQuantities().stream().filter(quantity -> quantity.getNetWeight().getNetWeightId() == item.getNetWeightId()).findFirst().get();
-                    NetWeight netWeightData = netWeightRepository.findById(item.getNetWeightId()).get();
+                    ProductQuantity checkExist = checkProductExist.getProductQuantities().stream().filter(productQuantity -> Objects.equals(productQuantity.getNetWeight().getNetWeightId(), item.getNetWeightId())).findAny().orElse(null);
+                    NetWeight netWeightData = netWeightRepository.findById(item.getNetWeightId()).orElse(null);
                     if (checkExist == null) {
                         if (netWeightData != null) {
                             ProductQuantity saveProductQuantityResponse = handleSaveProductQuantity(checkProductExist, netWeightData, item.getQuantity(), item.getPrice());
@@ -252,7 +252,7 @@ public class ProductController {
                             throw new NoResultException("Net weight does not exist.");
                         }
                     } else {
-                        if (Objects.equals(item.getQuantity(), checkExist.getQuantity()) || Objects.equals(item.getPrice(), checkExist.getPrice())) {
+                        if (Objects.equals(item.getQuantity(), checkExist.getQuantity()) && Objects.equals(item.getPrice(), checkExist.getPrice())) {
                             throw new NoResultException("Net weight id [" + item.getNetWeightId() + "] is duplicated.");
                         } else {
                             if (netWeightData != null) {
@@ -273,7 +273,7 @@ public class ProductController {
             }
 
             Product updateProductResponse = productRepository.saveAndFlush(checkProductExist);
-            return new ResponseEntity<>(new ProductDto(updateProductResponse, handleGenerateImageDto(updateProductResponse.getProductImages()), updateProductResponse.getCategory(), generateProductQuantityDto(new ArrayList<>(updateProductResponse.getProductQuantities()))), HttpStatus.OK);
+            return new ResponseEntity<>(new ProductDto(updateProductResponse, handleGenerateImageDto(updateProductResponse.getProductImages()), updateProductResponse.getCategory(), productQuantityList), HttpStatus.OK);
         }
     }
 
@@ -296,6 +296,21 @@ public class ProductController {
         return new ResponseEntity<>("Removed image.", HttpStatus.OK);
     }
 
+    @DeleteMapping("remove-product-quantity")
+    public ResponseEntity<String> removeProductQuantity(@RequestParam(value = "quantityId") Long quantityId) {
+        ProductQuantity checkProductQuantityExist = productQuantityRepository.findProductQuantityByQuantityId(quantityId);
+        if (checkProductQuantityExist == null) {
+            throw new NoResultException("Product quantity does not exist.");
+        }
+        int countProductQuantityItem = productQuantityRepository.findAllByProductProductId(checkProductQuantityExist.getProduct().getProductId()).size();
+        if (countProductQuantityItem == 1) {
+            throw new NoResultException("Product quantity list must have at least 1 item.");
+        }
+
+        productQuantityRepository.delete(checkProductQuantityExist);
+
+        return new ResponseEntity<>("Removed product quantity", HttpStatus.OK);
+    }
 
     private List<ProductImageDto> handleGenerateImageDto(Set<ProductImage> productImages) {
         List<ProductImageDto> productImageDto = new ArrayList<>();
@@ -320,16 +335,7 @@ public class ProductController {
     }
 
     private Product getProductById(Long productId) {
-        try {
-            Product product = productRepository.findById(productId).get();
-            if (product.getProductId() != null) {
-                return product;
-            } else {
-                return null;
-            }
-        } catch (Exception exception) {
-            return null;
-        }
+        return productRepository.findById(productId).orElse(null);
     }
 
     private ProductQuantity handleSaveProductQuantity(Product product, NetWeight netWeightData, Integer quantity, Integer price) {

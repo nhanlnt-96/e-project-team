@@ -59,13 +59,13 @@ const ProductDetailForm: React.FC<IProps> = ({ productData }) => {
       <div className='w-full flex flex-col space-y-2'>
         <p className='text-gray-500 shrink-0'>Product Images</p>
         <div className='w-full'>
-          <SwiperComp navigation={true} slidesPerView={4} spaceBetween={24}>
+          <SwiperComp navigation={true}>
             {productData.images.map((image) => (
               <SwiperSlide key={image.imageName} className='w-full'>
                 <ImageResponsive
                   isPreview
-                  width={120}
-                  height={120}
+                  width={472}
+                  height={168}
                   imageProps={{
                     src: imageLinkGeneration(image.storageName, image.imageName),
                     alt: 'image-preview',

@@ -18,7 +18,7 @@ const NetWeightManage = () => {
       <Layout>
         <Sidebar />
         <Content className='p-4 space-y-4'>
-          <ButtonComp onClick={() => navigate(RouteBasePath.ADMIN_NET_WEIGHT_MANAGE_PAGE_BASE_PATH)}>Back</ButtonComp>
+          <ButtonComp onClick={() => navigate(RouteBasePath.ADMIN_PAGE_BASE_PATH)}>Back</ButtonComp>
           <SectionContainer>
             <Title title={'Net Weight listing'} titleClassName='text-black' rootClassName='border-b border-black pb-2' />
             <div className='w-ful flex justify-end items-center'>

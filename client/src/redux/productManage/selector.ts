@@ -7,3 +7,5 @@ export const productDetailSelector = (state: RootState) => state.getProductByIdR
 export const removeProductImageSelector = (state: RootState) => state.removeProductImageReducer;
 
 export const updateProductSelector = (state: RootState) => state.updateProductReducer;
+
+export const removeProductQuantitySelector = (state: RootState) => state.removeProductQuantityReducer;

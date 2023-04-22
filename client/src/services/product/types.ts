@@ -23,16 +23,18 @@ export interface IProductData {
   productQuantityDtoList: IProductQuantity[];
 }
 
+export interface IProductQuantityListItem {
+  netWeightId: number;
+  quantity: number;
+  price: number;
+}
+
 export interface ICreateProductData {
   productName: string;
   categoryId: number;
   description: string;
   image: File[] | null;
-  productQuantityList: {
-    netWeightId: number;
-    quantity: number;
-    price: number;
-  }[];
+  productQuantityList: IProductQuantityListItem[];
 }
 
 export interface IUpdateProductData {
@@ -41,4 +43,5 @@ export interface IUpdateProductData {
   categoryId?: number;
   description?: string;
   image?: File[];
+  productQuantityList?: IProductQuantityListItem[];
 }

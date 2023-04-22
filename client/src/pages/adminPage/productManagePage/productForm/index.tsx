@@ -10,6 +10,7 @@ import CategorySelect from 'pages/adminPage/productManagePage/productForm/Catego
 import ProductImageUploaded from 'pages/adminPage/productManagePage/productForm/ProductImageUploaded';
 import QuantityAndPriceInput from 'pages/adminPage/productManagePage/productForm/QuantityAndPriceInput';
 import useProductFormik, { IProductFormikValues } from 'pages/adminPage/productManagePage/productForm/useProductFormik';
+import { checkQuantityNotChangeInputData } from 'pages/adminPage/productManagePage/productForm/utils';
 import React, { useCallback, useMemo } from 'react';
 import { IProductData } from 'services/product';
 
@@ -40,7 +41,16 @@ const ProductForm: React.FC<IProps> = ({ isLoading, productData, onSubmit }) => 
       formik.values.categoryId === productData.category.categoryId &&
       !formik.values.productImages.length &&
       formik.values.productName === productData.productName &&
-      productData.description === productData.description
+      formik.values.description === productData.description &&
+      formik.values.productQuantityList.length === productData.productQuantityDtoList.length &&
+      !formik.values.productQuantityList.filter((quantity) => {
+        if (
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          checkQuantityNotChangeInputData(formik.values.productQuantityList, productData!).every((item) => item.netWeightId !== quantity.netWeightId)
+        ) {
+          return quantity;
+        }
+      }).length
     );
   }, [formik.values, productData]);
 
@@ -72,7 +82,7 @@ const ProductForm: React.FC<IProps> = ({ isLoading, productData, onSubmit }) => 
         </div>
         <div className='w-full space-y-2'>
           <label>Product Quantity and Price</label>
-          <QuantityAndPriceInput />
+          <QuantityAndPriceInput productData={productData} />
           {handleDisplayErrorMsg<IProductFormikValues>(formik, 'productQuantityList')}
         </div>
         <div className='w-full space-y-2'>

@@ -18,14 +18,18 @@ const initialState: IUpdateProductSlice = {
 };
 
 export const updateProductThunk = createAsyncThunk('productManage/updateProduct', async (updateData: IUpdateProductData, thunkAPI) => {
-  const response = await updateProductService(updateData);
-  if (response) {
-    thunkAPI.dispatch(getProductByIdThunk(updateData.productId));
+  try {
+    const response = await updateProductService(updateData);
+    if (response) {
+      thunkAPI.dispatch(getProductByIdThunk(updateData.productId));
 
-    thunkAPI.dispatch(getAllProductThunk());
+      thunkAPI.dispatch(getAllProductThunk());
+    }
+
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
   }
-
-  return response;
 });
 
 export const updateProductSlice = createSlice({
@@ -48,7 +52,7 @@ export const updateProductSlice = createSlice({
     });
 
     builder.addCase(updateProductThunk.rejected, (state, action) => {
-      toast.success(action.payload as string);
+      toast.error(action.payload as string);
 
       state.isUpdating = false;
 

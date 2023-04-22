@@ -1,7 +1,11 @@
 import ButtonComp from 'components/buttonComp';
 import InputComp from 'components/inputComp';
+import _ from 'lodash';
 import NetWeightSelect from 'pages/adminPage/productManagePage/productForm/NetWeightSelect';
-import React, { useState } from 'react';
+import RemoveProductQuantityButton from 'pages/adminPage/productManagePage/productForm/RemoveProductQuantityButton';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useAppDispatch } from 'redux/hooks';
+import { removeProductQuantityThunk } from 'redux/productManage/removeProductQuantitySlice';
 import { validateObject } from 'utils/validateObject';
 
 export interface IQuantityPriceValue {
@@ -13,6 +17,9 @@ export interface IQuantityPriceValue {
 interface IProps {
   // eslint-disable-next-line no-unused-vars
   onAddQuantityAndPrice: (values: IQuantityPriceValue) => void;
+  defaultValues?: IQuantityPriceValue;
+  productId?: number;
+  quantityId?: number;
 }
 
 const initialQuantityPriceValues: IQuantityPriceValue = {
@@ -21,9 +28,23 @@ const initialQuantityPriceValues: IQuantityPriceValue = {
   price: 0
 };
 
-const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice }) => {
+const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice, defaultValues, productId, quantityId }) => {
+  const dispatch = useAppDispatch();
   const [quantityPriceValues, setQuantityPriceValues] = useState<IQuantityPriceValue>(initialQuantityPriceValues);
   const [isDisableField, setIsDisableField] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (defaultValues) {
+      setQuantityPriceValues({
+        netWeightId: _.get(defaultValues, 'netWeightId', 0),
+        quantity: _.get(defaultValues, 'quantity', 0),
+        price: _.get(defaultValues, 'price', 0)
+      });
+
+      // INFO: disable field after set state for quantity price values
+      setIsDisableField(true);
+    }
+  }, [defaultValues]);
 
   const handleChangeQuantityAndPrice = (id: string, value: number) => {
     setQuantityPriceValues((prevState) => ({ ...prevState, [id]: value }));
@@ -36,14 +57,24 @@ const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice }) 
     onAddQuantityAndPrice(quantityPriceValues);
   };
 
+  const handleRemoveProductQuantity = useCallback(() => {
+    if (productId && quantityId) {
+      dispatch(removeProductQuantityThunk({ quantityId, productId }));
+    }
+  }, [quantityId, productId]);
+
   return (
     <div className='w-full flex space-x-4'>
+      <RemoveProductQuantityButton
+        disabled={!validateObject<IQuantityPriceValue>(quantityPriceValues)}
+        onRemoveProductQuantity={handleRemoveProductQuantity}
+      />
       <div className='w-1/3 space-y-2'>
         <label htmlFor='netWeightId' className='text-sm text-taupe-gray'>
           Net Weight
         </label>
         <NetWeightSelect
-          disabled={isDisableField}
+          disabled={isDisableField || Boolean(productId && quantityId)}
           id='netWeightId'
           value={quantityPriceValues.netWeightId}
           onChange={(value) => handleChangeQuantityAndPrice('netWeightId', value)}
@@ -58,6 +89,7 @@ const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice }) 
           type='number'
           id='quantity'
           name='quantity'
+          value={quantityPriceValues.quantity}
           disabled={isDisableField}
           onChange={(event) => handleChangeQuantityAndPrice('quantity', Number.parseInt(event.target.value))}
         />
@@ -72,6 +104,7 @@ const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice }) 
           id='price'
           name='price'
           disabled={isDisableField}
+          value={quantityPriceValues.price}
           onChange={(event) => handleChangeQuantityAndPrice('price', Number.parseInt(event.target.value))}
         />
       </div>
@@ -88,7 +121,7 @@ const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice }) 
             onClick={handleAddQuantityPrice}
             disabled={!validateObject<IQuantityPriceValue>(quantityPriceValues)}
           >
-            Add
+            {defaultValues ? 'Update' : 'Add'}
           </ButtonComp>
         )}
       </div>

@@ -12,6 +12,19 @@ const updateProductService = async (updateData: IUpdateProductData) => {
 
     delete updateData.image;
   }
+  if (updateData.productQuantityList?.length) {
+    const productQuantityList = updateData.productQuantityList.map((quantity) => ({
+      netWeightId: quantity.netWeightId,
+      quantity: quantity.quantity,
+      price: quantity.price
+    }));
+
+    formData.append('productQuantityList', JSON.stringify(productQuantityList));
+
+    delete updateData.productQuantityList;
+  } else {
+    formData.append('productQuantityList', JSON.stringify([]));
+  }
 
   formData.append('productUpdateData', JSON.stringify(updateData));
 

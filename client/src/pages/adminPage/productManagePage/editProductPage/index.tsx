@@ -7,12 +7,13 @@ import { useEffectOnce } from 'hooks/useEffectOnce';
 import SectionContainer from 'pages/adminPage/components/sectionContainer';
 import ProductForm from 'pages/adminPage/productManagePage/productForm';
 import { IProductFormikValues } from 'pages/adminPage/productManagePage/productForm/useProductFormik';
+import { checkQuantityNotChangeInputData } from 'pages/adminPage/productManagePage/productForm/utils';
 import React, { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getProductByIdThunk } from 'redux/productManage/getProductByIdSlice';
 import { productDetailSelector, updateProductSelector } from 'redux/productManage/selector';
-import { updateProductThunk } from 'redux/productManage/updateProductSlice';
+import {updateProductThunk} from 'redux/productManage/updateProductSlice';
 import { IUpdateProductData } from 'services/product';
 
 const EditProductPage = () => {
@@ -34,7 +35,22 @@ const EditProductPage = () => {
       if (values.categoryId !== productData?.category.categoryId) updateData.categoryId = values.categoryId;
       if (values.productName !== productData?.productName) updateData.productName = values.productName;
       if (values.description !== productData?.description) updateData.description = values.description;
-      if (values.productImages.length) updateData.image = values.productImages;
+      if (values.productImages.length) updateData.image = [...values.productImages];
+      if (values.productQuantityList.length) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const productQuantityNotChange = checkQuantityNotChangeInputData(values.productQuantityList, productData!);
+        if (!productQuantityNotChange.length) {
+          updateData.productQuantityList = [...values.productQuantityList];
+        } else {
+          const productQuantity = values.productQuantityList.filter((quantity) => {
+            if (productQuantityNotChange.every((item) => item.netWeightId !== quantity.netWeightId)) {
+              return quantity;
+            }
+          });
+
+          updateData.productQuantityList = [...productQuantity];
+        }
+      }
 
       if (Object.keys(updateData).length > 1) {
         dispatch(updateProductThunk(updateData));

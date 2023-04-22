@@ -5,6 +5,7 @@ import getAllNetWeightReducer from './netWeightManage/getAllNetWeightSlice';
 import getAllProductReducer from './productManage/getAllProductSlice';
 import getProductByIdReducer from './productManage/getProductByIdSlice';
 import removeProductImageReducer from './productManage/removeProductImageSlice';
+import removeProductQuantityReducer from './productManage/removeProductQuantitySlice';
 import updateProductReducer from './productManage/updateProductSlice';
 
 export const store = configureStore({
@@ -14,7 +15,8 @@ export const store = configureStore({
     getProductByIdReducer: getProductByIdReducer,
     removeProductImageReducer: removeProductImageReducer,
     updateProductReducer: updateProductReducer,
-    getAllNetWeightReducer: getAllNetWeightReducer
+    getAllNetWeightReducer: getAllNetWeightReducer,
+    removeProductQuantityReducer: removeProductQuantityReducer
   }
 });
 

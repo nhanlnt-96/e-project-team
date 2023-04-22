@@ -34,16 +34,4 @@ public class Product {
         this.description = description;
         this.productName = productName;
     }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", description='" + description + '\'' +
-                ", productName='" + productName + '\'' +
-                ", category=" + category +
-                ", productImages=" + productImages +
-                ", productQuantities=" + productQuantities +
-                '}';
-    }
 }
