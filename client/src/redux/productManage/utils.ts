@@ -15,5 +15,10 @@ export const generateProductDataObject = (productData: any): IProductData => ({
   description: _.get(productData, 'description', ''),
   category: _.get(productData, 'category', ''),
   images: _.get(productData, 'images', []),
-  productQuantityDtoList: _.get(productData, 'productQuantityDtoList', []).map((quantity: any) => generateProductQuantity(quantity))
+  productQuantityDtoList: _.get(productData, 'productQuantityDtoList', [])
+    .map((quantity: any) => generateProductQuantity(quantity))
+    ?.sort(
+      (prev: IProductQuantity, next: IProductQuantity) =>
+        (prev.netWeightDto?.netWeightValue as number) - (next.netWeightDto?.netWeightValue as number)
+    )
 });
