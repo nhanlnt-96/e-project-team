@@ -20,11 +20,11 @@ const updateProductService = async (updateData: IUpdateProductData) => {
     }));
 
     formData.append('productQuantityList', JSON.stringify(productQuantityList));
-
-    delete updateData.productQuantityList;
   } else {
     formData.append('productQuantityList', JSON.stringify([]));
   }
+
+  delete updateData.productQuantityList;
 
   formData.append('productUpdateData', JSON.stringify(updateData));
 

@@ -8,7 +8,7 @@ export interface IProps extends ComponentPropsWithoutRef<'div'> {
 
 const Container: React.FC<IProps> = ({ children, isWideScreen = false, className = '', ...props }) => {
   const containerClassName = useMemo(() => {
-    return isWideScreen ? '3xl:container 3xl:mx-auto' : 'container mx-auto px-2.5 xl:px-5';
+    return isWideScreen ? '3xl:container 3xl:mx-auto' : 'container mx-auto px-4 xl:px-5';
   }, [isWideScreen]);
 
   return (

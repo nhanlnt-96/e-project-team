@@ -26,6 +26,7 @@ const ProductListingPage = lazy(() => import('pages/adminPage/productManagePage/
 const AddNewProductPage = lazy(() => import('pages/adminPage/productManagePage/addNewProductPage'));
 const EditProductPage = lazy(() => import('pages/adminPage/productManagePage/editProductPage'));
 const NetWeightManagePage = lazy(() => import('pages/adminPage/netWeightManage'));
+const ProductDetailPage = lazy(() => import('pages/clientPage/productDetailPage'));
 
 export const routes: IRoutes[] = [
   {
@@ -52,6 +53,11 @@ export const routes: IRoutes[] = [
         path: `${RouteBasePath.CLIENT_PRODUCT_PAGE_BASE_PATH}/:categorySlug`,
         isIndex: false,
         element: <ProductPage />
+      },
+      {
+        path: `${RouteBasePath.CLIENT_PRODUCT_PAGE_BASE_PATH}/:categorySlug/:productId`,
+        isIndex: false,
+        element: <ProductDetailPage />
       }
     ]
   },
