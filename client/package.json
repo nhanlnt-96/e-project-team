@@ -28,7 +28,8 @@
     "yup": "^1.0.2"
   },
   "scripts": {
-    "start": "concurrently 'react-scripts start' 'cd ../api && java -jar api-0.0.1-SNAPSHOT.jar' ",
+    "start": "react-scripts start",
+    "dev": "concurrently 'react-scripts start' 'cd ../api && java -jar api-0.0.1-SNAPSHOT.jar' ",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
