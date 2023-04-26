@@ -183,7 +183,7 @@ public class ProductController {
     }
 
     @PutMapping("/update-product")
-    public ResponseEntity<ProductDto> updateProduct(@RequestParam("productImages") @Nullable List<MultipartFile> productImages, @RequestParam("productUpdateData") String productUpdateData, @RequestParam("productQuantityList") String productQuantities) throws IOException {
+    public ResponseEntity<ProductDto> updateProduct(@RequestParam("productImages") @Nullable List<MultipartFile> productImages, @RequestParam("productUpdateData") String productUpdateData, @RequestParam(value = "productQuantityList", defaultValue = "[]") String productQuantities) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ProductModel.UpdateProduct updateProductData = mapper.readValue(productUpdateData, ProductModel.UpdateProduct.class);
         Set<ConstraintViolation<ProductModel.UpdateProduct>> constraintViolations = validator.validate(updateProductData);
@@ -280,12 +280,16 @@ public class ProductController {
     @DeleteMapping("remove-product-image")
     public ResponseEntity<String> removeProductImage(@RequestParam(value = "productId") Long productId, @RequestParam(value = "imageId") Long imageId) {
         boolean checkProductExist = productRepository.existsById(productId);
-        ProductImage checkImageExist = productImageRepository.findById(imageId).get();
+        ProductImage checkImageExist = productImageRepository.findById(imageId).orElse(null);
+        int countProductImageExist = productImageRepository.countAllByProductProductId(productId);
         if (!checkProductExist) {
             throw new NoResultException("Product does not exist.");
         }
         if (checkImageExist == null) {
             throw new NoResultException("Image does not exist.");
+        }
+        if (!(countProductImageExist > 1)) {
+            throw new NoResultException("Can not remove image. Because product must have at least 1 image.");
         }
         try {
             FileManage.handleRemoveImage(checkImageExist.getStorageName(), checkImageExist.getImageName());
