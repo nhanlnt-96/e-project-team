@@ -5,19 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="87d24697-62c5-49b3-a8b1-1243874cb2c6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/pages/authenticate/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/pages/authenticate/login/LoginForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/upload/images/products/39ae0e48-421f-4310-bbe1-39ff843279e0-Screenshot-from-2023-04-21-14-59-49.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/upload/images/products/4f315998-bae4-4f6b-baec-bc93c36f9701-Screenshot-from-2023-04-22-10-31-12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/upload/images/products/4f80ef43-62f0-490e-af5a-18817a112a34-Screenshot-from-2023-04-22-10-30-38.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/upload/images/products/aa679ecc-6838-452c-bf1c-92b9cf6112b9-Screenshot-from-2023-04-22-10-30-21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/upload/images/products/adc83d5a-a7cf-4535-a6f0-1a4b127e6ff7-Screenshot-from-2023-04-22-10-33-00.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/container/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/container/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/headerComp/HeaderToolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/headerComp/HeaderToolbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/headerComp/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/headerComp/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/headerComp/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/headerComp/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/mainLayout/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/mainLayout/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/mainLayout/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/mainLayout/routes.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/constants/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/constants/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/clientPage/productDetailPage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/clientPage/productDetailPage/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/clientPage/productPage/ProductListing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/clientPage/productPage/ProductListing.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/productManage/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/productManage/utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/product/updateProductService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/product/updateProductService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/clientPage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/clientPage/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/clientPage/login/LoginForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/clientPage/login/index.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,9 +26,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
-        <option value="TypeScript File" />
         <option value="SCSS File" />
+        <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -47,28 +46,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "client/ci-product-manage",
-    "js.linters.configure.manually.selectedeslint": "true",
-    "last_opened_file_path": "/home/nhanlnt/Documents/personal/e-project-team/client/src/assets/styles",
-    "list.type.of.created.stylesheet": "SCSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/eslint",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/prettier",
-    "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
-    "ts.external.directory.path": "/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;client/ci-product-manage&quot;,
+    &quot;js.linters.configure.manually.selectedeslint&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/nhanlnt/Documents/personal/e-project-team/client/src/assets/styles&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/eslint&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.linters.eslint&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/nhanlnt/Documents/personal/e-project-team/client/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/client/src/assets/styles" />
@@ -76,6 +75,9 @@
       <recent name="$PROJECT_DIR$/client/src/hooks" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/pages/authenticate/register" />
+      <recent name="$PROJECT_DIR$/client/src/pages/authenticate/login" />
+      <recent name="$PROJECT_DIR$/client/src/pages" />
       <recent name="$PROJECT_DIR$/client/src/redux/productManage" />
     </key>
   </component>
@@ -100,7 +102,8 @@
       <workItem from="1682333314419" duration="1163000" />
       <workItem from="1682354493956" duration="1898000" />
       <workItem from="1682356399998" duration="2047000" />
-      <workItem from="1682425352568" duration="2353000" />
+      <workItem from="1682425352568" duration="7578000" />
+      <workItem from="1682520056298" duration="992000" />
     </task>
     <servers />
   </component>

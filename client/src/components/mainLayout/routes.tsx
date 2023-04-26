@@ -1,4 +1,6 @@
 import { RouteBasePath } from 'constants/index';
+import LoginPage from 'pages/authenticate/login';
+import RegisterPage from 'pages/authenticate/register';
 import { lazy, ReactElement } from 'react';
 
 interface IRoutes {
@@ -16,7 +18,7 @@ interface IRoutesChildren {
 
 const ClientPage = lazy(() => import('pages/clientPage'));
 const LandingPage = lazy(() => import('pages/clientPage/landingPage'));
-const LoginPage = lazy(() => import('pages/clientPage/login'));
+const AuthenticatePage = lazy(() => import('pages/authenticate'));
 const FindATeaPage = lazy(() => import('pages/clientPage/findATeaPage'));
 const ProductPage = lazy(() => import('pages/clientPage/productPage'));
 const AdminPage = lazy(() => import('pages/adminPage'));
@@ -40,11 +42,6 @@ export const routes: IRoutes[] = [
         element: <LandingPage />
       },
       {
-        path: RouteBasePath.LOGIN_BASE_PATH,
-        isIndex: false,
-        element: <LoginPage />
-      },
-      {
         path: RouteBasePath.CLIENT_FIND_A_TEA_BASE_PATH,
         isIndex: false,
         element: <FindATeaPage />
@@ -58,6 +55,23 @@ export const routes: IRoutes[] = [
         path: `${RouteBasePath.CLIENT_PRODUCT_PAGE_BASE_PATH}/:categorySlug/:productId`,
         isIndex: false,
         element: <ProductDetailPage />
+      }
+    ]
+  },
+  {
+    path: RouteBasePath.LOGIN_BASE_PATH,
+    isPrivate: false,
+    element: <AuthenticatePage />,
+    children: [
+      {
+        path: '',
+        isIndex: true,
+        element: <LoginPage />
+      },
+      {
+        path: RouteBasePath.REGISTER_PAGE_BASE_PATH,
+        isIndex: false,
+        element: <RegisterPage />
       }
     ]
   },

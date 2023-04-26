@@ -1,5 +1,6 @@
 import ButtonComp from 'components/buttonComp';
 import InputComp from 'components/inputComp';
+import {RouteBasePath} from 'constants/index';
 import { useFormik } from 'formik';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -27,13 +28,15 @@ const LoginForm: React.FC = () => {
       <InputComp type='text' placeholder='username *' />
       <div className='w-full space-y-1'>
         <InputComp type='password' placeholder='password *' />
-        <Link to={'/'} className='block underline w-fit'>Forgot your password?</Link>
+        <Link to={'/'} className='block underline w-fit'>
+          Forgot your password?
+        </Link>
       </div>
-      <div className='w-full flex justify-between items-center !mt-8'>
-        <div></div>
+      <div className='w-full flex flex-col space-y-2 justify-center items-center !mt-8'>
         <ButtonComp htmlType='submit' isPrimary={false}>
           Sign in
         </ButtonComp>
+        <p>Do not have an account? <Link to={RouteBasePath.REGISTER_PAGE_BASE_PATH} className='font-medium hover:link-hover'>Register</Link></p>
       </div>
     </form>
   );
