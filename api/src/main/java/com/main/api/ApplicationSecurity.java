@@ -21,11 +21,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UserRepository userRepo;
+    final private UserRepository userRepo;
+    final private JwtTokenFilter jwtTokenFilter;
 
     @Autowired
-    private JwtTokenFilter jwtTokenFilter;
+    public ApplicationSecurity(UserRepository userRepo, JwtTokenFilter jwtTokenFilter) {
+        this.userRepo = userRepo;
+        this.jwtTokenFilter = jwtTokenFilter;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -44,7 +47,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/api/user/**", "/api/product/**", "/users").permitAll()
+                .antMatchers("/api/ping", "/api/auth/**", "/api/image/**", "/api/net-weight/**", "/api/user/**", "/api/category/**", "/api/product/**").permitAll()
                 .anyRequest().authenticated();
 
         http.exceptionHandling()

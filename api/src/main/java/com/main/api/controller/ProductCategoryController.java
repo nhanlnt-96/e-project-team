@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
@@ -43,6 +44,7 @@ public class ProductCategoryController {
     }
 
     @PostMapping("/create-category")
+    @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity<ProductCategoryDto> createProductCategory(@RequestParam("createProductCategory") String createProductCategory, @RequestParam("categoryImage") MultipartFile categoryImage) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         CategoryModel.CreateProductCategory productCategoryData = mapper.readValue(createProductCategory, CategoryModel.CreateProductCategory.class);
@@ -82,6 +84,7 @@ public class ProductCategoryController {
     }
 
     @PutMapping("/update-category")
+    @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity<ProductCategoryDto> updateProductCategory(@RequestParam("categoryImage") @Nullable MultipartFile categoryImage, @RequestParam("categoryUpdateData") String categoryUpdateData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         CategoryModel.UpdateProductCategory productCategoryData = mapper.readValue(categoryUpdateData, CategoryModel.UpdateProductCategory.class);
@@ -125,6 +128,7 @@ public class ProductCategoryController {
     }
 
     @DeleteMapping("/remove-category/{categoryId}")
+    @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity<String> removeProductCategory(@PathVariable("categoryId") Long categoryId) throws IOException {
         ProductCategory checkCategoryExist = getCategoryById(categoryId);
         if (checkCategoryExist == null) {

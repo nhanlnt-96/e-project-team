@@ -81,25 +81,26 @@ public class UserModel {
     }
 
     public static class LoginData {
-        @NotEmpty(message = "username can not be null.")
-        private String username;
+        @NotEmpty(message = "email can not be null.")
+        @Email(message = "email invalid")
+        private String email;
         @NotEmpty(message = "password can not be null.")
         private String password;
 
         public LoginData() {
         }
 
-        public LoginData(String username, String password) {
-            this.username = username;
+        public LoginData(String email, String password) {
+            this.email = email;
             this.password = password;
         }
 
-        public String getUsername() {
-            return username;
+        public String getEmail() {
+            return email;
         }
 
-        public void setUsername(String username) {
-            this.username = username;
+        public void setEmail(String email) {
+            this.email = email;
         }
 
         public String getPassword() {

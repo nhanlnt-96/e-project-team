@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class NetWeightController {
     }
 
     @PostMapping("/create-net-weight")
+    @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity<NetWeightDto> createNetWeight(@Valid @RequestBody NetWeightModel.CreateNetWeight netWeightData) {
         NetWeight checkNetWeightLabelExist = getNetWeightByLabel(netWeightData.getNetWeightLabel());
         NetWeight checkNetWeightValueExist = getNetWeightByValue(netWeightData.getNetWeightValue());
@@ -58,6 +60,7 @@ public class NetWeightController {
     }
 
     @PutMapping("/update-net-weight")
+    @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity<NetWeightDto> updateNetWeight(@Valid @RequestBody NetWeightModel.UpdateNetWeight netWeightData) {
         NetWeight checkNetWeightExist = getNetWeightById(netWeightData.getNetWeightId());
         if (checkNetWeightExist == null) {
@@ -73,6 +76,7 @@ public class NetWeightController {
     }
 
     @DeleteMapping("/remove-net-weight/{netWeightId}")
+    @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity<String> removeNetWeight(@Valid @PathVariable("netWeightId") Long netWeightId) {
         NetWeight checkNetWeightExist = getNetWeightById(netWeightId);
         if (checkNetWeightExist == null) {
