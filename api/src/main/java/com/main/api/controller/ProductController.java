@@ -3,6 +3,8 @@ package com.main.api.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.main.api.constant.Constant;
+import com.main.api.constant.Constant.*;
 import com.main.api.dao.*;
 import com.main.api.dto.ProductImageDto;
 import com.main.api.dto.ProductDto;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -154,6 +157,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/remove-product/{productId}")
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<String> removeProduct(@PathVariable("productId") Long productId) {
         Product checkProductExist = getProductById(productId);
         if (checkProductExist == null) {
@@ -183,6 +187,7 @@ public class ProductController {
     }
 
     @PutMapping("/update-product")
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<ProductDto> updateProduct(@RequestParam("productImages") @Nullable List<MultipartFile> productImages, @RequestParam("productUpdateData") String productUpdateData, @RequestParam(value = "productQuantityList", defaultValue = "[]") String productQuantities) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ProductModel.UpdateProduct updateProductData = mapper.readValue(productUpdateData, ProductModel.UpdateProduct.class);
@@ -278,6 +283,7 @@ public class ProductController {
     }
 
     @DeleteMapping("remove-product-image")
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<String> removeProductImage(@RequestParam(value = "productId") Long productId, @RequestParam(value = "imageId") Long imageId) {
         boolean checkProductExist = productRepository.existsById(productId);
         ProductImage checkImageExist = productImageRepository.findById(imageId).orElse(null);
@@ -301,6 +307,7 @@ public class ProductController {
     }
 
     @DeleteMapping("remove-product-quantity")
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<String> removeProductQuantity(@RequestParam(value = "quantityId") Long quantityId) {
         ProductQuantity checkProductQuantityExist = productQuantityRepository.findProductQuantityByQuantityId(quantityId);
         if (checkProductQuantityExist == null) {

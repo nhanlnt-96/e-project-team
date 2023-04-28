@@ -1,86 +1,75 @@
 package com.main.api.controller;
 
 import com.main.api.constant.Constant;
-import com.main.api.dao.UserAccountRepository;
-import com.main.api.dao.UserInfoRepository;
+import com.main.api.dao.RoleRepository;
+import com.main.api.dao.UserRepository;
 import com.main.api.dto.UserDto;
-import com.main.api.dto.UserInfoDto;
-import com.main.api.entity.UserAccount;
-import com.main.api.entity.UserInfo;
+import com.main.api.entity.Role;
+import com.main.api.entity.User;
 import com.main.api.model.UserModel;
-import com.main.api.utils.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
+import java.util.Objects;
 
 @RestController
-@RequestMapping("/api/account")
+@RequestMapping("/api/user")
 @CrossOrigin(origins = {"http://localhost:3000"}, allowCredentials = "true")
 public class UserController {
-    private final UserAccountRepository userAccountRepository;
-    private final UserInfoRepository userInfoRepository;
+    final private String defaultRoleName = Constant.USER_ROLE;
+    final private UserRepository userRepository;
+    final private PasswordEncoder passwordEncoder;
+    final private RoleRepository roleRepository;
 
     @Autowired
-    public UserController(UserAccountRepository userAccountRepository, UserInfoRepository userInfoRepository) {
-        this.userAccountRepository = userAccountRepository;
-        this.userInfoRepository = userInfoRepository;
+    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> registerAccount(@Valid @RequestBody UserModel.RegisterData registerData) {
-        UserAccount checkUsernameExist = getUserByUsername(registerData.getUsername());
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody UserModel.RegisterData userData) {
+        User checkEmailExist = userRepository.findByEmail(userData.getEmail()).orElse(null);
+        User checkPhoneNumberExist = userRepository.findByPhoneNumber(userData.getPhoneNumber()).orElse(null);
+        if (checkEmailExist != null) throw new NoResultException("Email already exist.");
+        if (checkPhoneNumberExist != null) throw new NoResultException("Phone number already exist.");
+        if (!Objects.equals(userData.getPassword(), userData.getConfirmPassword()))
+            throw new NoResultException("Confirm password does not match.");
 
-        if (checkUsernameExist == null) {
-            UserAccount userAccount = new UserAccount(registerData.getUsername(), PasswordEncoder.hashPassword(registerData.getPassword()), Constant.USER_ROLE, Constant.ACTIVE_STATUS);
-            UserAccount saveUserAccountResponse = userAccountRepository.save(userAccount);
-
-            UserInfo saveUserInfoResponse = null;
-            if (saveUserAccountResponse.getUserId() != 0) {
-                UserInfo userInfo = new UserInfo(saveUserAccountResponse.getUserId(), registerData.getFullName(), null, null, null, null);
-                saveUserInfoResponse = userInfoRepository.save(userInfo);
-            }
-
-            if (saveUserInfoResponse != null) {
-                return new ResponseEntity<>(generateUserDto(saveUserAccountResponse, saveUserInfoResponse), HttpStatus.CREATED);
-            }
-            throw new NoResultException("Register failed.");
-        }
-        throw new NoResultException("Username is exist");
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<UserDto> login(@Valid @RequestBody UserModel.LoginData loginData) {
-        UserAccount checkUserExist = getUserByUsername(loginData.getUsername());
-        if (checkUserExist == null) {
-            throw new NoResultException("Username does not exits.");
-        } else {
-            if (PasswordEncoder.verifyPassword(checkUserExist.getPassword(), loginData.getPassword())) {
-                return new ResponseEntity<>(generateUserDto(checkUserExist, checkUserExist.getUserInfo()), HttpStatus.OK);
-            } else {
-                throw new NoResultException("Password incorrect.");
+        var rawPassword = userData.getPassword();
+        var encodedPassword = passwordEncoder.encode(rawPassword);
+        User user = new User(userData.getAddressDetail(), userData.getPhoneNumber(), userData.getEmail(), encodedPassword, userData.getFullName());
+        User userSaveResponse = userRepository.save(user);
+        if (userSaveResponse.getUserId() != null) {
+            Role role = getRoleDataByName(defaultRoleName);
+            if (role != null) {
+                boolean assignRoleResponse = assignRoleForUser(user.getUserId(), role.getRoleId());
+                if (assignRoleResponse) {
+                    return new ResponseEntity<>(new UserDto(userSaveResponse.getUserId(), userSaveResponse.getAddressDetail(), userSaveResponse.getPhoneNumber(), userSaveResponse.getEmail(), userSaveResponse.getFullName()), HttpStatus.CREATED);
+                }
             }
         }
+
+        throw new NoResultException("Register failed.");
     }
 
-    private UserAccount getUserByUsername(String username) {
-        return userAccountRepository.findByUsername(username);
+    private Role getRoleDataByName(String roleName) {
+        return roleRepository.findByRoleName(roleName);
     }
 
-    private UserDto generateUserDto(UserAccount userAccount, UserInfo userInfo) {
-        UserDto userDto = new UserDto();
+    private boolean assignRoleForUser(Long userId, Long roleId) {
+        User user = userRepository.findById(userId).get();
+        user.addRole(new Role(roleId));
 
-        UserInfoDto userInfoDto = new UserInfoDto(userInfo);
-
-        userDto.setUserId(userAccount.getUserId());
-        userDto.setUsername(userAccount.getUsername());
-        userDto.setRole(userAccount.getRole());
-        userDto.setStatus(userAccount.getStatus());
-        userDto.setUserInfo(userInfoDto);
-
-        return userDto;
+        User assignRole = userRepository.save(user);
+        return assignRole.getRoles() != null;
     }
 }
