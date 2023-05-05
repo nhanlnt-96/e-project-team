@@ -2,6 +2,7 @@ package com.main.api.entity;
 
 import javax.persistence.*;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,6 +30,8 @@ public class User implements UserDetails {
     private String password;
     @Column(name = "full_name")
     private String fullName;
+    @Column(name = "verify_email")
+    private Integer verifyEmail;
     @ManyToMany
     @JoinTable(
             name = "user_role",
@@ -40,12 +43,13 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String addressDetail, String phoneNumber, String email, String password, String fullName) {
+    public User(String addressDetail, String phoneNumber, String email, String password, String fullName, Integer verifyEmail) {
         this.addressDetail = addressDetail;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
         this.fullName = fullName;
+        this.verifyEmail = verifyEmail;
     }
 
     @Override

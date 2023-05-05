@@ -192,15 +192,17 @@ public class UserModel {
         private String addressDetail;
         private String phoneNumber;
         private String fullName;
+        private String password;
 
         public UpdateAccount() {
         }
 
-        public UpdateAccount(Long userId, String addressDetail, String phoneNumber, String fullName) {
+        public UpdateAccount(Long userId, String addressDetail, String phoneNumber, String fullName, String password) {
             this.userId = userId;
             this.addressDetail = addressDetail;
             this.phoneNumber = phoneNumber;
             this.fullName = fullName;
+            this.password = password;
         }
 
         public Long getUserId() {
@@ -233,6 +235,97 @@ public class UserModel {
 
         public void setFullName(String fullName) {
             this.fullName = fullName;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
+
+    public static class GetResetPasswordToken {
+        @NotEmpty(message = "email can not be null")
+        @Email(message = "email invalid")
+        String email;
+
+        public GetResetPasswordToken() {
+        }
+
+        public GetResetPasswordToken(String email) {
+            this.email = email;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+    }
+
+    public static class ResetPassword {
+        @NotEmpty(message = "token can not be null")
+        String token;
+        @NotEmpty(message = "password can not be null")
+        String password;
+        @NotEmpty(message = "confirmPassword can not be null")
+        String confirmPassword;
+
+        public ResetPassword() {
+        }
+
+        public ResetPassword(String token, String password, String confirmPassword) {
+            this.token = token;
+            this.password = password;
+            this.confirmPassword = confirmPassword;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getConfirmPassword() {
+            return confirmPassword;
+        }
+
+        public void setConfirmPassword(String confirmPassword) {
+            this.confirmPassword = confirmPassword;
+        }
+    }
+
+    public static class VerifyEmail {
+        @NotEmpty(message = "token can not be null")
+        String token;
+
+        public VerifyEmail() {
+        }
+
+        public VerifyEmail(String token) {
+            this.token = token;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
         }
     }
 }
