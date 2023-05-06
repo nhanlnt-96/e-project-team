@@ -1,3 +1,5 @@
+import registerReducer from 'redux/authenticate/registerSlice';
+
 import { configureStore } from '@reduxjs/toolkit';
 
 import getAllCategoryReducer from './categoryManage/getAllCategorySlice';
@@ -16,7 +18,8 @@ export const store = configureStore({
     removeProductImageReducer: removeProductImageReducer,
     updateProductReducer: updateProductReducer,
     getAllNetWeightReducer: getAllNetWeightReducer,
-    removeProductQuantityReducer: removeProductQuantityReducer
+    removeProductQuantityReducer: removeProductQuantityReducer,
+    registerReducer: registerReducer
   }
 });
 

@@ -1,0 +1,11 @@
+@import "assets/styles/index";
+
+.date-picker-comp {
+  .ant-picker-input {
+    & > input {
+      &::placeholder {
+        text-transform: uppercase;
+      }
+    }
+  }
+}

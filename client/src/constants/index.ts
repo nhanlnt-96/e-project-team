@@ -36,3 +36,24 @@ export enum RouteBasePath {
 
   ADMIN_NET_WEIGHT_MANAGE_PAGE_BASE_PATH = '/admin/net-weight-manage'
 }
+
+export enum Gender {
+  MALE = 0,
+  FEMALE = 1
+}
+
+export enum VerifyEmailStatus {
+  NOT_VERIFY_EMAIL = 0,
+  VERIFIED_EMAIL = 1
+}
+
+export enum USER_ROLE {
+  ADMIN_ROLE = 'ROLE_ADMIN',
+  USER_ROLE = 'ROLE_USER'
+}
+
+export const FULL_NAME_REGEX = new RegExp(/^\p{Lu}\p{L}*\s((\p{Lu}\p{L}*)+\s)*\p{Lu}\p{L}*$/gu);
+
+export const PHONE_NUMBER_REGEX = new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g);
+
+export const PASSWORD_REGEX = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,30}$/gm);

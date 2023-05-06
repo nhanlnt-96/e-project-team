@@ -17,12 +17,12 @@
 
     ::-webkit-scrollbar-track {
       border-radius: 10px;
-      background-color: #000000;
+      background-color: $black;
     }
 
     ::-webkit-scrollbar-thumb {
       border-radius: 10px;
-      background-color: #ffffff;
+      background-color: $white;
 
       &:hover {
         background-color: #dedede;
@@ -59,6 +59,37 @@
       &:after {
         width: 100%;
       }
+    }
+  }
+
+  .form {
+    &-control {
+      width: 100%;
+      @apply space-y-5;
+    }
+
+    &-item {
+      @apply w-full;
+      @apply space-y-2;
+      &:has(.form-error-message) {
+        & > .ant-input, .ant-input-password, .ant-picker, .ant-select-selector {
+          border-color: $red !important;
+        }
+      }
+
+      &__required {
+        & > label {
+          &:after {
+            content: '*';
+            color: $red;
+          }
+        }
+      }
+    }
+
+    &-error-message {
+      color: $antd-status-error;
+      @apply text-xs;
     }
   }
 }

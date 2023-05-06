@@ -19,6 +19,13 @@
         &-search-input {
           height: 38px !important;
         }
+
+        &-placeholder {
+          text-transform: uppercase;
+          display: flex;
+          align-items: center;
+          justify-content: start;
+        }
       }
     }
   }

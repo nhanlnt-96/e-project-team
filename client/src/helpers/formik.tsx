@@ -10,7 +10,7 @@ export function handleCheckErrorStatus<T>(formik: FormikProps<T>, key: keyof T):
 }
 
 export function handleDisplayErrorMsg<T>(formik: FormikProps<T>, key: keyof T): JSX.Element {
-  return handleCheckFormikErrors<T>(formik, key) ? <p className='text-red-700 text-sm font-light !mt-1'>{formik.errors?.[key] as string}</p> : <></>;
+  return handleCheckFormikErrors<T>(formik, key) ? <span className='form-error-message'>{formik.errors?.[key] as string}</span> : <></>;
 }
 
 export function handleDisableSubmitButton<T, I>(values: T, data: I): boolean {
