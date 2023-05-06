@@ -2,6 +2,7 @@ package com.main.api.controller;
 
 import com.main.api.dao.UserRepository;
 import com.main.api.dto.AuthDto;
+import com.main.api.dto.UserDto;
 import com.main.api.entity.User;
 import com.main.api.jwt.JwtTokenUtil;
 import com.main.api.model.UserModel;
@@ -11,8 +12,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
 
@@ -51,5 +54,13 @@ public class AuthController {
             System.out.println(ex);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+
+    @GetMapping("/get-auth")
+    @RolesAllowed("ROLE_USER")
+    public ResponseEntity<UserDto> getAuth() {
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userData = userRepository.findByEmail(userEmail).orElseThrow(() -> new NoResultException("User does not exist"));
+        return new ResponseEntity<>(new UserDto(userData), HttpStatus.OK);
     }
 }

@@ -1,8 +1,9 @@
 package com.main.api.model;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.*;
+import java.util.Date;
 
 public class UserModel {
     public static class RegisterData {
@@ -18,17 +19,23 @@ public class UserModel {
         private String confirmPassword;
         @NotNull(message = "fullName can not be null")
         private String fullName;
+        @NotNull(message = "gender can not be null")
+        private Integer gender;
+        @NotNull(message = "dob can not be null")
+        private String dob;
 
         public RegisterData() {
         }
 
-        public RegisterData(String addressDetail, String phoneNumber, String email, String password, String confirmPassword, String fullName) {
+        public RegisterData(String addressDetail, String phoneNumber, String email, String password, String confirmPassword, String fullName, Integer gender, String dob) {
             this.addressDetail = addressDetail;
             this.phoneNumber = phoneNumber;
             this.email = email;
             this.password = password;
             this.confirmPassword = confirmPassword;
             this.fullName = fullName;
+            this.gender = gender;
+            this.dob = dob;
         }
 
         public String getAddressDetail() {
@@ -78,6 +85,22 @@ public class UserModel {
         public void setFullName(String fullName) {
             this.fullName = fullName;
         }
+
+        public Integer getGender() {
+            return gender;
+        }
+
+        public void setGender(Integer gender) {
+            this.gender = gender;
+        }
+
+        public String getDob() {
+            return dob;
+        }
+
+        public void setDob(String dob) {
+            this.dob = dob;
+        }
     }
 
     public static class LoginData {
@@ -124,17 +147,23 @@ public class UserModel {
         private String password;
         @NotNull(message = "fullName can not be null")
         private String fullName;
+        @NotNull(message = "gender can not be null")
+        private Integer gender;
+        @NotNull(message = "dob can not be null")
+        private String dob;
 
         public CreateNewAccount() {
         }
 
-        public CreateNewAccount(Long roleId, String addressDetail, String phoneNumber, String email, String password, String fullName) {
+        public CreateNewAccount(Long roleId, String addressDetail, String phoneNumber, String email, String password, String fullName, Integer gender, String dob) {
             this.roleId = roleId;
             this.addressDetail = addressDetail;
             this.phoneNumber = phoneNumber;
             this.email = email;
             this.password = password;
             this.fullName = fullName;
+            this.gender = gender;
+            this.dob = dob;
         }
 
         public Long getRoleId() {
@@ -184,6 +213,22 @@ public class UserModel {
         public void setFullName(String fullName) {
             this.fullName = fullName;
         }
+
+        public Integer getGender() {
+            return gender;
+        }
+
+        public void setGender(Integer gender) {
+            this.gender = gender;
+        }
+
+        public String getDob() {
+            return dob;
+        }
+
+        public void setDob(String dob) {
+            this.dob = dob;
+        }
     }
 
     public static class UpdateAccount {
@@ -193,16 +238,20 @@ public class UserModel {
         private String phoneNumber;
         private String fullName;
         private String password;
+        private Integer gender;
+        private String dob;
 
         public UpdateAccount() {
         }
 
-        public UpdateAccount(Long userId, String addressDetail, String phoneNumber, String fullName, String password) {
+        public UpdateAccount(Long userId, String addressDetail, String phoneNumber, String fullName, String password, Integer gender, String dob) {
             this.userId = userId;
             this.addressDetail = addressDetail;
             this.phoneNumber = phoneNumber;
             this.fullName = fullName;
             this.password = password;
+            this.gender = gender;
+            this.dob = dob;
         }
 
         public Long getUserId() {
@@ -243,6 +292,22 @@ public class UserModel {
 
         public void setPassword(String password) {
             this.password = password;
+        }
+
+        public Integer getGender() {
+            return gender;
+        }
+
+        public void setGender(Integer gender) {
+            this.gender = gender;
+        }
+
+        public String getDob() {
+            return dob;
+        }
+
+        public void setDob(String dob) {
+            this.dob = dob;
         }
     }
 

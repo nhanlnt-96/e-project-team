@@ -32,6 +32,10 @@ public class User implements UserDetails {
     private String fullName;
     @Column(name = "verify_email")
     private Integer verifyEmail;
+    @Column(name = "gender")
+    private Integer gender;
+    @Column(name = "dob")
+    private Date dob;
     @ManyToMany
     @JoinTable(
             name = "user_role",
@@ -43,13 +47,15 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String addressDetail, String phoneNumber, String email, String password, String fullName, Integer verifyEmail) {
+    public User(String addressDetail, String phoneNumber, String email, String password, String fullName, Integer verifyEmail, Integer gender, Date dob) {
         this.addressDetail = addressDetail;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.verifyEmail = verifyEmail;
+        this.gender = gender;
+        this.dob = dob;
     }
 
     @Override

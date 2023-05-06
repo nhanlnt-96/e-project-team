@@ -1,6 +1,9 @@
 package com.main.api.dto;
 
+import com.main.api.entity.User;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class UserDto {
@@ -10,17 +13,23 @@ public class UserDto {
     private String email;
     private String fullName;
     private Integer verifyEmail;
+    private Integer gender;
+    private Date dob;
+    private String role;
 
     public UserDto() {
     }
 
-    public UserDto(Long userId, String addressDetail, String phoneNumber, String email, String fullName, Integer verifyEmail) {
-        this.userId = userId;
-        this.addressDetail = addressDetail;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.fullName = fullName;
-        this.verifyEmail = verifyEmail;
+    public UserDto(User user) {
+        this.userId = user.getUserId();
+        this.addressDetail = user.getAddressDetail();
+        this.phoneNumber = user.getPhoneNumber();
+        this.email = user.getEmail();
+        this.fullName = user.getFullName();
+        this.verifyEmail = user.getVerifyEmail();
+        this.gender = user.getGender();
+        this.dob = user.getDob();
+        this.role = user.getRoles().toString();
     }
 
     public Long getUserId() {
@@ -69,5 +78,29 @@ public class UserDto {
 
     public void setVerifyEmail(Integer verifyEmail) {
         this.verifyEmail = verifyEmail;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

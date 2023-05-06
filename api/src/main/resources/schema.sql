@@ -3,12 +3,14 @@ create table user
 (
     id             int auto_increment
         primary key,
-    address_detail longtext             null,
-    phone_number   varchar(10)          not null,
-    email          varchar(255)         not null,
-    password       text                 not null,
-    full_name      varchar(255)         not null,
-    verify_email   tinyint(1) default 0 not null comment '0: not verify; 1: verified'
+    address_detail longtext                             null,
+    phone_number   varchar(10)                          not null,
+    email          varchar(255)                         not null,
+    password       text                                 not null,
+    full_name      varchar(255)                         not null,
+    verify_email   tinyint(1) default 0                 not null comment '0: not verify; 1: verified',
+    dob            datetime   default CURRENT_TIMESTAMP not null,
+    gender         tinyint(1)                           not null comment '0: female; 1: male'
 );
 
 -- auto-generated definition
@@ -112,12 +114,12 @@ INSERT INTO plant_x_db.role (id, role_name)
 VALUES (2, 'ROLE_USER');
 
 -- insert user data
-INSERT INTO plant_x_db.user (id, address_detail, phone_number, email, password, full_name, verify_email)
+INSERT INTO plant_x_db.user (id, address_detail, phone_number, email, password, full_name, verify_email, dob, gender)
 VALUES (12, null, '0981939841', 'nhanlnt@hotmail.com', '$2a$10$fMGy7Z7MkLfF2sWIoRxgBeuZYjHobPJ6UxC0rjte.If4ooo57QaP6',
-        'Admin Account', 0);
-INSERT INTO plant_x_db.user (id, address_detail, phone_number, email, password, full_name, verify_email)
+        'Admin Account', 0, '2023-05-05 21:23:05', 1);
+INSERT INTO plant_x_db.user (id, address_detail, phone_number, email, password, full_name, verify_email, dob, gender)
 VALUES (13, null, '123456789', 'chumuru@gmail.com', '$2a$10$spYN0yrxJwp/zJrxzrSWmeKWqlIlTJhZeyWieq04y0ucocrAaM46y',
-        'User Account', 1);
+        'User Account', 1, '2023-05-05 21:23:05', 1);
 
 -- inset user role data
 INSERT INTO plant_x_db.user_role (user_id, role_id)

@@ -11,13 +11,12 @@ import com.main.api.entity.Token;
 import com.main.api.entity.User;
 import com.main.api.mailTemplate.MailTemplate;
 import com.main.api.model.UserModel;
+import com.main.api.utils.ConvertDate;
 import com.main.api.utils.GenerateToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.mail.MessagingException;
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -54,7 +55,7 @@ public class UserController {
 
     @PostMapping("/register")
     @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody UserModel.RegisterData userData) {
+    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody UserModel.RegisterData userData) throws ParseException {
         User checkEmailExist = userRepository.findByEmail(userData.getEmail()).orElse(null);
         User checkPhoneNumberExist = userRepository.findByPhoneNumber(userData.getPhoneNumber()).orElse(null);
         if (checkEmailExist != null) throw new NoResultException("Email already exist.");
@@ -64,7 +65,8 @@ public class UserController {
 
         var rawPassword = userData.getPassword();
         var encodedPassword = passwordEncoder.encode(rawPassword);
-        User user = new User(userData.getAddressDetail(), userData.getPhoneNumber(), userData.getEmail(), encodedPassword, userData.getFullName(), Constant.NOT_VERIFY_EMAIL);
+        Date dob = ConvertDate.ConvertStringToDate(userData.getDob());
+        User user = new User(userData.getAddressDetail(), userData.getPhoneNumber(), userData.getEmail(), encodedPassword, userData.getFullName(), Constant.NOT_VERIFY_EMAIL, userData.getGender(), dob);
         User userSaveResponse = userRepository.save(user);
         if (userSaveResponse.getUserId() != null) {
             Role role = getRoleDataByName(defaultRoleName);
@@ -76,7 +78,7 @@ public class UserController {
                     } catch (MessagingException messagingException) {
                         System.out.println(messagingException.getMessage());
                     }
-                    return new ResponseEntity<>(new UserDto(userSaveResponse.getUserId(), userSaveResponse.getAddressDetail(), userSaveResponse.getPhoneNumber(), userSaveResponse.getEmail(), userSaveResponse.getFullName(), userSaveResponse.getVerifyEmail()), HttpStatus.CREATED);
+                    return new ResponseEntity<>(new UserDto(userSaveResponse), HttpStatus.CREATED);
                 }
             }
         }
@@ -87,7 +89,7 @@ public class UserController {
     @PostMapping("/create-new-account")
     @Transactional(rollbackFor = Exception.class)
     @RolesAllowed("ROLE_ADMIN")
-    public ResponseEntity<UserDto> createNewAccount(@Valid @RequestBody UserModel.CreateNewAccount userData) {
+    public ResponseEntity<UserDto> createNewAccount(@Valid @RequestBody UserModel.CreateNewAccount userData) throws ParseException {
         User checkEmailExist = userRepository.findByEmail(userData.getEmail()).orElse(null);
         User checkPhoneNumberExist = userRepository.findByPhoneNumber(userData.getPhoneNumber()).orElse(null);
         if (checkEmailExist != null) throw new NoResultException("Email already exist.");
@@ -95,7 +97,8 @@ public class UserController {
 
         var rawPassword = userData.getPassword();
         var encodedPassword = passwordEncoder.encode(rawPassword);
-        User user = new User(userData.getAddressDetail(), userData.getPhoneNumber(), userData.getEmail(), encodedPassword, userData.getFullName(), Constant.NOT_VERIFY_EMAIL);
+        Date dob = ConvertDate.ConvertStringToDate(userData.getDob());
+        User user = new User(userData.getAddressDetail(), userData.getPhoneNumber(), userData.getEmail(), encodedPassword, userData.getFullName(), Constant.NOT_VERIFY_EMAIL, userData.getGender(), dob);
         User userSaveResponse = userRepository.save(user);
         if (userSaveResponse.getUserId() != null) {
             boolean assignRoleResponse = assignRoleForUser(user.getUserId(), userData.getRoleId() != null ? userData.getRoleId() : roleRepository.findByRoleName(defaultRoleName).getRoleId());
@@ -105,7 +108,7 @@ public class UserController {
                 } catch (MessagingException messagingException) {
                     System.out.println(messagingException.getMessage());
                 }
-                return new ResponseEntity<>(new UserDto(userSaveResponse.getUserId(), userSaveResponse.getAddressDetail(), userSaveResponse.getPhoneNumber(), userSaveResponse.getEmail(), userSaveResponse.getFullName(), userSaveResponse.getVerifyEmail()), HttpStatus.CREATED);
+                return new ResponseEntity<>(new UserDto(userSaveResponse), HttpStatus.CREATED);
             }
         }
 
@@ -115,7 +118,7 @@ public class UserController {
     @PutMapping("/update-account")
     @Transactional(rollbackFor = Exception.class)
     @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<UserDto> updateAccount(@Valid @RequestBody UserModel.UpdateAccount updateAccount) {
+    public ResponseEntity<UserDto> updateAccount(@Valid @RequestBody UserModel.UpdateAccount updateAccount) throws ParseException {
         User checkUserExist = userRepository.findById(updateAccount.getUserId()).orElseThrow(() -> new NoResultException("Account does not exist."));
         if (updateAccount.getAddressDetail() != null) checkUserExist.setAddressDetail(updateAccount.getAddressDetail());
         if (updateAccount.getPhoneNumber() != null) checkUserExist.setPhoneNumber(updateAccount.getPhoneNumber());
@@ -125,10 +128,15 @@ public class UserController {
             var encodedPassword = passwordEncoder.encode(rawPassword);
             checkUserExist.setPassword(encodedPassword);
         }
+        if (updateAccount.getGender() != null) checkUserExist.setGender(updateAccount.getGender());
+        if (updateAccount.getDob() != null) {
+            Date dob = ConvertDate.ConvertStringToDate(updateAccount.getDob());
+            checkUserExist.setDob(dob);
+        }
 
         User updateUserResponse = userRepository.saveAndFlush(checkUserExist);
 
-        return new ResponseEntity<>(new UserDto(updateUserResponse.getUserId(), updateUserResponse.getAddressDetail(), updateUserResponse.getPhoneNumber(), updateUserResponse.getEmail(), updateUserResponse.getFullName(), updateUserResponse.getVerifyEmail()), HttpStatus.OK);
+        return new ResponseEntity<>(new UserDto(updateUserResponse), HttpStatus.OK);
     }
 
     @DeleteMapping("/remove-account/{userId}")
@@ -189,7 +197,7 @@ public class UserController {
             // INFO: remove token after update success
             removeToken(checkTokenExist.getId());
 
-            return new ResponseEntity<>(new UserDto(updateUserResponse.getUserId(), updateUserResponse.getAddressDetail(), updateUserResponse.getPhoneNumber(), updateUserResponse.getEmail(), updateUserResponse.getFullName(), updateUserResponse.getVerifyEmail()), HttpStatus.OK);
+            return new ResponseEntity<>(new UserDto(updateUserResponse), HttpStatus.OK);
         } else {
             // INFO: remove token when token has been expired
             removeToken(checkTokenExist.getId());
@@ -243,7 +251,7 @@ public class UserController {
             // INFO: remove token after update success
             removeToken(checkTokenExist.getId());
 
-            return new ResponseEntity<>(new UserDto(updateUserResponse.getUserId(), updateUserResponse.getAddressDetail(), updateUserResponse.getPhoneNumber(), updateUserResponse.getEmail(), updateUserResponse.getFullName(), updateUserResponse.getVerifyEmail()), HttpStatus.OK);
+            return new ResponseEntity<>(new UserDto(updateUserResponse), HttpStatus.OK);
         } else {
             // INFO: remove token when token has been expired
             removeToken(checkTokenExist.getId());
