@@ -20,3 +20,8 @@ export interface IUserData {
   dob: string;
   role: string;
 }
+
+export interface ILoggedData {
+  email: string;
+  accessToken: string;
+}

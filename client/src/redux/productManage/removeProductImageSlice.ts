@@ -22,12 +22,20 @@ const initialState: IRemoveProductImageSlice = {
 };
 
 export const removeProductImageThunk = createAsyncThunk('productManage/removeProductImage', async ({ imageId, productId }: IPayload, thunkAPI) => {
-  const response = await removeProductImageService(imageId, productId);
-  if (response) {
-    thunkAPI.dispatch(getProductByIdThunk(productId));
-  }
+  try {
+    const response = await removeProductImageService(imageId, productId);
+    if (response) {
+      toast.success('Product image is removed.');
 
-  return response;
+      thunkAPI.dispatch(getProductByIdThunk(productId));
+    }
+
+    return response;
+  } catch (error) {
+    toast.error(error as string);
+
+    return thunkAPI.rejectWithValue(error);
+  }
 });
 
 export const removeProductImageSlice = createSlice({
@@ -42,16 +50,12 @@ export const removeProductImageSlice = createSlice({
     });
 
     builder.addCase(removeProductImageThunk.fulfilled, (state) => {
-      toast.success('Product image is removed.');
-
       state.isRemoving = false;
 
       state.isSuccess = true;
     });
 
     builder.addCase(removeProductImageThunk.rejected, (state, action) => {
-      toast.error(action.payload as string);
-
       state.isRemoving = false;
 
       state.isSuccess = false;

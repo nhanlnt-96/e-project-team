@@ -9,3 +9,5 @@ export * from './addPropertyKeyToArray';
 export * from './convertPrice';
 
 export * from './compareArray';
+
+export * from './localStorage';

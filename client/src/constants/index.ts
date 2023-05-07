@@ -52,6 +52,10 @@ export enum USER_ROLE {
   USER_ROLE = 'ROLE_USER'
 }
 
+export enum LocalStorageName {
+  ACCESS_TOKEN_NAME = 'wingTeaAccessToken'
+}
+
 export const FULL_NAME_REGEX = new RegExp(/^\p{Lu}\p{L}*\s((\p{Lu}\p{L}*)+\s)*\p{Lu}\p{L}*$/gu);
 
 export const PHONE_NUMBER_REGEX = new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g);

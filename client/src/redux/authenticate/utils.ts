@@ -1,6 +1,6 @@
 import { Gender, VerifyEmailStatus } from 'constants/index';
 import _ from 'lodash';
-import { IUserData } from 'services/authenticate';
+import { ILoggedData, IUserData } from 'services/authenticate';
 
 export const generateUserDataObject = (data: any): IUserData => ({
   userId: _.get(data, 'userId', 0),
@@ -12,4 +12,9 @@ export const generateUserDataObject = (data: any): IUserData => ({
   addressDetail: _.get(data, 'addressDetail', ''),
   role: _.get(data, 'role', ''),
   verifyEmail: _.get(data, 'verifyEmail', VerifyEmailStatus.NOT_VERIFY_EMAIL)
+});
+
+export const generateLoggedData = (data: any): ILoggedData => ({
+  email: _.get(data, 'email', ''),
+  accessToken: _.get(data, 'accessToken', '')
 });

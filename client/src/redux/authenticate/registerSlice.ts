@@ -23,6 +23,8 @@ export const registerThunk = createAsyncThunk('authenticate/register', async (da
       return response;
     }
   } catch (error) {
+    toast.error(error as string);
+
     return rejectWithValue(error);
   }
 });
@@ -47,8 +49,6 @@ const registerSlice = createSlice({
     });
 
     builder.addCase(registerThunk.rejected, (state, action) => {
-      toast.error(action.payload as string);
-
       state.isLoading = false;
 
       state.error = action.payload as string;

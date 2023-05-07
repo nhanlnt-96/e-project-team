@@ -1,20 +1,50 @@
+import Loading from 'components/loading';
 import { routes } from 'components/mainLayout/routes';
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { LocalStorageName, RouteBasePath } from 'constants/index';
+import { AuthContext } from 'context/index';
+import { useEffectOnce } from 'hooks/useEffectOnce';
+import React, { ReactElement } from 'react';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { getAuthThunk } from 'redux/authenticate/getAuthSlice';
+import { getAuthSelector } from 'redux/authenticate/selector';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { getLocalStorageItem } from 'utils/localStorage';
 
 const MainLayout: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
+  const { userData, isLoading } = useAppSelector(getAuthSelector);
+
+  useEffectOnce(() => {
+    const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
+    if (accessToken) dispatch(getAuthThunk());
+  });
+
+  const handleGenerateRouteElement = (isPrivate: boolean, element: ReactElement) => {
+    if (isPrivate) {
+      const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
+
+      return userData && accessToken ? element : <Navigate to={`/${RouteBasePath.LOGIN_BASE_PATH}`} state={{ from: pathname }} />;
+    }
+
+    return element;
+  };
+
   return (
-    <Routes>
-      {routes.map((route) => (
-        <Route key={route.path} path={route.path} element={route.element}>
-          {route.children.length ? (
-            route.children.map((child) => <Route key={child.path} index={child.isIndex} path={child.path} element={child.element} />)
-          ) : (
-            <></>
-          )}
-        </Route>
-      ))}
-    </Routes>
+    <AuthContext.Provider value={{ userData }}>
+      <Routes>
+        {routes.map((route) => (
+          <Route key={route.path} path={route.path} element={handleGenerateRouteElement(route.isPrivate, route.element)}>
+            {route.children.length ? (
+              route.children.map((child) => <Route key={child.path} index={child.isIndex} path={child.path} element={child.element} />)
+            ) : (
+              <></>
+            )}
+          </Route>
+        ))}
+      </Routes>
+      {isLoading ? <Loading isLoadingMask /> : <></>}
+    </AuthContext.Provider>
   );
 };
 

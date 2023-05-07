@@ -6,6 +6,7 @@ import Loading from 'components/loading';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { handleDisplayErrorMsg } from 'helpers/formik';
+import RegisterSuccessModal from 'pages/authenticate/register/RegisterSuccessModal';
 import { IRegisterFormikValues, useRegisterFormik } from 'pages/authenticate/register/useRegisterFormik';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -117,6 +118,7 @@ const RegisterForm: React.FC = () => {
         </div>
       </form>
       {isLoading ? <Loading isLoadingMask /> : <></>}
+      <RegisterSuccessModal userPassword={formik.values.password} />
     </>
   );
 };

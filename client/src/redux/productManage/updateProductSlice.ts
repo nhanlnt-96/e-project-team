@@ -21,6 +21,8 @@ export const updateProductThunk = createAsyncThunk('productManage/updateProduct'
   try {
     const response = await updateProductService(updateData);
     if (response) {
+      toast.success('Product is updated.');
+
       thunkAPI.dispatch(getProductByIdThunk(updateData.productId));
 
       thunkAPI.dispatch(getAllProductThunk());
@@ -28,6 +30,8 @@ export const updateProductThunk = createAsyncThunk('productManage/updateProduct'
 
     return response;
   } catch (error) {
+    toast.error(error as string);
+
     return thunkAPI.rejectWithValue(error);
   }
 });
@@ -44,16 +48,12 @@ export const updateProductSlice = createSlice({
     });
 
     builder.addCase(updateProductThunk.fulfilled, (state) => {
-      toast.success('Product is updated.');
-
       state.isUpdating = false;
 
       state.isSuccess = true;
     });
 
     builder.addCase(updateProductThunk.rejected, (state, action) => {
-      toast.error(action.payload as string);
-
       state.isUpdating = false;
 
       state.isSuccess = false;

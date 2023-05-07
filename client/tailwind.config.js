@@ -21,6 +21,7 @@ module.exports = {
         'antd-status-error': '#ff4d4f',
         'antd-status-warning': '#faad14',
         'taupe-gray': '#8f8987',
+        green: '#52c41a',
         secondary: '#f3d174'
       },
       padding: {

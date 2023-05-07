@@ -27,11 +27,15 @@ export const removeProductQuantityThunk = createAsyncThunk(
     try {
       const response = await removeProductQuantityService(quantityId);
       if (response) {
+        toast.success('Product quantity is removed.');
+
         thunkAPI.dispatch(getProductByIdThunk(productId));
       }
 
       return response;
     } catch (error) {
+      toast.error(error as string);
+
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -49,16 +53,12 @@ export const removeProductQuantitySlice = createSlice({
     });
 
     builder.addCase(removeProductQuantityThunk.fulfilled, (state) => {
-      toast.success('Product quantity is removed.');
-
       state.isRemoving = false;
 
       state.isSuccess = true;
     });
 
     builder.addCase(removeProductQuantityThunk.rejected, (state, action) => {
-      toast.error(action.payload as string);
-
       state.isRemoving = false;
 
       state.isSuccess = false;

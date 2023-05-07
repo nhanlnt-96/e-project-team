@@ -27,7 +27,6 @@ public class JwtTokenUtil {
     private String SECRET_KEY;
 
     public String generateAccessToken(User user) {
-
         return Jwts.builder()
                 .setSubject(String.format("%s,%s", user.getUserId(), user.getEmail()))
                 .setIssuer("wingTea")

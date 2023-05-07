@@ -34,12 +34,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthDto> login(@RequestBody @Valid UserModel.LoginData loginData) {
+    public ResponseEntity<?> login(@RequestBody @Valid UserModel.LoginData loginData) {
         try {
-            User userData = userRepository.findByEmail(loginData.getEmail()).orElse(null);
-            if (userData == null) {
-                throw new NoResultException("Email or password incorrect.");
-            }
             Authentication authentication = authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginData.getEmail(), loginData.getPassword())
@@ -52,7 +48,7 @@ public class AuthController {
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (BadCredentialsException ex) {
             System.out.println(ex);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new NoResultException("Email or password incorrect");
         }
     }
 

@@ -1,3 +1,5 @@
+import getAuthReducer from 'redux/authenticate/getAuthSlice';
+import loginReducer from 'redux/authenticate/loginSlice';
 import registerReducer from 'redux/authenticate/registerSlice';
 
 import { configureStore } from '@reduxjs/toolkit';
@@ -19,7 +21,9 @@ export const store = configureStore({
     updateProductReducer: updateProductReducer,
     getAllNetWeightReducer: getAllNetWeightReducer,
     removeProductQuantityReducer: removeProductQuantityReducer,
-    registerReducer: registerReducer
+    registerReducer: registerReducer,
+    loginReducer: loginReducer,
+    getAuthReducer: getAuthReducer
   }
 });
 
