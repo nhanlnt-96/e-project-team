@@ -25,6 +25,7 @@ export enum RouteBasePath {
 
   LOGIN_BASE_PATH = '/authenticate',
   REGISTER_PAGE_BASE_PATH = 'register',
+
   USER_PROFILE_PAGE_BASE_PATH = '/profile',
 
   ADMIN_PAGE_BASE_PATH = '/admin',
@@ -35,7 +36,9 @@ export enum RouteBasePath {
   ADMIN_ADD_NEW_PRODUCT_PAGE_BASE_PATH = 'add-new-product',
   ADMIN_UPDATE_PRODUCT_PAGE_BASE_PATH = 'update-product',
 
-  ADMIN_NET_WEIGHT_MANAGE_PAGE_BASE_PATH = '/admin/net-weight-manage'
+  ADMIN_NET_WEIGHT_MANAGE_PAGE_BASE_PATH = '/admin/net-weight-manage',
+
+  PAGE_NOT_FOUND = '/page-not-found'
 }
 
 export enum Gender {
@@ -48,7 +51,7 @@ export enum VerifyEmailStatus {
   VERIFIED_EMAIL = 1
 }
 
-export enum USER_ROLE {
+export enum Roles {
   ADMIN_ROLE = 'ROLE_ADMIN',
   USER_ROLE = 'ROLE_USER'
 }

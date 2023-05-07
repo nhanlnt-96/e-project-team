@@ -1,5 +1,5 @@
 import Loading from 'components/loading';
-import { routes } from 'components/mainLayout/routes';
+import { routes, TRoles } from 'components/mainLayout/routes';
 import { LocalStorageName, RouteBasePath } from 'constants/index';
 import { AuthContext } from 'context/index';
 import { useEffectOnce } from 'hooks/useEffectOnce';
@@ -20,9 +20,15 @@ const MainLayout: React.FC = () => {
     if (accessToken) dispatch(getAuthThunk());
   });
 
-  const handleGenerateRouteElement = (isPrivate: boolean, element: ReactElement) => {
+  const handleGenerateRouteElement = (isPrivate: boolean, requiredRole: TRoles | undefined, path: string, element: ReactElement) => {
+    if (path === RouteBasePath.LOGIN_BASE_PATH) {
+      return userData ? <Navigate to='/' /> : element;
+    }
     if (isPrivate) {
       const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
+      if (requiredRole) {
+        return userData && accessToken && userData.role.includes(requiredRole) ? element : <Navigate to={RouteBasePath.PAGE_NOT_FOUND} />;
+      }
 
       return userData && accessToken ? element : <Navigate to={RouteBasePath.LOGIN_BASE_PATH} state={{ from: pathname }} />;
     }
@@ -34,7 +40,11 @@ const MainLayout: React.FC = () => {
     <AuthContext.Provider value={{ userData }}>
       <Routes>
         {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={handleGenerateRouteElement(route.isPrivate, route.element)}>
+          <Route
+            key={route.path}
+            path={route.path}
+            element={handleGenerateRouteElement(route.isPrivate, route.requiredRole, route.path, route.element)}
+          >
             {route.children.length ? (
               route.children.map((child) => <Route key={child.path} index={child.isIndex} path={child.path} element={child.element} />)
             ) : (

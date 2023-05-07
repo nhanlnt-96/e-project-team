@@ -1,12 +1,15 @@
-import { RouteBasePath } from 'constants/index';
+import { Roles, RouteBasePath } from 'constants/index';
 import LoginPage from 'pages/authenticate/login';
 import RegisterPage from 'pages/authenticate/register';
 import { lazy, ReactElement } from 'react';
+
+export type TRoles = Roles.USER_ROLE | Roles.ADMIN_ROLE;
 
 interface IRoutes {
   path: string;
   element: ReactElement;
   isPrivate: boolean;
+  requiredRole?: TRoles;
   children: IRoutesChildren[];
 }
 
@@ -78,18 +81,21 @@ export const routes: IRoutes[] = [
   {
     path: RouteBasePath.ADMIN_PAGE_BASE_PATH,
     isPrivate: true,
+    requiredRole: Roles.ADMIN_ROLE,
     element: <AdminPage />,
     children: []
   },
   {
     path: RouteBasePath.ADMIN_CATEGORY_MANAGE_PAGE_BASE_PATH,
     isPrivate: true,
+    requiredRole: Roles.ADMIN_ROLE,
     element: <CategoryManagePage />,
     children: []
   },
   {
     path: RouteBasePath.ADMIN_PRODUCT_MANAGE_PAGE_BASE_PATH,
     isPrivate: true,
+    requiredRole: Roles.ADMIN_ROLE,
     element: <ProductManagePage />,
     children: [
       {
@@ -112,6 +118,7 @@ export const routes: IRoutes[] = [
   {
     path: RouteBasePath.ADMIN_NET_WEIGHT_MANAGE_PAGE_BASE_PATH,
     isPrivate: true,
+    requiredRole: Roles.ADMIN_ROLE,
     element: <NetWeightManagePage />,
     children: []
   }
