@@ -1,6 +1,7 @@
 import { Roles, RouteBasePath } from 'constants/index';
 import LoginPage from 'pages/authenticate/login';
 import RegisterPage from 'pages/authenticate/register';
+import PageNotFound from 'pages/pageNotFound';
 import { lazy, ReactElement } from 'react';
 
 export type TRoles = Roles.USER_ROLE | Roles.ADMIN_ROLE;
@@ -120,6 +121,12 @@ export const routes: IRoutes[] = [
     isPrivate: true,
     requiredRole: Roles.ADMIN_ROLE,
     element: <NetWeightManagePage />,
+    children: []
+  },
+  {
+    path: '*',
+    isPrivate: false,
+    element: <PageNotFound />,
     children: []
   }
 ];
