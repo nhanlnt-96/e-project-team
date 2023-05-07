@@ -22,7 +22,7 @@ const ProductListing: React.FC = () => {
 
   return !isFetchingData ? (
     productData.length ? (
-      <div className='w-full grid grid-cols-1 justify-center items-center text-white gap-x-8 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
+      <div className='w-full grid grid-cols-1 justify-center items-center text-white gap-x-8 gap-y-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
         {productData.map((product) => (
           <ProductCard key={product.productId} productData={product} />
         ))}

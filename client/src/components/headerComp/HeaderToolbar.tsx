@@ -1,4 +1,4 @@
-import { headerToolbar } from 'components/headerComp/configs';
+import HeaderAuthButton from 'components/headerComp/HeaderAuthButton';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -11,12 +11,7 @@ const HeaderToolbar: React.FC = () => {
         </svg>
         <span>(0)</span>
       </NavLink>
-      {headerToolbar.map((toolbar) => (
-        <NavLink key={toolbar.path} to={toolbar.path} className='text-white flex justify-center items-center space-x-1.5 header-toolbar__item'>
-          {toolbar.icon}
-          <span>{toolbar.label}</span>
-        </NavLink>
-      ))}
+      <HeaderAuthButton />
     </div>
   );
 };

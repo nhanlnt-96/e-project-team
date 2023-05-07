@@ -21,6 +21,7 @@ const ProductCard: React.FC<IProps> = ({ productData }) => {
         <ImageResponsive
           width={340}
           height={340}
+          className='text-white'
           imageProps={{
             src: imageLinkGeneration(productData.images[0].storageName, productData.images[0].imageName),
             alt: `${productData.productName}`

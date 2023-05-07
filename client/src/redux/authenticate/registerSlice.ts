@@ -19,7 +19,7 @@ const initialState: IRegisterSlice = {
 export const registerThunk = createAsyncThunk('authenticate/register', async (data: IRegisterData, { rejectWithValue }) => {
   try {
     const response = await registerService(data);
-    if (response.status === 201) {
+    if (response) {
       return response;
     }
   } catch (error) {

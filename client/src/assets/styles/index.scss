@@ -96,4 +96,14 @@
       @apply text-xs;
     }
   }
+
+}
+
+// INFO: custom ant spin color
+.ant-spin {
+  &-dot {
+    &-item {
+      background-color: $white !important;
+    }
+  }
 }

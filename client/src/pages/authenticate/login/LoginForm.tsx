@@ -23,8 +23,6 @@ const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { isLoading, loggedData } = useAppSelector(loginSelector);
 
-  console.log(location);
-
   useEffect(() => {
     if (loggedData) {
       const redirectFrom = location.state?.from;
@@ -83,7 +81,7 @@ const LoginForm: React.FC = () => {
           </ButtonComp>
           <p>
             Do not have an account?{' '}
-            <Link to={RouteBasePath.REGISTER_PAGE_BASE_PATH} className='font-medium hover:link-hover'>
+            <Link to={RouteBasePath.REGISTER_PAGE_BASE_PATH} state={{ from: location.state?.from || '/' }} className='font-medium hover:link-hover'>
               Register
             </Link>
           </p>
