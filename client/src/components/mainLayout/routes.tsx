@@ -33,6 +33,8 @@ const AddNewProductPage = lazy(() => import('pages/adminPage/productManagePage/a
 const EditProductPage = lazy(() => import('pages/adminPage/productManagePage/editProductPage'));
 const NetWeightManagePage = lazy(() => import('pages/adminPage/netWeightManage'));
 const ProductDetailPage = lazy(() => import('pages/clientPage/productDetailPage'));
+const MyAccountPageLayout = lazy(() => import('pages/myAccountPage'));
+const MyAccountPage = lazy(() => import('pages/myAccountPage/myAccount'));
 
 export const routes: IRoutes[] = [
   {
@@ -76,6 +78,18 @@ export const routes: IRoutes[] = [
         path: RouteBasePath.REGISTER_PAGE_BASE_PATH,
         isIndex: false,
         element: <RegisterPage />
+      }
+    ]
+  },
+  {
+    path: RouteBasePath.MY_ACCOUNT_PAGE_BASE_PATH,
+    isPrivate: true,
+    element: <MyAccountPageLayout />,
+    children: [
+      {
+        path: '',
+        isIndex: true,
+        element: <MyAccountPage />
       }
     ]
   },

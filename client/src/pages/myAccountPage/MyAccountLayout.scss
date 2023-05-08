@@ -1,0 +1,33 @@
+@import "assets/styles/index";
+
+.my-account-layout {
+  &__tabs {
+    .ant-tabs-nav {
+      &-list {
+        .ant-tabs {
+          &-tab {
+            &-btn {
+              color: $light-silver;
+              text-transform: uppercase;
+
+              &:hover {
+                color: $black;
+              }
+            }
+
+            &-active {
+              .ant-tabs-tab-btn {
+                color: $black;
+                font-weight: 500;
+              }
+            }
+          }
+        }
+
+        .ant-tabs-ink-bar {
+          background-color: $black !important;
+        }
+      }
+    }
+  }
+}

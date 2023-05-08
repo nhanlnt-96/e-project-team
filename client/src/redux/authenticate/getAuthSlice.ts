@@ -1,5 +1,7 @@
+import { LocalStorageName } from 'constants/index';
 import { generateUserDataObject } from 'redux/authenticate/utils';
 import { getAuthService, IUserData } from 'services/authenticate';
+import { getLocalStorageItem, setLocalStorageItem } from 'utils/localStorage';
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
@@ -12,12 +14,21 @@ interface IAuthSlice {
 const initialState: IAuthSlice = {
   isLoading: false,
   error: null,
-  userData: null
+  userData: getLocalStorageItem(LocalStorageName.USER_DATA_NAME)
 };
 
-export const getAuthThunk = createAsyncThunk('authenticate/getAuth', async (_, { rejectWithValue }) => {
+export const getAuthThunk = createAsyncThunk('authenticate/getAuth', async (_, { getState, rejectWithValue }) => {
   try {
-    return await getAuthService();
+    const response = await getAuthService();
+    let userData = null;
+
+    if (response) {
+      userData = generateUserDataObject(response);
+
+      setLocalStorageItem(LocalStorageName.USER_DATA_NAME, userData);
+    }
+
+    return userData;
   } catch (error) {
     return rejectWithValue(error);
   }

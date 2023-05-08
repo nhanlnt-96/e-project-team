@@ -56,6 +56,7 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/lodash": "^4.14.191",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "concurrently": "^8.0.1",
@@ -69,6 +70,7 @@
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "node-sass": "6.0.0",
     "prettier": "^2.8.4",
-    "tailwindcss": "^3.2.7"
+    "tailwindcss": "^3.2.7",
+    "uuid": "^9.0.0"
   }
 }

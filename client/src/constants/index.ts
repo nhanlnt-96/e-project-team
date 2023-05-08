@@ -26,7 +26,9 @@ export enum RouteBasePath {
   LOGIN_BASE_PATH = '/authenticate',
   REGISTER_PAGE_BASE_PATH = 'register',
 
-  USER_PROFILE_PAGE_BASE_PATH = '/profile',
+  MY_ACCOUNT_PAGE_BASE_PATH = '/my-account',
+  MY_FAVORITES_PAGE_BASE_PATH = 'my-favorites',
+  MY_ORDERS_PAGE_BASE_PATH = 'my-orders',
 
   ADMIN_PAGE_BASE_PATH = '/admin',
 
@@ -57,7 +59,8 @@ export enum Roles {
 }
 
 export enum LocalStorageName {
-  ACCESS_TOKEN_NAME = 'wingTeaAccessToken'
+  ACCESS_TOKEN_NAME = 'wingTeaAccessToken',
+  USER_DATA_NAME = 'wingTeaUserData'
 }
 
 export const FULL_NAME_REGEX = new RegExp(/^\p{Lu}\p{L}*\s((\p{Lu}\p{L}*)+\s)*\p{Lu}\p{L}*$/gu);

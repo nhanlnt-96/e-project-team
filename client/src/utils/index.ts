@@ -11,3 +11,5 @@ export * from './convertPrice';
 export * from './compareArray';
 
 export * from './localStorage';
+
+export * from './generateUuid';

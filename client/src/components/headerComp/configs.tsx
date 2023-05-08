@@ -1,14 +1,6 @@
-import { ReactElement } from 'react';
-
 interface IHeaderLink {
   label: string;
   path: string;
-}
-
-interface IHeaderToolbar {
-  label: string;
-  path: string;
-  icon: ReactElement<'svg'>;
 }
 
 export const headerLinks: IHeaderLink[] = [
