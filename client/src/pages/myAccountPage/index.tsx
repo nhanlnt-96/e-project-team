@@ -11,7 +11,7 @@ const MyAccountPageLayout = () => {
     <div className='w-full min-h-screen bg-black'>
       <HeaderComponent />
       <PageContainer pageContainerClassName='px-0'>
-        <PageContainer pageContainerClassName='bg-white max-w-7xl'>
+        <PageContainer pageContainerClassName='bg-white max-w-7xl sm:!px-10'>
           <MyAccountTabs />
           <div className='w-full py-4'>
             <Outlet />

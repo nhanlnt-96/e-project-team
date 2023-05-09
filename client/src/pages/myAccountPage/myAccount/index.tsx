@@ -1,3 +1,5 @@
+import './MyAccount.scss';
+
 import ButtonComp from 'components/buttonComp';
 import DobPicker, { dobDateFormat } from 'components/dobPicker';
 import GenderSelect from 'components/genderSelect';
@@ -7,6 +9,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { handleDisplayErrorMsg } from 'helpers/formik';
 import EmailVerifyStatus from 'pages/myAccountPage/myAccount/EmailVerifyStatus';
+import UpdateAccountSuccess from 'pages/myAccountPage/myAccount/UpdateAccountSuccess';
 import { IMyAccountFormik, useMyAccountFormik } from 'pages/myAccountPage/myAccount/useMyAccountFormik';
 import React, { useCallback, useEffect, useState } from 'react';
 import { getAuthSelector, updateAccountSelector } from 'redux/authenticate/selector';
@@ -79,10 +82,11 @@ const MyAccountPage = () => {
             </div>
             <div className='form-item'>
               <div className='w-full flex justify-between items-center'>
-                <label htmlFor='email'>
-                  Email <span className='text-sm text-pewter-blue'>(Email can not be changed)</span>
-                </label>
-                <EmailVerifyStatus />
+                <div className='flex space-x-2'>
+                  <label htmlFor='email'>Email</label>
+                  <EmailVerifyStatus />
+                </div>
+                <span className='text-sm text-pewter-blue'>(Email can not be changed)</span>
               </div>
               <InputComp id='email' name='email' disabled value={userData?.email} placeholder='Email' />
             </div>
@@ -152,6 +156,7 @@ const MyAccountPage = () => {
         </form>
       </div>
       {isLoading ? <Loading isLoadingMask /> : <></>}
+      <UpdateAccountSuccess />
     </>
   );
 };
