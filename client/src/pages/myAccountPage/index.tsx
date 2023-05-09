@@ -13,7 +13,7 @@ const MyAccountPageLayout = () => {
       <PageContainer pageContainerClassName='px-0'>
         <PageContainer pageContainerClassName='bg-white max-w-7xl'>
           <MyAccountTabs />
-          <div className='w-full'>
+          <div className='w-full py-4'>
             <Outlet />
           </div>
         </PageContainer>

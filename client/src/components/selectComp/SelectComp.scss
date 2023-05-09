@@ -28,6 +28,12 @@
         }
       }
     }
+
+    &.ant-select-disabled {
+      .ant-select-selector {
+        border-color: $light-silver !important;
+      }
+    }
   }
 
   &-status {

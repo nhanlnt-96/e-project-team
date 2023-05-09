@@ -66,6 +66,17 @@
     &-control {
       width: 100%;
       @apply space-y-5;
+      &__inline {
+        @apply w-full;
+        @apply flex;
+        @apply justify-center;
+        @apply items-start;
+        @apply flex-col;
+        @apply space-y-5;
+        @apply md:space-y-0;
+        @apply md:space-x-5;
+        @apply md:flex-row;
+      }
     }
 
     &-item {

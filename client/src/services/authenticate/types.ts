@@ -25,3 +25,12 @@ export interface ILoggedData {
   email: string;
   accessToken: string;
 }
+
+export interface IUpdateAccountData {
+  userId: number;
+  fullName?: string;
+  phoneNumber?: string;
+  addressDetail?: string;
+  gender?: number;
+  dob?: string;
+}

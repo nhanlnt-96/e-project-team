@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -35,7 +36,7 @@ public class User implements UserDetails {
     @Column(name = "gender")
     private Integer gender;
     @Column(name = "dob")
-    private Date dob;
+    private LocalDate dob;
     @ManyToMany
     @JoinTable(
             name = "user_role",
@@ -47,7 +48,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String addressDetail, String phoneNumber, String email, String password, String fullName, Integer verifyEmail, Integer gender, Date dob) {
+    public User(String addressDetail, String phoneNumber, String email, String password, String fullName, Integer verifyEmail, Integer gender, LocalDate dob) {
         this.addressDetail = addressDetail;
         this.phoneNumber = phoneNumber;
         this.email = email;

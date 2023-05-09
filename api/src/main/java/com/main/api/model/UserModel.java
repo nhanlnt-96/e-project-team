@@ -1,8 +1,10 @@
 package com.main.api.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class UserModel {
@@ -22,12 +24,12 @@ public class UserModel {
         @NotNull(message = "gender can not be null")
         private Integer gender;
         @NotNull(message = "dob can not be null")
-        private String dob;
+        private LocalDate dob;
 
         public RegisterData() {
         }
 
-        public RegisterData(String addressDetail, String phoneNumber, String email, String password, String confirmPassword, String fullName, Integer gender, String dob) {
+        public RegisterData(String addressDetail, String phoneNumber, String email, String password, String confirmPassword, String fullName, Integer gender, LocalDate dob) {
             this.addressDetail = addressDetail;
             this.phoneNumber = phoneNumber;
             this.email = email;
@@ -94,11 +96,11 @@ public class UserModel {
             this.gender = gender;
         }
 
-        public String getDob() {
+        public LocalDate getDob() {
             return dob;
         }
 
-        public void setDob(String dob) {
+        public void setDob(LocalDate dob) {
             this.dob = dob;
         }
     }
@@ -150,12 +152,12 @@ public class UserModel {
         @NotNull(message = "gender can not be null")
         private Integer gender;
         @NotNull(message = "dob can not be null")
-        private String dob;
+        private LocalDate dob;
 
         public CreateNewAccount() {
         }
 
-        public CreateNewAccount(Long roleId, String addressDetail, String phoneNumber, String email, String password, String fullName, Integer gender, String dob) {
+        public CreateNewAccount(Long roleId, String addressDetail, String phoneNumber, String email, String password, String fullName, Integer gender, LocalDate dob) {
             this.roleId = roleId;
             this.addressDetail = addressDetail;
             this.phoneNumber = phoneNumber;
@@ -222,11 +224,11 @@ public class UserModel {
             this.gender = gender;
         }
 
-        public String getDob() {
+        public LocalDate getDob() {
             return dob;
         }
 
-        public void setDob(String dob) {
+        public void setDob(LocalDate dob) {
             this.dob = dob;
         }
     }
@@ -239,12 +241,12 @@ public class UserModel {
         private String fullName;
         private String password;
         private Integer gender;
-        private String dob;
+        private LocalDate dob;
 
         public UpdateAccount() {
         }
 
-        public UpdateAccount(Long userId, String addressDetail, String phoneNumber, String fullName, String password, Integer gender, String dob) {
+        public UpdateAccount(Long userId, String addressDetail, String phoneNumber, String fullName, String password, Integer gender, LocalDate dob) {
             this.userId = userId;
             this.addressDetail = addressDetail;
             this.phoneNumber = phoneNumber;
@@ -302,11 +304,11 @@ public class UserModel {
             this.gender = gender;
         }
 
-        public String getDob() {
+        public LocalDate getDob() {
             return dob;
         }
 
-        public void setDob(String dob) {
+        public void setDob(LocalDate dob) {
             this.dob = dob;
         }
     }

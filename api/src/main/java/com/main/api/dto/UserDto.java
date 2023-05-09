@@ -1,8 +1,10 @@
 package com.main.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.main.api.entity.User;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -14,7 +16,8 @@ public class UserDto {
     private String fullName;
     private Integer verifyEmail;
     private Integer gender;
-    private Date dob;
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="asia/ho_chi_minh")
+    private LocalDate dob;
     private String role;
 
     public UserDto() {
@@ -88,11 +91,11 @@ public class UserDto {
         this.gender = gender;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 

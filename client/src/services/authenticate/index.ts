@@ -7,3 +7,5 @@ export { default as registerService } from './registerService';
 export { default as loginService } from './loginService';
 
 export { default as getAuthService } from './getAuthService';
+
+export { default as updateAccountService } from './updateAccountService';

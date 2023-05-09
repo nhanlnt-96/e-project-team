@@ -65,8 +65,7 @@ public class UserController {
 
         var rawPassword = userData.getPassword();
         var encodedPassword = passwordEncoder.encode(rawPassword);
-        Date dob = ConvertDate.ConvertStringToDate(userData.getDob());
-        User user = new User(userData.getAddressDetail(), userData.getPhoneNumber(), userData.getEmail(), encodedPassword, userData.getFullName(), Constant.NOT_VERIFY_EMAIL, userData.getGender(), dob);
+        User user = new User(userData.getAddressDetail(), userData.getPhoneNumber(), userData.getEmail(), encodedPassword, userData.getFullName(), Constant.NOT_VERIFY_EMAIL, userData.getGender(), userData.getDob());
         User userSaveResponse = userRepository.save(user);
         if (userSaveResponse.getUserId() != null) {
             Role role = getRoleDataByName(defaultRoleName);
@@ -97,8 +96,7 @@ public class UserController {
 
         var rawPassword = userData.getPassword();
         var encodedPassword = passwordEncoder.encode(rawPassword);
-        Date dob = ConvertDate.ConvertStringToDate(userData.getDob());
-        User user = new User(userData.getAddressDetail(), userData.getPhoneNumber(), userData.getEmail(), encodedPassword, userData.getFullName(), Constant.NOT_VERIFY_EMAIL, userData.getGender(), dob);
+        User user = new User(userData.getAddressDetail(), userData.getPhoneNumber(), userData.getEmail(), encodedPassword, userData.getFullName(), Constant.NOT_VERIFY_EMAIL, userData.getGender(), userData.getDob());
         User userSaveResponse = userRepository.save(user);
         if (userSaveResponse.getUserId() != null) {
             boolean assignRoleResponse = assignRoleForUser(user.getUserId(), userData.getRoleId() != null ? userData.getRoleId() : roleRepository.findByRoleName(defaultRoleName).getRoleId());
@@ -121,21 +119,21 @@ public class UserController {
     public ResponseEntity<UserDto> updateAccount(@Valid @RequestBody UserModel.UpdateAccount updateAccount) throws ParseException {
         User checkUserExist = userRepository.findById(updateAccount.getUserId()).orElseThrow(() -> new NoResultException("Account does not exist."));
         if (updateAccount.getAddressDetail() != null) checkUserExist.setAddressDetail(updateAccount.getAddressDetail());
-        if (updateAccount.getPhoneNumber() != null) checkUserExist.setPhoneNumber(updateAccount.getPhoneNumber());
-        if (updateAccount.getFullName() != null) checkUserExist.setFullName(updateAccount.getFullName());
-        if (updateAccount.getPassword() != null) {
-            var rawPassword = updateAccount.getPassword();
-            var encodedPassword = passwordEncoder.encode(rawPassword);
-            checkUserExist.setPassword(encodedPassword);
+        if (updateAccount.getPhoneNumber() != null) {
+            User checkUserByPhone = userRepository.findByPhoneNumber(updateAccount.getPhoneNumber()).orElse(null);
+            if (checkUserByPhone != null && !Objects.equals(checkUserByPhone.getUserId(), updateAccount.getUserId())) {
+                throw new NoResultException("Phone number already exist.");
+            }
+            checkUserExist.setPhoneNumber(updateAccount.getPhoneNumber());
         }
+        ;
+        if (updateAccount.getFullName() != null) checkUserExist.setFullName(updateAccount.getFullName());
         if (updateAccount.getGender() != null) checkUserExist.setGender(updateAccount.getGender());
         if (updateAccount.getDob() != null) {
-            Date dob = ConvertDate.ConvertStringToDate(updateAccount.getDob());
-            checkUserExist.setDob(dob);
+            checkUserExist.setDob(updateAccount.getDob());
         }
 
         User updateUserResponse = userRepository.saveAndFlush(checkUserExist);
-
         return new ResponseEntity<>(new UserDto(updateUserResponse), HttpStatus.OK);
     }
 

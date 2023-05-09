@@ -43,8 +43,6 @@ const getAuthSlice = createSlice({
       state.isLoading = true;
 
       state.error = null;
-
-      state.userData = null;
     });
 
     builder.addCase(getAuthThunk.fulfilled, (state, action) => {

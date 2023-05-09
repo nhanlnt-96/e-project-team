@@ -8,4 +8,10 @@
       }
     }
   }
+
+  &.ant-picker-disabled {
+    &:hover {
+      border-color: $light-silver !important;
+    }
+  }
 }
