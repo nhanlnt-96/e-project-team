@@ -139,7 +139,7 @@ const ProductInformation: React.FC<IProps> = ({ productData }) => {
             </div>
             <div className='flex-1 space-y-2'>
               <label className='hidden sm:block sm:invisible'>Add to cart</label>
-              <ButtonComp htmlType='button' className='mx-auto'>
+              <ButtonComp className='mx-auto'>
                 Add to Cart
               </ButtonComp>
             </div>

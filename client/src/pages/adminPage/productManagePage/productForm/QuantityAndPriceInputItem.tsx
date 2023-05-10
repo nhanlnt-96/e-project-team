@@ -111,12 +111,11 @@ const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice, de
       <div className='space-y-2'>
         <label className='text-sm text-taupe-gray invisible'>Add</label>
         {isDisableField ? (
-          <ButtonComp htmlType='button' className='h-[38px] !py-1.5' onClick={() => setIsDisableField(false)}>
+          <ButtonComp className='h-[38px] !py-1.5' onClick={() => setIsDisableField(false)}>
             Edit
           </ButtonComp>
         ) : (
           <ButtonComp
-            htmlType='button'
             className='h-[38px] !py-1.5'
             onClick={handleAddQuantityPrice}
             disabled={!validateObject<IQuantityPriceValue>(quantityPriceValues)}

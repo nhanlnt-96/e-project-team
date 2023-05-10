@@ -16,7 +16,8 @@ const MainLayout: React.FC = () => {
   const { userData, isLoading } = useAppSelector(getAuthSelector);
 
   useEffectOnce(() => {
-    dispatch(getAuthThunk());
+    const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
+    if (accessToken) dispatch(getAuthThunk());
   });
 
   const handleGenerateRouteElement = (isPrivate: boolean, requiredRole: TRoles | undefined, path: string, element: ReactElement) => {

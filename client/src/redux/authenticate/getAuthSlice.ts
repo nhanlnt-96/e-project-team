@@ -1,7 +1,7 @@
 import { LocalStorageName } from 'constants/index';
 import { generateUserDataObject } from 'redux/authenticate/utils';
 import { getAuthService, IUserData } from 'services/authenticate';
-import { getLocalStorageItem, setLocalStorageItem } from 'utils/localStorage';
+import { getLocalStorageItem, removeLocalStorageItem, setLocalStorageItem } from 'utils/localStorage';
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
@@ -37,7 +37,15 @@ export const getAuthThunk = createAsyncThunk('authenticate/getAuth', async (_, {
 const getAuthSlice = createSlice({
   name: 'authenticate/getAuth',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      removeLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
+
+      removeLocalStorageItem(LocalStorageName.USER_DATA_NAME);
+
+      state.userData = null;
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getAuthThunk.pending, (state) => {
       state.isLoading = true;
@@ -60,5 +68,7 @@ const getAuthSlice = createSlice({
     });
   }
 });
+
+export const { logout } = getAuthSlice.actions;
 
 export default getAuthSlice.reducer;
