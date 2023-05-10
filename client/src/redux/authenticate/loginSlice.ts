@@ -1,8 +1,7 @@
 import { LocalStorageName } from 'constants/index';
 import { toast } from 'react-toastify';
 import { getAuthThunk } from 'redux/authenticate/getAuthSlice';
-import { generateLoggedData } from 'redux/authenticate/utils';
-import { ILoggedData, loginService } from 'services/authenticate';
+import { loginService } from 'services/authenticate';
 import { ILoginData } from 'services/authenticate/loginService';
 import { setLocalStorageItem } from 'utils/localStorage';
 
@@ -11,13 +10,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 interface ILoginSlice {
   isLoading: boolean;
   error: string | null;
-  loggedData: ILoggedData | null;
+  isLogged: boolean;
 }
 
 const initialState: ILoginSlice = {
   isLoading: false,
   error: null,
-  loggedData: null
+  isLogged: false
 };
 
 export const loginThunk = createAsyncThunk('authenticate/login', async (data: ILoginData, { dispatch, rejectWithValue }) => {
@@ -57,7 +56,7 @@ const loginSlice = createSlice({
     builder.addCase(loginThunk.fulfilled, (state, action) => {
       state.isLoading = false;
 
-      state.loggedData = generateLoggedData(action.payload);
+      state.isLogged = true;
     });
 
     builder.addCase(loginThunk.rejected, (state, action) => {

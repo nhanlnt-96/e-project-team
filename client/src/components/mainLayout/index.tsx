@@ -1,7 +1,6 @@
 import Loading from 'components/loading';
 import { routes, TRoles } from 'components/mainLayout/routes';
 import { LocalStorageName, RouteBasePath } from 'constants/index';
-import { AuthContext } from 'context/index';
 import { useEffectOnce } from 'hooks/useEffectOnce';
 import React, { ReactElement } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
@@ -14,9 +13,9 @@ const MainLayout: React.FC = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const { userData, isLoading } = useAppSelector(getAuthSelector);
+  const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
 
   useEffectOnce(() => {
-    const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
     if (accessToken) dispatch(getAuthThunk());
   });
 
@@ -25,9 +24,8 @@ const MainLayout: React.FC = () => {
     //   return userData ? <Navigate to='/' /> : element;
     // }
     if (isPrivate) {
-      const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
       if (requiredRole) {
-        return userData && accessToken && userData.role.includes(requiredRole) ? element : <Navigate to={RouteBasePath.PAGE_NOT_FOUND} />;
+        return userData && accessToken && userData?.role.includes(requiredRole) ? element : <Navigate to={RouteBasePath.PAGE_NOT_FOUND} />;
       }
 
       return userData && accessToken ? element : <Navigate to={RouteBasePath.LOGIN_BASE_PATH} state={{ from: pathname }} />;
@@ -37,7 +35,7 @@ const MainLayout: React.FC = () => {
   };
 
   return (
-    <AuthContext.Provider value={{ userData }}>
+    <>
       <Routes>
         {routes.map((route) => (
           <Route
@@ -54,7 +52,7 @@ const MainLayout: React.FC = () => {
         ))}
       </Routes>
       {isLoading ? <Loading isLoadingMask /> : <></>}
-    </AuthContext.Provider>
+    </>
   );
 };
 

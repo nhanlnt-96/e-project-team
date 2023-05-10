@@ -19,7 +19,7 @@ const RegisterSuccessModal: React.FC<IProps> = ({ userPassword }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { registeredData } = useAppSelector(registerSelector);
-  const { isLoading, loggedData } = useAppSelector(loginSelector);
+  const { isLoading, isLogged } = useAppSelector(loginSelector);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -27,12 +27,12 @@ const RegisterSuccessModal: React.FC<IProps> = ({ userPassword }) => {
   }, [registeredData]);
 
   useEffect(() => {
-    if (loggedData) {
+    if (isLogged) {
       const redirectFrom = location.state?.from;
       if (redirectFrom) navigate(redirectFrom);
       else navigate('/');
     }
-  }, [loggedData]);
+  }, [isLogged]);
 
   const handleCloseModal = () => {
     navigate('/');

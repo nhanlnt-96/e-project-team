@@ -7,7 +7,7 @@ import { handleDisplayErrorMsg } from 'helpers/formik';
 import React, { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { loginThunk } from 'redux/authenticate/loginSlice';
-import { loginSelector } from 'redux/authenticate/selector';
+import { getAuthSelector, loginSelector } from 'redux/authenticate/selector';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { ILoginData } from 'services/authenticate/loginService';
 import * as Yup from 'yup';
@@ -21,15 +21,16 @@ const LoginForm: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isLoading, loggedData } = useAppSelector(loginSelector);
+  const { isLoading, isLogged } = useAppSelector(loginSelector);
+  const { userData } = useAppSelector(getAuthSelector);
 
   useEffect(() => {
-    if (loggedData) {
+    if (userData) {
       const redirectFrom = location.state?.from;
       if (redirectFrom) navigate(redirectFrom);
       else navigate('/');
     }
-  }, [loggedData]);
+  }, [userData]);
 
   const initialValues: ILoginFormikValues = {
     email: '',

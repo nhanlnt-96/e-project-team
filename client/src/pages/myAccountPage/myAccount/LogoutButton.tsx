@@ -1,16 +1,20 @@
 import ButtonComp from 'components/buttonComp';
 import ModalComp from 'components/modalComp';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { logout } from 'redux/authenticate/getAuthSlice';
 import { useAppDispatch } from 'redux/hooks';
 
 const LogoutButton: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleCloseModal = () => setIsOpen(false);
 
   const handleLogout = () => {
     dispatch(logout());
+
+    navigate('/');
   };
 
   return (
