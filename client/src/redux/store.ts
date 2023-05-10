@@ -2,6 +2,7 @@ import getAuthReducer from 'redux/authenticate/getAuthSlice';
 import loginReducer from 'redux/authenticate/loginSlice';
 import registerReducer from 'redux/authenticate/registerSlice';
 import updateAccountReducer from 'redux/authenticate/updateAccountSlice';
+import verifyEmailReducer from 'redux/authenticate/verifyEmailSlice';
 
 import { configureStore } from '@reduxjs/toolkit';
 
@@ -25,7 +26,8 @@ export const store = configureStore({
     registerReducer: registerReducer,
     loginReducer: loginReducer,
     getAuthReducer: getAuthReducer,
-    updateAccountReducer: updateAccountReducer
+    updateAccountReducer: updateAccountReducer,
+    verifyEmailReducer: verifyEmailReducer
   }
 });
 

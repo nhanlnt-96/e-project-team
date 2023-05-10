@@ -20,9 +20,9 @@ const MainLayout: React.FC = () => {
   });
 
   const handleGenerateRouteElement = (isPrivate: boolean, requiredRole: TRoles | undefined, path: string, element: ReactElement) => {
-    if (path === RouteBasePath.LOGIN_BASE_PATH) {
-      return userData ? <Navigate to='/' /> : element;
-    }
+    // if (path === RouteBasePath.LOGIN_BASE_PATH) {
+    //   return userData ? <Navigate to='/' /> : element;
+    // }
     if (isPrivate) {
       const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
       if (requiredRole) {

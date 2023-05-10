@@ -2,7 +2,7 @@ import { Popover } from 'antd';
 import { SvgIcons } from 'assets/icons/svgIcons';
 import Loading from 'components/loading';
 import GetEmailVerifySuccess from 'pages/myAccountPage/myAccount/GetEmailVerifySuccess';
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { getAuthSelector } from 'redux/authenticate/selector';
 import { useAppSelector } from 'redux/hooks';
@@ -17,19 +17,21 @@ const EmailVerifyStatus: React.FC = () => {
     return userData?.verifyEmail ? 'Your email is verified' : 'Click to verify you email';
   }, [userData?.verifyEmail]);
 
-  const handleGetEmailVerifyToken = async () => {
-    setIsLoading(true);
-    try {
-      const response = await getEmailVerifyTokenService();
-      if (response) {
-        setIsOpenModal(true);
+  const handleGetEmailVerifyToken = useCallback(async () => {
+    if (!userData?.verifyEmail) {
+      setIsLoading(true);
+      try {
+        const response = await getEmailVerifyTokenService();
+        if (response) {
+          setIsOpenModal(true);
+        }
+      } catch (error) {
+        toast.error(error as string);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      toast.error(error as string);
-    } finally {
-      setIsLoading(false);
     }
-  };
+  }, [userData?.verifyEmail]);
 
   return (
     <>

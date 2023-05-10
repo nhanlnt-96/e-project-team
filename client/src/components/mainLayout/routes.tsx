@@ -35,6 +35,7 @@ const NetWeightManagePage = lazy(() => import('pages/adminPage/netWeightManage')
 const ProductDetailPage = lazy(() => import('pages/clientPage/productDetailPage'));
 const MyAccountPageLayout = lazy(() => import('pages/myAccountPage'));
 const MyAccountPage = lazy(() => import('pages/myAccountPage/myAccount'));
+const VerifyEmailPage = lazy(() => import('pages/authenticate/verifyEmail'));
 
 export const routes: IRoutes[] = [
   {
@@ -78,6 +79,11 @@ export const routes: IRoutes[] = [
         path: RouteBasePath.REGISTER_PAGE_BASE_PATH,
         isIndex: false,
         element: <RegisterPage />
+      },
+      {
+        path: RouteBasePath.VERIFY_EMAIL_PAGE_BASE_PATH,
+        isIndex: false,
+        element: <VerifyEmailPage />
       }
     ]
   },

@@ -17,7 +17,7 @@ const GetEmailVerifySuccess: React.FC<IProps> = ({ isOpen, onClose }) => {
         <Title
           variant='h6'
           title={'Sent email successfully!'}
-          subtitle='A verification link has been sent to your email account. Please click on the link that has just been sent to your email account to verify your email and continue the registration process.'
+          subtitle='A verification link has been sent to your email account. Please click on the link that has just been sent to your email account to verify your email.'
           titleClassName='text-black'
           subTitleClassName='text-black'
           rootClassName='space-y-4'
