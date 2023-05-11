@@ -13,3 +13,5 @@ export { default as updateAccountService } from './updateAccountService';
 export { default as getEmailVerifyTokenService } from './getEmailVerifyTokenService';
 
 export { default as verifyEmailService } from './verifyEmailService';
+
+export { default as getResetPasswordMailService } from './getResetPasswordMailService';

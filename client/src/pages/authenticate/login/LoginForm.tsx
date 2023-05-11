@@ -4,7 +4,8 @@ import Loading from 'components/loading';
 import { RouteBasePath } from 'constants/index';
 import { useFormik } from 'formik';
 import { handleDisplayErrorMsg } from 'helpers/formik';
-import React, { useEffect } from 'react';
+import EnterEmailModal from 'pages/authenticate/login/EnterEmailModal';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { loginThunk } from 'redux/authenticate/loginSlice';
 import { getAuthSelector, loginSelector } from 'redux/authenticate/selector';
@@ -21,8 +22,9 @@ const LoginForm: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isLoading, isLogged } = useAppSelector(loginSelector);
+  const { isLoading } = useAppSelector(loginSelector);
   const { userData } = useAppSelector(getAuthSelector);
+  const [isOpenEnterEmailModal, setIsOpenEnterEmailModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (userData) {
@@ -72,9 +74,9 @@ const LoginForm: React.FC = () => {
             onChange={formik.handleChange}
           />
           {handleDisplayErrorMsg<ILoginFormikValues>(formik, 'password')}
-          <Link to={'/'} className='block underline w-fit'>
+          <p className='block underline w-fit cursor-pointer hover:no-underline' onClick={() => setIsOpenEnterEmailModal(true)}>
             Forgot your password?
-          </Link>
+          </p>
         </div>
         <div className='w-full flex flex-col space-y-2 justify-center items-center !mt-8'>
           <ButtonComp htmlType='submit' isPrimary={false} loading={isLoading}>
@@ -89,6 +91,7 @@ const LoginForm: React.FC = () => {
         </div>
       </form>
       {isLoading ? <Loading isLoadingMask /> : <></>}
+      <EnterEmailModal isOpenModal={isOpenEnterEmailModal} onCloseModal={() => setIsOpenEnterEmailModal(false)} />
     </>
   );
 };

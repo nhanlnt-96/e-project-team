@@ -167,7 +167,7 @@ public class UserController {
             }
         }
         try {
-            emailService.sendSimpleMessage(checkUserExist.getEmail(), "Change Password", MailTemplate.ChangePasswordMail(checkUserExist.getFullName(), changePasswordLink), true);
+            emailService.sendSimpleMessage(checkUserExist.getEmail(), "Reset Password", MailTemplate.ChangePasswordMail(checkUserExist.getFullName(), changePasswordLink), true);
         } catch (MessagingException messagingException) {
             System.out.println(messagingException.getMessage());
         }
