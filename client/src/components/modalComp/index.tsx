@@ -4,7 +4,7 @@ import { Modal, ModalProps } from 'antd';
 import ButtonComp from 'components/buttonComp';
 import React from 'react';
 
-interface IProps extends ModalProps {
+export interface IModalCompProps extends ModalProps {
   children: string | JSX.Element | JSX.Element[];
   isLoading?: boolean;
   onCloseModal: () => void;
@@ -13,7 +13,7 @@ interface IProps extends ModalProps {
   modalWidth?: number;
 }
 
-const ModalComp: React.FC<IProps> = ({ children, isOpenModal, isLoading = false, onCloseModal, onPressOk, modalWidth = 600, ...props }) => {
+const ModalComp: React.FC<IModalCompProps> = ({ children, isOpenModal, isLoading = false, onCloseModal, onPressOk, modalWidth = 600, ...props }) => {
   return (
     <Modal
       {...props}

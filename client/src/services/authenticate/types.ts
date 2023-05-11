@@ -34,3 +34,9 @@ export interface IUpdateAccountData {
   gender?: number;
   dob?: string;
 }
+
+export interface IResetPasswordDate {
+  token: string;
+  password: string;
+  confirmPassword: string;
+}

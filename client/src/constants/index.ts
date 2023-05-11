@@ -26,6 +26,7 @@ export enum RouteBasePath {
   LOGIN_BASE_PATH = '/authenticate',
   REGISTER_PAGE_BASE_PATH = 'register',
   VERIFY_EMAIL_PAGE_BASE_PATH = 'verify-email/:token',
+  RESET_PASSWORD_PAGE_BASE_PATH = 'reset-password/:token',
 
   MY_ACCOUNT_PAGE_BASE_PATH = '/my-account',
   MY_FAVORITES_PAGE_BASE_PATH = 'my-favorites',
