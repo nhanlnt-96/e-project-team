@@ -1,14 +1,16 @@
 import ButtonComp from 'components/buttonComp';
 import InputComp from 'components/inputComp';
 import Loading from 'components/loading';
-import { PASSWORD_REGEX } from 'constants/index';
+import { PASSWORD_REGEX, RouteBasePath } from 'constants/index';
 import { useFormik } from 'formik';
 import { handleDisplayErrorMsg } from 'helpers/formik';
+import { useEffectOnce } from 'hooks/useEffectOnce';
 import ResetPasswordSuccessModal from 'pages/authenticate/resetPassword/ResetPasswordSuccessModal';
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { IResetPasswordDate, resetPasswordService } from 'services/authenticate';
+import { checkTokenExistService } from 'services/token';
 import * as Yup from 'yup';
 
 interface IResetPasswordValues {
@@ -18,7 +20,9 @@ interface IResetPasswordValues {
 
 const ResetPasswordPage = () => {
   const { token } = useParams();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isCheckingToken, setIsCheckingToken] = useState<boolean>(true);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   const initialValues: IResetPasswordValues = {
@@ -59,11 +63,20 @@ const ResetPasswordPage = () => {
     }
   });
 
+  useEffectOnce(() => {
+    checkTokenExistService(token as string)
+      .then((response) => {
+        if (!response) navigate(RouteBasePath.PAGE_NOT_FOUND);
+      })
+      .catch(() => navigate(RouteBasePath.PAGE_NOT_FOUND))
+      .finally(() => setIsCheckingToken(false));
+  });
+
   const handleCloseModal = () => {
     setIsOpenModal(false);
   };
 
-  return (
+  return !isCheckingToken ? (
     <>
       <div className='py-2 border-b border-black/50'>
         <h2 className='font-playfair-display font-medium text-2xl capitalize sm:text-3xl'>Reset password</h2>
@@ -105,6 +118,8 @@ const ResetPasswordPage = () => {
       {isLoading ? <Loading isLoadingMask /> : <></>}
       <ResetPasswordSuccessModal isOpen={isOpenModal} onClose={handleCloseModal} />
     </>
+  ) : (
+    <Loading isPageLoading />
   );
 };
 

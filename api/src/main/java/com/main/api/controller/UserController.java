@@ -11,7 +11,6 @@ import com.main.api.entity.Token;
 import com.main.api.entity.User;
 import com.main.api.mailTemplate.MailTemplate;
 import com.main.api.model.UserModel;
-import com.main.api.utils.ConvertDate;
 import com.main.api.utils.GenerateToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,9 +24,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.mail.MessagingException;
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
