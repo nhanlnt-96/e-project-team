@@ -26,7 +26,9 @@ import javax.persistence.NoResultException;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/user")
@@ -275,6 +277,15 @@ public class UserController {
         } else {
             throw new NoResultException("Old password does not match");
         }
+    }
+
+    @GetMapping("/get-account-list")
+    @Transactional(rollbackFor = Exception.class)
+    @RolesAllowed("ROLE_ADMIN")
+    public ResponseEntity<List<UserDto>> getAccountList() {
+        List<User> userList = userRepository.findAll();
+        List<UserDto> userDtoList = userList.stream().map(UserDto::new).collect(Collectors.toList());
+        return new ResponseEntity<>(userDtoList, HttpStatus.OK);
     }
 
     private Role getRoleDataByName(String roleName) {

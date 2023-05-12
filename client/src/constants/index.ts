@@ -42,6 +42,8 @@ export enum RouteBasePath {
 
   ADMIN_NET_WEIGHT_MANAGE_PAGE_BASE_PATH = '/admin/net-weight-manage',
 
+  ADMIN_ACCOUNT_MANAGE_PAGE_BASE_PATH = '/admin/account-manage',
+
   PAGE_NOT_FOUND = '/page-not-found'
 }
 

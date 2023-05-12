@@ -10,7 +10,7 @@ import { addPropertyKeyToArray } from 'utils/addPropertyKeyToArray';
 
 const NetWeightListing: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, error, netWeightData } = useAppSelector(getAllNetWeightSelector);
+  const { isLoading, netWeightData } = useAppSelector(getAllNetWeightSelector);
 
   const netWeightDataTable = useMemo(() => {
     return addPropertyKeyToArray<INetWeightData>(netWeightData, 'netWeightValue');

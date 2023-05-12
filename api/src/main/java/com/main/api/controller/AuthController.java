@@ -53,7 +53,7 @@ public class AuthController {
     }
 
     @GetMapping("/get-auth")
-    @RolesAllowed("ROLE_USER")
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<UserDto> getAuth() {
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User userData = userRepository.findByEmail(userEmail).orElseThrow(() -> new NoResultException("User does not exist"));

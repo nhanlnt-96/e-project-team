@@ -37,6 +37,7 @@ const ProductDetailPage = lazy(() => import('pages/clientPage/productDetailPage'
 const MyAccountPageLayout = lazy(() => import('pages/myAccountPage'));
 const MyAccountPage = lazy(() => import('pages/myAccountPage/myAccount'));
 const VerifyEmailPage = lazy(() => import('pages/authenticate/verifyEmail'));
+const AccountManagePage = lazy(() => import('pages/adminPage/accountManagePage'));
 
 export const routes: IRoutes[] = [
   {
@@ -147,6 +148,13 @@ export const routes: IRoutes[] = [
     isPrivate: true,
     requiredRole: Roles.ADMIN_ROLE,
     element: <NetWeightManagePage />,
+    children: []
+  },
+  {
+    path: RouteBasePath.ADMIN_ACCOUNT_MANAGE_PAGE_BASE_PATH,
+    isPrivate: true,
+    requiredRole: Roles.ADMIN_ROLE,
+    element: <AccountManagePage />,
     children: []
   },
   {

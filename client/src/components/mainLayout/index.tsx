@@ -13,9 +13,9 @@ const MainLayout: React.FC = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const { userData, isLoading } = useAppSelector(getAuthSelector);
-  const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
 
   useEffectOnce(() => {
+    const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
     if (accessToken) dispatch(getAuthThunk());
   });
 
@@ -24,6 +24,7 @@ const MainLayout: React.FC = () => {
     //   return userData ? <Navigate to='/' /> : element;
     // }
     if (isPrivate) {
+      const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
       if (requiredRole) {
         return userData && accessToken && userData?.role.includes(requiredRole) ? element : <Navigate to={RouteBasePath.PAGE_NOT_FOUND} />;
       }

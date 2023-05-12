@@ -17,5 +17,9 @@ export const sidebarData: ISidebarData[] = [
   {
     label: 'Product Manage',
     path: RouteBasePath.ADMIN_PRODUCT_MANAGE_PAGE_BASE_PATH
+  },
+  {
+    label: 'Account Manage',
+    path: RouteBasePath.ADMIN_ACCOUNT_MANAGE_PAGE_BASE_PATH
   }
 ];

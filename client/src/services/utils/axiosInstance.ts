@@ -10,6 +10,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const access = window.localStorage.getItem(LocalStorageName.ACCESS_TOKEN_NAME);
+
     if (access) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

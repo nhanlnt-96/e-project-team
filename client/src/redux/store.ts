@@ -1,11 +1,11 @@
-import getAuthReducer from 'redux/authenticate/getAuthSlice';
-import loginReducer from 'redux/authenticate/loginSlice';
-import registerReducer from 'redux/authenticate/registerSlice';
-import updateAccountReducer from 'redux/authenticate/updateAccountSlice';
-import verifyEmailReducer from 'redux/authenticate/verifyEmailSlice';
-
 import { configureStore } from '@reduxjs/toolkit';
 
+import getAllAccountReducer from './accountManage/getAllAccountSlice';
+import getAuthReducer from './authenticate/getAuthSlice';
+import loginReducer from './authenticate/loginSlice';
+import registerReducer from './authenticate/registerSlice';
+import updateAccountReducer from './authenticate/updateAccountSlice';
+import verifyEmailReducer from './authenticate/verifyEmailSlice';
 import getAllCategoryReducer from './categoryManage/getAllCategorySlice';
 import getAllNetWeightReducer from './netWeightManage/getAllNetWeightSlice';
 import getAllProductReducer from './productManage/getAllProductSlice';
@@ -27,7 +27,8 @@ export const store = configureStore({
     loginReducer: loginReducer,
     getAuthReducer: getAuthReducer,
     updateAccountReducer: updateAccountReducer,
-    verifyEmailReducer: verifyEmailReducer
+    verifyEmailReducer: verifyEmailReducer,
+    getAllAccountReducer: getAllAccountReducer
   }
 });
 

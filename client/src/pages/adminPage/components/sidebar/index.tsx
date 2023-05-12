@@ -1,19 +1,23 @@
 import './Sidebar.scss';
 
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 import ButtonComp from 'components/buttonComp';
 import Logo from 'components/logo';
 import { sidebarData } from 'pages/adminPage/components/sidebar/configs';
+import LogoutButton from 'pages/myAccountPage/myAccount/LogoutButton';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { getAuthSelector } from 'redux/authenticate/selector';
+import { useAppSelector } from 'redux/hooks';
 
 const { Sider } = Layout;
 
 const Sidebar: React.FC = () => {
+  const { userData, isLoading } = useAppSelector(getAuthSelector);
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   return (
-    <Sider trigger={null} collapsible collapsed={collapsed} className='!bg-white z-50' width={340}>
+    <Sider trigger={null} collapsible collapsed={collapsed} className='!bg-white z-50 sidebar-container' width={340}>
       <div className='w-full flex justify-between items-center py-2 px-3'>
         {!collapsed ? (
           <div className='w-full flex justify-center items-center space-x-2.5'>
@@ -44,6 +48,16 @@ const Sidebar: React.FC = () => {
           </NavLink>
         ))}
       </div>
+      {!isLoading && userData ? (
+        <div className='w-full p-4 mt-auto flex justify-between items-center'>
+          <p className={collapsed ? 'w-full truncate' : ''}>
+            Hi <span className='font-medium'>{userData?.fullName}</span>,
+          </p>
+          {!collapsed ? <LogoutButton /> : <></>}
+        </div>
+      ) : (
+        <Spin size='small' />
+      )}
     </Sider>
   );
 };

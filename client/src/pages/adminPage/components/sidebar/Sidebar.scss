@@ -1,10 +1,18 @@
 .sidebar {
+  &-container {
+    .ant-layout-sider-children {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
   &-menu {
     .ant-menu-item {
       &:hover {
         background-color: transparent !important;
       }
-      &-selected{
+
+      &-selected {
         color: unset;
         background-color: transparent;
       }

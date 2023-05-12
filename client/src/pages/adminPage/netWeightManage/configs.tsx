@@ -16,7 +16,7 @@ export const columns: ColumnsType<INetWeightData> = [
   {
     title: 'Net Weight Label',
     dataIndex: 'netWeightLabel',
-    key: 'netWeightId',
+    key: 'netWeightLabel',
     sorter: (prev: INetWeightData, next: INetWeightData) => {
       if (prev.netWeightLabel < next.netWeightLabel) return -1;
       if (prev.netWeightLabel > next.netWeightLabel) return 1;
@@ -27,7 +27,7 @@ export const columns: ColumnsType<INetWeightData> = [
   {
     title: 'Net Weight Value',
     dataIndex: 'netWeightValue',
-    key: 'netWeightId',
+    key: 'netWeightValue',
     sorter: (prev: INetWeightData, next: INetWeightData) => prev.netWeightValue - next.netWeightValue
   },
   {
