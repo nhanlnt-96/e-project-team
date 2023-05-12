@@ -38,8 +38,6 @@ public class UserController {
     final private EmailService emailService;
     final private TokenRepository tokenRepository;
     final private String defaultRoleName = Constant.USER_ROLE;
-    final private long millisecondsPerHour = 60 * 60 * 1000;
-    final private long twoHoursInMil = 2 * millisecondsPerHour;
 
     @Autowired
     public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, EmailService emailService, TokenRepository tokenRepository) {
@@ -150,11 +148,11 @@ public class UserController {
         Date currentDate = new Date();
         Token checkTokenExist = tokenRepository.findByUser_UserId_AndTokenName(checkUserExist.getUserId(), Constant.CHANGE_PASSWORD_TOKEN_NAME).orElse(null);
         String changePasswordLink = "http://localhost:3000/authenticate/reset-password/";
-        if (checkTokenExist != null && checkTokenExpired(checkTokenExist.getCreatedAt())) {
+        if (checkTokenExist != null && TokenController.checkTokenExpired(checkTokenExist.getCreatedAt())) {
             changePasswordLink = changePasswordLink + checkTokenExist.getTokenValue();
         } else {
             // INFO: remove token if expired
-            if (checkTokenExist != null && !checkTokenExpired(checkTokenExist.getCreatedAt()))
+            if (checkTokenExist != null && !TokenController.checkTokenExpired(checkTokenExist.getCreatedAt()))
                 removeToken(checkTokenExist.getId());
             Token tokenData = new Token(Constant.CHANGE_PASSWORD_TOKEN_NAME, GenerateToken.generateToken().toString(), currentDate);
             tokenData.setUser(checkUserExist);
@@ -176,7 +174,7 @@ public class UserController {
     public ResponseEntity<?> resetPassword(@Valid @RequestBody UserModel.ResetPassword resetPasswordData) {
         Token checkTokenExist = tokenRepository.findByTokenValue(resetPasswordData.getToken()).orElseThrow(() -> new NoResultException("Token does not exist"));
         User checkUserExist = userRepository.findById(checkTokenExist.getUser().getUserId()).orElseThrow(() -> new NoResultException("Account does not exist."));
-        if (checkTokenExpired(checkTokenExist.getCreatedAt())) {
+        if (TokenController.checkTokenExpired(checkTokenExist.getCreatedAt())) {
             if (resetPasswordData.getPassword() == null) throw new NoResultException("password can not be null");
             if (resetPasswordData.getConfirmPassword() == null) throw new NoResultException("password can not be null");
             if (!Objects.equals(resetPasswordData.getPassword(), resetPasswordData.getConfirmPassword()))
@@ -210,11 +208,11 @@ public class UserController {
         Date currentDate = new Date();
         Token checkTokenExist = tokenRepository.findByUser_UserId_AndTokenName(checkUserExist.getUserId(), Constant.VERIFY_EMAIL_TOKEN_NAME).orElse(null);
         String verifyEmailLink = "http://localhost:3000/authenticate/verify-email/";
-        if (checkTokenExist != null && checkTokenExpired(checkTokenExist.getCreatedAt())) {
+        if (checkTokenExist != null && TokenController.checkTokenExpired(checkTokenExist.getCreatedAt())) {
             verifyEmailLink = verifyEmailLink + checkTokenExist.getTokenValue();
         } else {
             // INFO: remove token if expired
-            if (checkTokenExist != null && !checkTokenExpired(checkTokenExist.getCreatedAt()))
+            if (checkTokenExist != null && !TokenController.checkTokenExpired(checkTokenExist.getCreatedAt()))
                 removeToken(checkTokenExist.getId());
             Token tokenData = new Token(Constant.VERIFY_EMAIL_TOKEN_NAME, GenerateToken.generateToken().toString(), currentDate);
             tokenData.setUser(checkUserExist);
@@ -238,7 +236,7 @@ public class UserController {
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         Token checkTokenExist = tokenRepository.findByTokenValue(verifyEmailData.getToken()).orElseThrow(() -> new NoResultException("Token does not exist"));
         User checkUserExist = userRepository.findByEmail(userEmail).orElseThrow(() -> new NoResultException("Account does not exist."));
-        if (checkTokenExpired(checkTokenExist.getCreatedAt())) {
+        if (TokenController.checkTokenExpired(checkTokenExist.getCreatedAt())) {
             checkUserExist.setVerifyEmail(Constant.VERIFIED_EMAIL);
 
             User updateUserResponse = userRepository.saveAndFlush(checkUserExist);
@@ -255,6 +253,30 @@ public class UserController {
         }
     }
 
+    @PutMapping("/change-password")
+    @Transactional(rollbackFor = Exception.class)
+    @RolesAllowed("ROLE_USER")
+    public ResponseEntity<UserDto> changePassword(@Valid @RequestBody UserModel.ChangePassword changePassword) {
+        if (!Objects.equals(changePassword.getPassword(), changePassword.getConfirmPassword()))
+            throw new NoResultException("Confirm password does not match.");
+
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User checkUserExist = userRepository.findByEmail(userEmail).orElseThrow(() -> new NoResultException("User does not exist."));
+        boolean verifyPassword = passwordEncoder.matches(changePassword.getOldPassword(), checkUserExist.getPassword());
+        if (verifyPassword) {
+            var rawPassword = changePassword.getPassword();
+            var encodedPassword = passwordEncoder.encode(rawPassword);
+
+            checkUserExist.setPassword(encodedPassword);
+
+            User updateUserResponse = userRepository.saveAndFlush(checkUserExist);
+
+            return new ResponseEntity<>(new UserDto(updateUserResponse), HttpStatus.OK);
+        } else {
+            throw new NoResultException("Old password does not match");
+        }
+    }
+
     private Role getRoleDataByName(String roleName) {
         return roleRepository.findByRoleName(roleName);
     }
@@ -265,11 +287,6 @@ public class UserController {
 
         User assignRole = userRepository.save(user);
         return assignRole.getRoles() != null;
-    }
-
-    private boolean checkTokenExpired(Date tokenCreated) {
-        Date currentDate = new Date();
-        return currentDate.getTime() - tokenCreated.getTime() < twoHoursInMil;
     }
 
     public void removeToken(Long tokenId) {

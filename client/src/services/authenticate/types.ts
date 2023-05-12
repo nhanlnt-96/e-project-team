@@ -35,8 +35,14 @@ export interface IUpdateAccountData {
   dob?: string;
 }
 
-export interface IResetPasswordDate {
+export interface IResetPasswordData {
   token: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface IChangePasswordData {
+  oldPassword: string;
   password: string;
   confirmPassword: string;
 }

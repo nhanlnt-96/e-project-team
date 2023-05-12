@@ -9,7 +9,7 @@ import ResetPasswordSuccessModal from 'pages/authenticate/resetPassword/ResetPas
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { IResetPasswordDate, resetPasswordService } from 'services/authenticate';
+import { IResetPasswordData, resetPasswordService } from 'services/authenticate';
 import { checkTokenExistService } from 'services/token';
 import * as Yup from 'yup';
 
@@ -48,7 +48,7 @@ const ResetPasswordPage = () => {
     onSubmit: async (values) => {
       setIsLoading(true);
       try {
-        const resetPasswordData: IResetPasswordDate = {
+        const resetPasswordData: IResetPasswordData = {
           token: token as string,
           password: values.password,
           confirmPassword: values.confirmPassword

@@ -1,8 +1,8 @@
 import { USER_API_ENDPOINT } from 'services/authenticate/configs';
-import { IResetPasswordDate } from 'services/authenticate/types';
+import { IResetPasswordData } from 'services/authenticate/types';
 import { axiosInstance } from 'services/utils';
 
-const resetPasswordService = async (data: IResetPasswordDate) =>
+const resetPasswordService = async (data: IResetPasswordData) =>
   await axiosInstance.put(`${USER_API_ENDPOINT}/reset-password`, {
     token: data.token,
     password: data.password,

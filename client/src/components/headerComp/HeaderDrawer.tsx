@@ -16,7 +16,7 @@ const HeaderDrawer: React.FC = () => {
   };
 
   return (
-    <div className='w-fit flex justify-center items-center border-none outline-none focus:ring-0 hover:text-link-hover lg:hidden'>
+    <div className='w-fit flex justify-center items-center border-none outline-none order-2 focus:ring-0 hover:text-link-hover lg:hidden'>
       <button onClick={showDrawer} className='text-white'>
         <svg fill='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' aria-hidden='true' className='w-6 h-6'>
           <path

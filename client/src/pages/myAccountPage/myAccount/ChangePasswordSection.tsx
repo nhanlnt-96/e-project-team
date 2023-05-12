@@ -2,10 +2,13 @@ import { Collapse } from 'antd';
 import ButtonComp from 'components/buttonComp';
 import CollapseComp from 'components/collapseComp';
 import InputComp from 'components/inputComp';
+import Loading from 'components/loading';
 import { PASSWORD_REGEX } from 'constants/index';
 import { useFormik } from 'formik';
 import { handleDisplayErrorMsg } from 'helpers/formik';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
+import { changePasswordService, IChangePasswordData } from 'services/authenticate';
 import * as Yup from 'yup';
 
 interface IChangePasswordValues {
@@ -17,6 +20,8 @@ interface IChangePasswordValues {
 const { Panel } = Collapse;
 
 const ChangePasswordSection: React.FC = () => {
+  const [isUpdatingPassword, setIsUpdatingPassword] = useState<boolean>(false);
+
   const initialValues: IChangePasswordValues = {
     oldPassword: '',
     password: '',
@@ -26,7 +31,7 @@ const ChangePasswordSection: React.FC = () => {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: Yup.object({
-      fullName: Yup.string().trim().required('Please enter your old password'),
+      oldPassword: Yup.string().trim().required('Please enter your old password'),
       password: Yup.string()
         .trim()
         .required('Please enter your password')
@@ -39,8 +44,25 @@ const ChangePasswordSection: React.FC = () => {
         .required('Please enter confirm password')
         .oneOf([Yup.ref('password')], 'Password confirmation does not match')
     }),
-    onSubmit: async (values) => {
-      console.log(values);
+    onSubmit: async (values, formikHelpers) => {
+      setIsUpdatingPassword(true);
+      try {
+        const data: IChangePasswordData = {
+          oldPassword: values.oldPassword,
+          password: values.password,
+          confirmPassword: values.confirmPassword
+        };
+        const response = await changePasswordService(data);
+        if (response) {
+          formikHelpers.resetForm();
+
+          toast.success('Change password successfully');
+        }
+      } catch (error) {
+        toast.error(error as string);
+      } finally {
+        setIsUpdatingPassword(false);
+      }
     }
   });
 
@@ -93,13 +115,14 @@ const ChangePasswordSection: React.FC = () => {
             </div>
 
             <div className='w-full flex justify-center items-center'>
-              <ButtonComp htmlType='submit' isPrimary={false} disabled={handleDisableButton}>
+              <ButtonComp htmlType='submit' isPrimary={false} loading={isUpdatingPassword} disabled={handleDisableButton}>
                 Save
               </ButtonComp>
             </div>
           </form>
         </Panel>
       </CollapseComp>
+      {isUpdatingPassword ? <Loading isLoadingMask /> : <></>}
     </>
   );
 };
