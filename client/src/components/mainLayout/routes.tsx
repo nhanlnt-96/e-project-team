@@ -38,6 +38,7 @@ const MyAccountPageLayout = lazy(() => import('pages/myAccountPage'));
 const MyAccountPage = lazy(() => import('pages/myAccountPage/myAccount'));
 const VerifyEmailPage = lazy(() => import('pages/authenticate/verifyEmail'));
 const AccountManagePage = lazy(() => import('pages/adminPage/accountManagePage'));
+const MyFavoritePage = lazy(() => import('pages/myAccountPage/myFavorite'));
 
 export const routes: IRoutes[] = [
   {
@@ -103,6 +104,11 @@ export const routes: IRoutes[] = [
         path: '',
         isIndex: true,
         element: <MyAccountPage />
+      },
+      {
+        path: RouteBasePath.MY_FAVORITES_PAGE_BASE_PATH,
+        isIndex: true,
+        element: <MyFavoritePage />
       }
     ]
   },

@@ -1,5 +1,6 @@
 import ImageResponsive from 'components/imageResponsive';
 import CardHoverFeatures from 'components/productCard/CardHoverFeatures';
+import { RouteBasePath } from 'constants/index';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { IProductData } from 'services/product';
@@ -12,7 +13,7 @@ interface IProps {
 
 const ProductCard: React.FC<IProps> = ({ productData }) => {
   const productDetailPath = useMemo(() => {
-    return `${productData.productId}`;
+    return `/${RouteBasePath.CLIENT_PRODUCT_PAGE_BASE_PATH}/${productData.category.categorySlug}/${productData.productId}`;
   }, [productData]);
 
   return (
@@ -27,7 +28,7 @@ const ProductCard: React.FC<IProps> = ({ productData }) => {
             alt: `${productData.productName}`
           }}
         />
-        <CardHoverFeatures className='group-hover:flex' viewDetailPath={productDetailPath} />
+        <CardHoverFeatures className='group-hover:flex' viewDetailPath={productDetailPath} productData={productData} />
       </div>
       <div className='w-full py-2 px-4 text-center space-y-1'>
         <h2 className='font-playfair-display capitalize text-inherit truncate italic font-normal text-2xl'>

@@ -26,7 +26,11 @@ const MainLayout: React.FC = () => {
     if (isPrivate) {
       const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
       if (requiredRole) {
-        return userData && accessToken && userData?.role.includes(requiredRole) ? element : <Navigate to={RouteBasePath.PAGE_NOT_FOUND} />;
+        if (userData && accessToken) {
+          return userData?.role.includes(requiredRole) ? element : <Navigate to={RouteBasePath.PAGE_NOT_FOUND} />;
+        } else {
+          return <Navigate to={RouteBasePath.LOGIN_BASE_PATH} state={{ from: pathname }} />;
+        }
       }
 
       return userData && accessToken ? element : <Navigate to={RouteBasePath.LOGIN_BASE_PATH} state={{ from: pathname }} />;

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-type TSvgIconsName = 'EyeIcon' | 'PencilSquare' | 'Trash' | 'XCircle' | 'CheckCircle' | 'Account' | 'ChevronUp';
+type TSvgIconsName = 'EyeIcon' | 'PencilSquare' | 'Trash' | 'XCircle' | 'CheckCircle' | 'Account' | 'ChevronUp' | 'ShoppingCart' | 'Heart';
 
 type ISvgIcons = {
   // eslint-disable-next-line no-unused-vars
@@ -94,6 +94,16 @@ export const SvgIcons: ISvgIcons = {
   ChevronUp: (
     <svg fill='none' stroke='currentColor' strokeWidth='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
       <path strokeLinecap='round' strokeLinejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5'></path>
+    </svg>
+  ),
+  ShoppingCart: (
+    <svg fill='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
+      <path d='M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z'></path>
+    </svg>
+  ),
+  Heart: (
+    <svg fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
+      <path d='M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 018-2.828A4.5 4.5 0 0118 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 01-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 01-.69.001l-.002-.001z'></path>
     </svg>
   )
 };

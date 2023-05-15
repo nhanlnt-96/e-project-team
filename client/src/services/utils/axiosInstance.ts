@@ -29,9 +29,9 @@ axiosInstance.interceptors.response.use(
     }
   },
   (error) => {
-    if (error.response.status === 401) removeLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
+    if (error?.response?.status === 401) removeLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
 
-    return Promise.reject(error.response.data.message || error.message);
+    return Promise.reject(error?.response?.data?.message || error.message);
   }
 );
 

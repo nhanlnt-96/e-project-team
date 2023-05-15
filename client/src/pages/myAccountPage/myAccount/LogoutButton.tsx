@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logout } from 'redux/authenticate/getAuthSlice';
 import { useAppDispatch } from 'redux/hooks';
+import { resetProductFavorite } from 'redux/productFavorite/getProductFavoriteSlice';
 
 const LogoutButton: React.FC = () => {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ const LogoutButton: React.FC = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+
+    dispatch(resetProductFavorite());
 
     navigate('/');
   };

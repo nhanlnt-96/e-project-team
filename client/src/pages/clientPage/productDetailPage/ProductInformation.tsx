@@ -1,4 +1,5 @@
 import ButtonComp from 'components/buttonComp';
+import AddToFavoriteButton from 'components/productCard/AddToFavoriteButton';
 import SelectComp from 'components/selectComp';
 import { AllowNumber } from 'constants/index';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -139,15 +140,11 @@ const ProductInformation: React.FC<IProps> = ({ productData }) => {
             </div>
             <div className='flex-1 space-y-2'>
               <label className='hidden sm:block sm:invisible'>Add to cart</label>
-              <ButtonComp className='mx-auto'>
-                Add to Cart
-              </ButtonComp>
+              <ButtonComp className='mx-auto'>Add to Cart</ButtonComp>
             </div>
           </div>
           <div className='w-full flex justify-center items-center sm:justify-start'>
-            <button type='button' className='underline uppercase tracking-widest w-fit text-secondary hover:text-link-hover'>
-              Add to favorites
-            </button>
+            <AddToFavoriteButton productId={productData.productId} variant='text' />
           </div>
         </div>
       </div>

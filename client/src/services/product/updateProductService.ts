@@ -12,6 +12,7 @@ const updateProductService = async (updateData: IUpdateProductData) => {
 
     delete updateData.image;
   }
+
   if (updateData.productQuantityList?.length) {
     const productQuantityList = updateData.productQuantityList.map((quantity) => ({
       netWeightId: quantity.netWeightId,
@@ -22,6 +23,8 @@ const updateProductService = async (updateData: IUpdateProductData) => {
     formData.append('productQuantityList', JSON.stringify(productQuantityList));
 
     // INFO: remove productQuantityList after append data
+    delete updateData.productQuantityList;
+  } else {
     delete updateData.productQuantityList;
   }
 

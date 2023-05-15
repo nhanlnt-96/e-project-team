@@ -13,7 +13,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getProductByIdThunk } from 'redux/productManage/getProductByIdSlice';
 import { productDetailSelector, updateProductSelector } from 'redux/productManage/selector';
-import {updateProductThunk} from 'redux/productManage/updateProductSlice';
+import { updateProductThunk } from 'redux/productManage/updateProductSlice';
 import { IUpdateProductData } from 'services/product';
 
 const EditProductPage = () => {

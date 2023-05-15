@@ -1,9 +1,10 @@
 import { Tabs } from 'antd';
 import { myAccountTabsItems } from 'pages/myAccountPage/configs';
 import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const MyAccountTabs: React.FC = () => {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const onChange = useCallback(
@@ -15,7 +16,7 @@ const MyAccountTabs: React.FC = () => {
     [myAccountTabsItems]
   );
 
-  return <Tabs defaultActiveKey={myAccountTabsItems[0].key} items={myAccountTabsItems} onChange={onChange} className='my-account-layout__tabs' />;
+  return <Tabs defaultActiveKey={pathname} items={myAccountTabsItems} onChange={onChange} className='my-account-layout__tabs' />;
 };
 
 export default MyAccountTabs;
