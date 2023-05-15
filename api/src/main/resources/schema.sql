@@ -107,6 +107,19 @@ create table product_quantity
         foreign key (product_id) references product (product_id)
 );
 
+-- auto-generated definition
+create table product_favorite
+(
+    user_id    int not null,
+    product_id int not null,
+    id         int auto_increment
+        primary key,
+    constraint product_favorite_product_product_id_fk
+        foreign key (product_id) references product (product_id),
+    constraint product_favorite_user_id_fk
+        foreign key (user_id) references user (id)
+);
+
 -- insert role data
 INSERT INTO plant_x_db.role (id, role_name)
 VALUES (1, 'ROLE_ADMIN');

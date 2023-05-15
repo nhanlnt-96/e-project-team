@@ -37,13 +37,15 @@ public class User implements UserDetails {
     private Integer gender;
     @Column(name = "dob")
     private LocalDate dob;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    Set<ProductFavorite> productFavorites;
 
     public User() {
     }
@@ -122,6 +124,14 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<ProductFavorite> getProductFavorites() {
+        return productFavorites;
+    }
+
+    public void setProductFavorites(Set<ProductFavorite> productFavorites) {
+        this.productFavorites = productFavorites;
     }
 
     @Override

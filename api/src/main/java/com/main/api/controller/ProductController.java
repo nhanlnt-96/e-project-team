@@ -328,7 +328,7 @@ public class ProductController {
         return new ResponseEntity<>("Removed product quantity", HttpStatus.OK);
     }
 
-    private List<ProductImageDto> handleGenerateImageDto(Set<ProductImage> productImages) {
+    public static List<ProductImageDto> handleGenerateImageDto(Set<ProductImage> productImages) {
         List<ProductImageDto> productImageDto = new ArrayList<>();
         for (ProductImage productImage : productImages) {
             productImageDto.add(new ProductImageDto(productImage.getImageId(), productImage.getImageName(), productImage.getStorageName()));
@@ -360,7 +360,7 @@ public class ProductController {
         return saveProductQuantityResponse.getQuantityId() != 0 ? saveProductQuantityResponse : null;
     }
 
-    private List<ProductQuantityDto> generateProductQuantityDto(List<ProductQuantity> productQuantitiesData) {
+    public static List<ProductQuantityDto> generateProductQuantityDto(List<ProductQuantity> productQuantitiesData) {
         List<ProductQuantityDto> productQuantities = new ArrayList<>();
         for (ProductQuantity productQuantity : productQuantitiesData) {
             productQuantities.add(new ProductQuantityDto(productQuantity.getQuantityId(), productQuantity.getQuantity(), productQuantity.getPrice(), productQuantity.getNetWeight()));

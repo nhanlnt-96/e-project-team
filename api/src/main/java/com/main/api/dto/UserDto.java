@@ -5,7 +5,6 @@ import com.main.api.entity.User;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 public class UserDto {
@@ -16,7 +15,7 @@ public class UserDto {
     private String fullName;
     private Integer verifyEmail;
     private Integer gender;
-    @JsonFormat(pattern="yyyy-MM-dd", timezone="asia/ho_chi_minh")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "asia/ho_chi_minh")
     private LocalDate dob;
     private String role;
 

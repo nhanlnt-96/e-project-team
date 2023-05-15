@@ -1,7 +1,5 @@
 package com.main.api.model;
 
-
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
