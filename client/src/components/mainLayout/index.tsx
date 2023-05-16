@@ -19,15 +19,15 @@ const MainLayout: React.FC = () => {
     if (accessToken) dispatch(getAuthThunk());
   });
 
-  const handleGenerateRouteElement = (isPrivate: boolean, requiredRole: TRoles | undefined, path: string, element: ReactElement) => {
+  const handleGenerateRouteElement = (isPrivate: boolean, requiredRole: TRoles[], path: string, element: ReactElement) => {
     // if (path === RouteBasePath.LOGIN_BASE_PATH) {
     //   return userData ? <Navigate to='/' /> : element;
     // }
     if (isPrivate) {
       const accessToken = getLocalStorageItem(LocalStorageName.ACCESS_TOKEN_NAME);
-      if (requiredRole) {
+      if (requiredRole?.length) {
         if (userData && accessToken) {
-          return userData?.role.includes(requiredRole) ? element : <Navigate to={RouteBasePath.PAGE_NOT_FOUND} />;
+          return requiredRole.find((role) => userData.role.includes(role)) ? element : <Navigate to={RouteBasePath.PAGE_NOT_FOUND} />;
         } else {
           return <Navigate to={RouteBasePath.LOGIN_BASE_PATH} state={{ from: pathname }} />;
         }
@@ -49,7 +49,14 @@ const MainLayout: React.FC = () => {
             element={handleGenerateRouteElement(route.isPrivate, route.requiredRole, route.path, route.element)}
           >
             {route.children.length ? (
-              route.children.map((child) => <Route key={child.path} index={child.isIndex} path={child.path} element={child.element} />)
+              route.children.map((child) => (
+                <Route
+                  key={child.path}
+                  index={child.isIndex}
+                  path={child.path}
+                  element={handleGenerateRouteElement(child.isPrivate, child.requiredRole, child.path, child.element)}
+                />
+              ))
             ) : (
               <></>
             )}
