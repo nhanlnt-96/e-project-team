@@ -67,7 +67,7 @@ public class UserController {
         if (userSaveResponse.getUserId() != null) {
             Role role = getRoleDataByName(defaultRoleName);
             if (role != null) {
-                boolean assignRoleResponse = assignRoleForUser(user.getUserId(), role.getRoleId());
+                boolean assignRoleResponse = assignRoleForUser(user.getUserId(), role);
                 if (assignRoleResponse) {
                     try {
                         emailService.sendSimpleMessage(userSaveResponse.getEmail(), "Register Successful", MailTemplate.WelcomeMail(userSaveResponse.getFullName()), true);
@@ -96,7 +96,8 @@ public class UserController {
         User user = new User(userData.getAddressDetail(), userData.getPhoneNumber(), userData.getEmail(), encodedPassword, userData.getFullName(), Constant.NOT_VERIFY_EMAIL, userData.getGender(), userData.getDob());
         User userSaveResponse = userRepository.save(user);
         if (userSaveResponse.getUserId() != null) {
-            boolean assignRoleResponse = assignRoleForUser(user.getUserId(), userData.getRoleName() != null ? roleRepository.findByRoleName(userData.getRoleName()).getRoleId() : roleRepository.findByRoleName(defaultRoleName).getRoleId());
+            Role roleData = roleRepository.findByRoleName(userData.getRoleName()).orElseThrow(() -> new NoResultException("Role name does not exist"));
+            boolean assignRoleResponse = assignRoleForUser(user.getUserId(), roleData);
             if (assignRoleResponse) {
                 try {
                     emailService.sendSimpleMessage(userSaveResponse.getEmail(), "Register Successful", MailTemplate.WelcomeMail(userSaveResponse.getFullName()), true);
@@ -298,12 +299,12 @@ public class UserController {
     }
 
     private Role getRoleDataByName(String roleName) {
-        return roleRepository.findByRoleName(roleName);
+        return roleRepository.findByRoleName(roleName).orElse(null);
     }
 
-    private boolean assignRoleForUser(Long userId, Long roleId) {
+    private boolean assignRoleForUser(Long userId, Role roleData) {
         User user = userRepository.findById(userId).get();
-        user.addRole(new Role(roleId));
+        user.addRole(roleData);
 
         User assignRole = userRepository.save(user);
         return assignRole.getRoles() != null;

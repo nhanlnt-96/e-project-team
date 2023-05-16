@@ -138,7 +138,9 @@ public class UserModel {
     }
 
     public static class CreateNewAccount {
+        @NotNull(message = "roleName can not be null")
         private String roleName;
+        @NotNull(message = "addressDetail can not be null")
         private String addressDetail;
         @NotNull(message = "phoneNumber can not be null")
         private String phoneNumber;

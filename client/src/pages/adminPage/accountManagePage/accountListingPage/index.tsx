@@ -1,7 +1,9 @@
 import Title from 'components/title';
 import { useEffectOnce } from 'hooks/useEffectOnce';
 import { columns } from 'pages/adminPage/accountManagePage/configs';
+import CreateNewAccButton from 'pages/adminPage/accountManagePage/createNewAccountPage/CreateNewAccButton';
 import DataTable from 'pages/adminPage/components/datatable';
+import SectionContainer from 'pages/adminPage/components/sectionContainer';
 import React, { useMemo } from 'react';
 import { getAllAccountThunk } from 'redux/accountManage/getAllAccountSlice';
 import { getAllAccountSelector } from 'redux/accountManage/selector';
@@ -22,10 +24,13 @@ const AccountListingPage = () => {
   });
 
   return (
-    <>
+    <SectionContainer>
       <Title title={'Account listing'} titleClassName='text-black' rootClassName='border-b border-black pb-2' />
-      <DataTable<IUserData> data={accountDataTable} columns={columns} loading={isLoading} />;
-    </>
+      <div className='w-ful flex justify-end items-center'>
+        <CreateNewAccButton />
+      </div>
+      <DataTable<IUserData> data={accountDataTable} columns={columns} loading={isLoading} />
+    </SectionContainer>
   );
 };
 

@@ -2,7 +2,6 @@ import ButtonComp from 'components/buttonComp';
 import DobPicker, { dobDateFormat } from 'components/dobPicker';
 import GenderSelect from 'components/genderSelect';
 import InputComp from 'components/inputComp';
-import { VerifyEmailStatus } from 'constants/index';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { handleDisplayErrorMsg } from 'helpers/formik';
@@ -43,14 +42,15 @@ const AccountInfoForm: React.FC<IProps> = ({ onFormSubmit, userData }) => {
           {handleDisplayErrorMsg<IAccountInFoValues>(formik, 'fullName')}
         </div>
         <div className={formItemClassName}>
-          <div className='flex justify-between'>
+          {userData ? (
+            <div className='flex justify-between'>
+              <label htmlFor='email'>Email</label>
+              userData.verifyEmail === VerifyEmailStatus.VERIFIED_EMAIL ? (<span className='font-medium block text-green'>Email is verified</span>) :
+              (<span className='font-medium block text-antd-status-warning'>Email is not verified</span>)
+            </div>
+          ) : (
             <label htmlFor='email'>Email</label>
-            {userData?.verifyEmail === VerifyEmailStatus.VERIFIED_EMAIL ? (
-              <span className='font-medium block text-green'>Email is verified</span>
-            ) : (
-              <span className='font-medium block text-antd-status-warning'>Email is not verified</span>
-            )}
-          </div>
+          )}
           <InputComp
             type='email'
             placeholder='Email'
@@ -76,13 +76,11 @@ const AccountInfoForm: React.FC<IProps> = ({ onFormSubmit, userData }) => {
         </div>
         <div className={formItemClassName}>
           <label htmlFor='dob'>Date of Birth</label>
-          <DobPicker
-            id='dob'
-            name='dob'
-            disabled={Boolean(userData)}
-            value={dayjs(formik.values.dob, dobDateFormat)}
-            onChange={(_, dateString) => formik.setFieldValue('dob', dateString)}
-          />
+          {!userData ? (
+            <DobPicker id='dob' name='dob' onChange={(_, dateString) => formik.setFieldValue('dob', dateString)} />
+          ) : (
+            <DobPicker id='dob' name='dob' disabled={Boolean(userData)} value={dayjs(formik.values.dob, dobDateFormat)} />
+          )}
           <div className='w-full flex justify-between'>
             {handleDisplayErrorMsg<IAccountInFoValues>(formik, 'dob')}
             <span className='text-taupe-gray italic text-xs'>*User must be at least 16 years old</span>
@@ -103,7 +101,7 @@ const AccountInfoForm: React.FC<IProps> = ({ onFormSubmit, userData }) => {
           />
           {handleDisplayErrorMsg<IAccountInFoValues>(formik, 'phoneNumber')}
         </div>
-        <div className='form-item'>
+        <div className={formItemClassName}>
           <label htmlFor='addressDetail'>Address detail</label>
           <InputComp
             id='addressDetail'
@@ -117,7 +115,7 @@ const AccountInfoForm: React.FC<IProps> = ({ onFormSubmit, userData }) => {
         </div>
       </div>
       <div className='form-control__inline'>
-        <div className={formItemClassName}>
+        <div className='form-item'>
           <label htmlFor='roleName'>Role</label>
           <RoleSelect
             id='roleName'
@@ -149,7 +147,7 @@ const AccountInfoForm: React.FC<IProps> = ({ onFormSubmit, userData }) => {
       {!userData ? (
         <div className='w-full flex flex-col space-y-2 justify-center items-center !mt-8'>
           <ButtonComp htmlType='submit' isPrimary={false}>
-            Submit
+            Add account
           </ButtonComp>
         </div>
       ) : (

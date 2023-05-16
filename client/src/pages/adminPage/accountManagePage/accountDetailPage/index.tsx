@@ -5,6 +5,7 @@ import Title from 'components/title';
 import { useEffectOnce } from 'hooks/useEffectOnce';
 import AccountInformation from 'pages/adminPage/accountManagePage/accountDetailPage/AccountInformation';
 import ProductFavorite from 'pages/adminPage/accountManagePage/accountDetailPage/ProductFavorite';
+import SectionContainer from 'pages/adminPage/components/sectionContainer';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -41,9 +42,9 @@ const AccountDetailPage = () => {
 
   return !isLoading ? (
     accountData ? (
-      <>
+      <SectionContainer>
         <Title title={`${accountData.fullName}'s profile`} titleClassName='text-black' rootClassName='border-b border-black pb-2' />
-        <CollapseComp>
+        <CollapseComp defaultActiveKey='1'>
           <Panel header='Account Information' key='1'>
             <AccountInformation userData={accountData} />
           </Panel>
@@ -51,7 +52,7 @@ const AccountDetailPage = () => {
             <ProductFavorite userId={Number.parseInt(userId as string)} />
           </Panel>
         </CollapseComp>
-      </>
+      </SectionContainer>
     ) : (
       <></>
     )

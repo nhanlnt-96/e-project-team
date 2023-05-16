@@ -1,4 +1,5 @@
 import { Roles, RouteBasePath } from 'constants/index';
+import CreateNewAccountPage from 'pages/adminPage/accountManagePage/createNewAccountPage';
 import LoginPage from 'pages/authenticate/login';
 import RegisterPage from 'pages/authenticate/register';
 import ResetPasswordPage from 'pages/authenticate/resetPassword';
@@ -173,6 +174,11 @@ export const routes: IRoutes[] = [
         path: `${RouteBasePath.ADMIN_ACCOUNT_DETAIL_PAGE_BASE_PATH}/:userId`,
         isIndex: false,
         element: <AccountDetailPage />
+      },
+      {
+        path: RouteBasePath.ADMIN_CREATE_NEW_ACCOUNT_PAGE_BASE_PATH,
+        isIndex: false,
+        element: <CreateNewAccountPage />
       }
     ]
   },
