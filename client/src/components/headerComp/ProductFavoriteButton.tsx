@@ -20,7 +20,7 @@ const ProductFavoriteButton: React.FC = () => {
   return (
     <NavLink
       to={`${RouteBasePath.MY_ACCOUNT_PAGE_BASE_PATH}/${RouteBasePath.MY_FAVORITES_PAGE_BASE_PATH}`}
-      className='text-white flex justify-center items-center space-x-1.5 header-toolbar__item'
+      className='text-white flex justify-center items-center space-x-1.5 header-toolbar__item' end
     >
       {React.cloneElement(SvgIcons.Heart, { className: 'w-6 h-6' })}
       <span>{!isLoading ? `(${productFavoriteData.length})` : <Spin size='small' />}</span>

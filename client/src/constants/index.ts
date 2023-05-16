@@ -43,6 +43,7 @@ export enum RouteBasePath {
   ADMIN_NET_WEIGHT_MANAGE_PAGE_BASE_PATH = '/admin/net-weight-manage',
 
   ADMIN_ACCOUNT_MANAGE_PAGE_BASE_PATH = '/admin/account-manage',
+  ADMIN_ACCOUNT_DETAIL_PAGE_BASE_PATH = 'account-detail',
 
   PAGE_NOT_FOUND = '/page-not-found'
 }
@@ -59,7 +60,8 @@ export enum VerifyEmailStatus {
 
 export enum Roles {
   ADMIN_ROLE = 'ROLE_ADMIN',
-  USER_ROLE = 'ROLE_USER'
+  USER_ROLE = 'ROLE_USER',
+  EDITOR_ROLE = 'ROLE_EDITOR'
 }
 
 export enum LocalStorageName {

@@ -44,7 +44,7 @@ public class ProductCategoryController {
     }
 
     @PostMapping("/create-category")
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     public ResponseEntity<ProductCategoryDto> createProductCategory(@RequestParam("createProductCategory") String createProductCategory, @RequestParam("categoryImage") MultipartFile categoryImage) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         CategoryModel.CreateProductCategory productCategoryData = mapper.readValue(createProductCategory, CategoryModel.CreateProductCategory.class);
@@ -84,7 +84,7 @@ public class ProductCategoryController {
     }
 
     @PutMapping("/update-category")
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     public ResponseEntity<ProductCategoryDto> updateProductCategory(@RequestParam("categoryImage") @Nullable MultipartFile categoryImage, @RequestParam("categoryUpdateData") String categoryUpdateData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         CategoryModel.UpdateProductCategory productCategoryData = mapper.readValue(categoryUpdateData, CategoryModel.UpdateProductCategory.class);
@@ -128,7 +128,7 @@ public class ProductCategoryController {
     }
 
     @DeleteMapping("/remove-category/{categoryId}")
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     public ResponseEntity<String> removeProductCategory(@PathVariable("categoryId") Long categoryId) throws IOException {
         ProductCategory checkCategoryExist = getCategoryById(categoryId);
         if (checkCategoryExist == null) {

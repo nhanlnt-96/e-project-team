@@ -138,7 +138,7 @@ public class UserModel {
     }
 
     public static class CreateNewAccount {
-        private Long roleId;
+        private String roleName;
         private String addressDetail;
         @NotNull(message = "phoneNumber can not be null")
         private String phoneNumber;
@@ -157,8 +157,8 @@ public class UserModel {
         public CreateNewAccount() {
         }
 
-        public CreateNewAccount(Long roleId, String addressDetail, String phoneNumber, String email, String password, String fullName, Integer gender, LocalDate dob) {
-            this.roleId = roleId;
+        public CreateNewAccount(String roleName, String addressDetail, String phoneNumber, String email, String password, String fullName, Integer gender, LocalDate dob) {
+            this.roleName = roleName;
             this.addressDetail = addressDetail;
             this.phoneNumber = phoneNumber;
             this.email = email;
@@ -168,12 +168,12 @@ public class UserModel {
             this.dob = dob;
         }
 
-        public Long getRoleId() {
-            return roleId;
+        public String getRoleName() {
+            return roleName;
         }
 
-        public void setRoleId(Long roleId) {
-            this.roleId = roleId;
+        public void setRoleName(String roleName) {
+            this.roleName = roleName;
         }
 
         public String getAddressDetail() {

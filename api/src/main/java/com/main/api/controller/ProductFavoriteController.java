@@ -65,10 +65,10 @@ public class ProductFavoriteController {
         return new ResponseEntity<>(new ProductFavoriteDto(userData.getUserId(), productDto), HttpStatus.OK);
     }
 
-    @GetMapping("/get-user-product-favorite")
-    @RolesAllowed("ROLE_ADMIN")
-    public ResponseEntity<ProductFavoriteDto> getUserProductFavorite(@Valid @RequestBody ProductFavoriteModel.GetUserProductFavorite body) {
-        User userData = userRepository.findById(body.getUserId()).orElseThrow(() -> new NoResultException("User does not exist"));
+    @GetMapping("/get-user-product-favorite/{userId}")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
+    public ResponseEntity<ProductFavoriteDto> getUserProductFavorite(@PathVariable("userId") Long userId) {
+        User userData = userRepository.findById(userId).orElseThrow(() -> new NoResultException("User does not exist"));
         List<ProductFavorite> productFavorite = productFavoriteRepository.findByUser_UserId(userData.getUserId());
         List<ProductDto> productDto = productFavorite.stream().map(favorite -> new ProductDto(favorite.getProduct(), ProductController.handleGenerateImageDto(favorite.getProduct().getProductImages()), favorite.getProduct().getCategory(), ProductController.generateProductQuantityDto(new ArrayList<>(favorite.getProduct().getProductQuantities())))).collect(Collectors.toList());
 

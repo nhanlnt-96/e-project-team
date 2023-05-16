@@ -117,4 +117,12 @@
       background-color: $white !important;
     }
   }
+
+  &.spin-black {
+    .ant-spin-dot {
+      &-item {
+        background-color: $black !important;
+      }
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import { ColumnsType } from 'antd/es/table';
+import ViewAccountDetailButton from 'pages/adminPage/accountManagePage/viewAccountDetailButton';
 import { IUserData } from 'services/authenticate';
 
 export const columns: ColumnsType<IUserData> = [
@@ -46,6 +47,10 @@ export const columns: ColumnsType<IUserData> = [
   {
     title: 'Action',
     key: 'action',
-    render: (_, record) => <div className='flex space-x-2'></div>
+    render: (_, record) => (
+      <div className='flex space-x-2'>
+        <ViewAccountDetailButton accountId={record.userId} />
+      </div>
+    )
   }
 ];

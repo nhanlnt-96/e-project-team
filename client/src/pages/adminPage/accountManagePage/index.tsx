@@ -1,16 +1,15 @@
 import { Layout } from 'antd';
 import ButtonComp from 'components/buttonComp';
-import Title from 'components/title';
 import { RouteBasePath } from 'constants/index';
-import AccountListing from 'pages/adminPage/accountManagePage/accountListing';
 import SectionContainer from 'pages/adminPage/components/sectionContainer';
 import Sidebar from 'pages/adminPage/components/sidebar';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const { Content } = Layout;
 
 const AccountManagePage = () => {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   return (
@@ -18,10 +17,19 @@ const AccountManagePage = () => {
       <Layout>
         <Sidebar />
         <Content className='p-4 space-y-4'>
-          <ButtonComp onClick={() => navigate(RouteBasePath.ADMIN_PAGE_BASE_PATH)}>Back</ButtonComp>
+          <ButtonComp
+            onClick={() =>
+              navigate(
+                pathname === RouteBasePath.ADMIN_ACCOUNT_MANAGE_PAGE_BASE_PATH
+                  ? RouteBasePath.ADMIN_PAGE_BASE_PATH
+                  : RouteBasePath.ADMIN_ACCOUNT_MANAGE_PAGE_BASE_PATH
+              )
+            }
+          >
+            Back
+          </ButtonComp>
           <SectionContainer>
-            <Title title={'Account listing'} titleClassName='text-black' rootClassName='border-b border-black pb-2' />
-            <AccountListing />
+            <Outlet />
           </SectionContainer>
         </Content>
       </Layout>

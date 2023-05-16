@@ -39,6 +39,8 @@ const MyAccountPage = lazy(() => import('pages/myAccountPage/myAccount'));
 const VerifyEmailPage = lazy(() => import('pages/authenticate/verifyEmail'));
 const AccountManagePage = lazy(() => import('pages/adminPage/accountManagePage'));
 const MyFavoritePage = lazy(() => import('pages/myAccountPage/myFavorite'));
+const AccountDetailPage = lazy(() => import('pages/adminPage/accountManagePage/accountDetailPage'));
+const AccountListingPage = lazy(() => import('pages/adminPage/accountManagePage/accountListingPage'));
 
 export const routes: IRoutes[] = [
   {
@@ -161,7 +163,18 @@ export const routes: IRoutes[] = [
     isPrivate: true,
     requiredRole: Roles.ADMIN_ROLE,
     element: <AccountManagePage />,
-    children: []
+    children: [
+      {
+        path: '',
+        isIndex: true,
+        element: <AccountListingPage />
+      },
+      {
+        path: `${RouteBasePath.ADMIN_ACCOUNT_DETAIL_PAGE_BASE_PATH}/:userId`,
+        isIndex: false,
+        element: <AccountDetailPage />
+      }
+    ]
   },
   {
     path: '*',

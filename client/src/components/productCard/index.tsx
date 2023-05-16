@@ -9,9 +9,10 @@ import { imageLinkGeneration } from 'utils/imageLinkGeneration';
 
 interface IProps {
   productData: IProductData;
+  isShowCardFeatureHover?: boolean;
 }
 
-const ProductCard: React.FC<IProps> = ({ productData }) => {
+const ProductCard: React.FC<IProps> = ({ productData, isShowCardFeatureHover = true }) => {
   const productDetailPath = useMemo(() => {
     return `/${RouteBasePath.CLIENT_PRODUCT_PAGE_BASE_PATH}/${productData.category.categorySlug}/${productData.productId}`;
   }, [productData]);
@@ -28,7 +29,11 @@ const ProductCard: React.FC<IProps> = ({ productData }) => {
             alt: `${productData.productName}`
           }}
         />
-        <CardHoverFeatures className='group-hover:flex' viewDetailPath={productDetailPath} productData={productData} />
+        {isShowCardFeatureHover ? (
+          <CardHoverFeatures className='group-hover:flex' viewDetailPath={productDetailPath} productData={productData} />
+        ) : (
+          <></>
+        )}
       </div>
       <div className='w-full py-2 px-4 text-center space-y-1'>
         <h2 className='font-playfair-display capitalize text-inherit truncate italic font-normal text-2xl'>

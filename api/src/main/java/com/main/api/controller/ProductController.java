@@ -54,7 +54,7 @@ public class ProductController {
     }
 
     @PostMapping("/create-product")
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<ProductDto> createProduct(@RequestParam("createProductData") String createProduct,
                                                     @RequestParam("productImages") List<MultipartFile> productImages, @RequestParam("productQuantityList") String productQuantities) throws JsonProcessingException {
@@ -158,7 +158,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/remove-product/{productId}")
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<String> removeProduct(@PathVariable("productId") Long productId) {
         Product checkProductExist = getProductById(productId);
@@ -189,7 +189,7 @@ public class ProductController {
     }
 
     @PutMapping("/update-product")
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<ProductDto> updateProduct(@RequestParam("productImages") @Nullable List<MultipartFile> productImages, @RequestParam("productUpdateData") String productUpdateData, @RequestParam(value = "productQuantityList", defaultValue = "[]") String productQuantities) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -286,7 +286,7 @@ public class ProductController {
     }
 
     @DeleteMapping("remove-product-image")
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<String> removeProductImage(@RequestParam(value = "productId") Long productId, @RequestParam(value = "imageId") Long imageId) {
         boolean checkProductExist = productRepository.existsById(productId);
@@ -311,7 +311,7 @@ public class ProductController {
     }
 
     @DeleteMapping("remove-product-quantity")
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<String> removeProductQuantity(@RequestParam(value = "quantityId") Long quantityId) {
         ProductQuantity checkProductQuantityExist = productQuantityRepository.findProductQuantityByQuantityId(quantityId);

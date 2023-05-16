@@ -96,7 +96,7 @@ public class UserController {
         User user = new User(userData.getAddressDetail(), userData.getPhoneNumber(), userData.getEmail(), encodedPassword, userData.getFullName(), Constant.NOT_VERIFY_EMAIL, userData.getGender(), userData.getDob());
         User userSaveResponse = userRepository.save(user);
         if (userSaveResponse.getUserId() != null) {
-            boolean assignRoleResponse = assignRoleForUser(user.getUserId(), userData.getRoleId() != null ? userData.getRoleId() : roleRepository.findByRoleName(defaultRoleName).getRoleId());
+            boolean assignRoleResponse = assignRoleForUser(user.getUserId(), userData.getRoleName() != null ? roleRepository.findByRoleName(userData.getRoleName()).getRoleId() : roleRepository.findByRoleName(defaultRoleName).getRoleId());
             if (assignRoleResponse) {
                 try {
                     emailService.sendSimpleMessage(userSaveResponse.getEmail(), "Register Successful", MailTemplate.WelcomeMail(userSaveResponse.getFullName()), true);
@@ -112,7 +112,7 @@ public class UserController {
 
     @PutMapping("/update-account")
     @Transactional(rollbackFor = Exception.class)
-    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN", "ROLE_EDITOR"})
     public ResponseEntity<UserDto> updateAccount(@Valid @RequestBody UserModel.UpdateAccount updateAccount) throws ParseException {
         User checkUserExist = userRepository.findById(updateAccount.getUserId()).orElseThrow(() -> new NoResultException("Account does not exist."));
         if (updateAccount.getAddressDetail() != null) checkUserExist.setAddressDetail(updateAccount.getAddressDetail());
@@ -281,11 +281,20 @@ public class UserController {
 
     @GetMapping("/get-account-list")
     @Transactional(rollbackFor = Exception.class)
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     public ResponseEntity<List<UserDto>> getAccountList() {
         List<User> userList = userRepository.findAll();
         List<UserDto> userDtoList = userList.stream().map(UserDto::new).collect(Collectors.toList());
         return new ResponseEntity<>(userDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-account-detail/{userId}")
+    @Transactional(rollbackFor = Exception.class)
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
+    public ResponseEntity<UserDto> getAccountDetail(@PathVariable("userId") Long userId) {
+        User userData = userRepository.findById(userId).orElseThrow(() -> new NoResultException("User does not exist"));
+        System.out.println(userData.toString());
+        return new ResponseEntity<>(new UserDto(userData), HttpStatus.OK);
     }
 
     private Role getRoleDataByName(String roleName) {

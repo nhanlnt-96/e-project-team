@@ -29,7 +29,7 @@ public class NetWeightController {
     }
 
     @PostMapping("/create-net-weight")
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     public ResponseEntity<NetWeightDto> createNetWeight(@Valid @RequestBody NetWeightModel.CreateNetWeight netWeightData) {
         NetWeight checkNetWeightLabelExist = getNetWeightByLabel(netWeightData.getNetWeightLabel());
         NetWeight checkNetWeightValueExist = getNetWeightByValue(netWeightData.getNetWeightValue());
@@ -60,7 +60,7 @@ public class NetWeightController {
     }
 
     @PutMapping("/update-net-weight")
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     public ResponseEntity<NetWeightDto> updateNetWeight(@Valid @RequestBody NetWeightModel.UpdateNetWeight netWeightData) {
         NetWeight checkNetWeightExist = getNetWeightById(netWeightData.getNetWeightId());
         if (checkNetWeightExist == null) {
@@ -76,7 +76,7 @@ public class NetWeightController {
     }
 
     @DeleteMapping("/remove-net-weight/{netWeightId}")
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     public ResponseEntity<String> removeNetWeight(@Valid @PathVariable("netWeightId") Long netWeightId) {
         NetWeight checkNetWeightExist = getNetWeightById(netWeightId);
         if (checkNetWeightExist == null) {

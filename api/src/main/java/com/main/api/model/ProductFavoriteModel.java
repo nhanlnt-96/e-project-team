@@ -22,24 +22,4 @@ public class ProductFavoriteModel {
             this.productId = productId;
         }
     }
-
-    public static class GetUserProductFavorite {
-        @NotNull(message = "userId can not be null.")
-        private Long userId;
-
-        public GetUserProductFavorite() {
-        }
-
-        public GetUserProductFavorite(Long userId) {
-            this.userId = userId;
-        }
-
-        public Long getUserId() {
-            return userId;
-        }
-
-        public void setUserId(Long userId) {
-            this.userId = userId;
-        }
-    }
 }
