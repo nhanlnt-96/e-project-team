@@ -60,12 +60,33 @@ public class CartController {
 
         List<ProductCartDto> productCartDtoList = generateListProductCartDto(returnCart.getProductCarts());
 
-        CartDto cartDto = new CartDto();
-        cartDto.setId(returnCart.getId());
-        cartDto.setProductCartDtoList(productCartDtoList);
-        cartDto.setUserId(returnCart.getUser().getUserId());
+        return new ResponseEntity<>(generateCartDto(returnCart, productCartDtoList), HttpStatus.CREATED);
+    }
 
-        return new ResponseEntity<>(cartDto, HttpStatus.CREATED);
+    @GetMapping("/get-current-cart")
+    @RolesAllowed("ROLE_USER")
+    public ResponseEntity<CartDto> getCurrentCart() {
+        User userData = getUserData();
+        Cart cart = getCartByUserId(userData.getUserId());
+        List<ProductCartDto> productCartDtoList = generateListProductCartDto(cart.getProductCarts());
+        return new ResponseEntity<>(generateCartDto(cart, productCartDtoList), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/remove-from-cart")
+    @RolesAllowed("ROLE_USER")
+    public ResponseEntity<CartDto> removeFromCart(@Valid @RequestBody CartModel.RemoveFromCart removeFromCart) {
+        User userData = getUserData();
+        Cart cart = getCartByUserId(userData.getUserId());
+        ProductCart existingItem = cart.getProductCarts().stream().filter(item -> item.getProduct().getProductId().equals(removeFromCart.getProductId()) && item.getNetWeight().getNetWeightId().equals(removeFromCart.getNetWeightId())).findAny().orElseThrow(() -> new NoResultException("Product cart does not have this item"));
+
+        cart.getProductCarts().remove(existingItem);
+        productCartRepository.delete(existingItem);
+
+        Cart returnCart = cartRepository.save(cart);
+
+        List<ProductCartDto> productCartDtoList = generateListProductCartDto(returnCart.getProductCarts());
+
+        return new ResponseEntity<>(generateCartDto(returnCart, productCartDtoList), HttpStatus.OK);
     }
 
     private String getUserEmail() {
@@ -99,5 +120,14 @@ public class CartController {
 
     private ProductCartDto generateItemProductCartDto(ProductCart productCart) {
         return new ProductCartDto(productCart.getProduct().getProductId(), productCart.getProduct().getDescription(), productCart.getProduct().getProductName(), ProductController.handleGenerateImageDto(productCart.getProduct().getProductImages()), ProductCategoryController.generateCategoryData(productCart.getProduct().getCategory()), NetWeightController.generateNetWeightDto(productCart.getNetWeight()), productCart.getQuantity());
+    }
+
+    private CartDto generateCartDto(Cart cart, List<ProductCartDto> productCartDto) {
+        CartDto cartDto = new CartDto();
+        cartDto.setId(cart.getId());
+        cartDto.setProductCartDtoList(productCartDto);
+        cartDto.setUserId(cart.getUser().getUserId());
+
+        return cartDto;
     }
 }

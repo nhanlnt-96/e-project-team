@@ -46,4 +46,35 @@ public class CartModel {
             this.quantity = quantity;
         }
     }
+
+    public static class RemoveFromCart {
+        @NotNull(message = "netWeightId can not be null.")
+        Long netWeightId;
+        @NotNull(message = "productId can not be null.")
+        Long productId;
+
+        public RemoveFromCart() {
+        }
+
+        public RemoveFromCart(Long netWeightId, Long productId) {
+            this.netWeightId = netWeightId;
+            this.productId = productId;
+        }
+
+        public Long getNetWeightId() {
+            return netWeightId;
+        }
+
+        public void setNetWeightId(Long netWeightId) {
+            this.netWeightId = netWeightId;
+        }
+
+        public Long getProductId() {
+            return productId;
+        }
+
+        public void setProductId(Long productId) {
+            this.productId = productId;
+        }
+    }
 }

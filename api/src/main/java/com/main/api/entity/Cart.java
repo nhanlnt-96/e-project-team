@@ -36,12 +36,7 @@ public class Cart {
 
             if (productQuantity != null && productQuantity.getQuantity() >= quantity) {
                 if (existingProductCart != null) {
-                    int newQuantity = existingProductCart.getQuantity() + quantity;
-                    if (newQuantity <= productQuantity.getQuantity()) {
-                        existingProductCart.setQuantity(newQuantity);
-                    } else {
-                        throw new NoResultException("Quantity can not be larger than the current product quantity");
-                    }
+                    existingProductCart.setQuantity(quantity);
                 } else {
                     productCarts.add(new ProductCart(quantity, this, product, netWeight));
                 }
