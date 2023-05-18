@@ -120,6 +120,34 @@ create table product_favorite
         foreign key (user_id) references user (id)
 );
 
+-- auto-generated definition
+create table cart
+(
+    id         int auto_increment
+        primary key,
+    user_id    int      not null,
+    created_at datetime not null,
+    constraint cart_user_id_fk
+        foreign key (user_id) references user (id)
+);
+
+-- auto-generated definition
+create table product_cart
+(
+    id            int auto_increment
+        primary key,
+    product_id    int not null,
+    net_weight_id int not null,
+    quantity      int not null,
+    cart_id       int not null,
+    constraint product_cart_cart_id_fk
+        foreign key (cart_id) references cart (id),
+    constraint product_cart_net_weight_id_fk
+        foreign key (net_weight_id) references net_weight (id),
+    constraint product_cart_product_product_id_fk
+        foreign key (product_id) references product (product_id)
+);
+
 -- insert role data
 INSERT INTO plant_x_db.role (id, role_name)
 VALUES (1, 'ROLE_ADMIN');
