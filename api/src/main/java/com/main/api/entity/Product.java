@@ -1,5 +1,6 @@
 package com.main.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +29,10 @@ public class Product {
     private Set<ProductQuantity> productQuantities;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
     private Set<ProductFavorite> productFavorites;
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    @JsonIgnore
+    private ProductCart productCart;
 
     public Product() {
     }

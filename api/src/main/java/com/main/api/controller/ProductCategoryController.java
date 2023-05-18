@@ -169,7 +169,7 @@ public class ProductCategoryController {
         }
     }
 
-    private ProductCategoryDto generateCategoryData(ProductCategory productCategory) {
+    static ProductCategoryDto generateCategoryData(ProductCategory productCategory) {
         return new ProductCategoryDto(productCategory);
     }
 }

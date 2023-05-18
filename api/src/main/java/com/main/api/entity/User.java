@@ -2,6 +2,7 @@ package com.main.api.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,6 +47,10 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     Set<ProductFavorite> productFavorites;
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    @JsonIgnore
+    private Cart cart;
 
     public User() {
     }

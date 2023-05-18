@@ -1,5 +1,6 @@
 package com.main.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,10 @@ public class NetWeight {
     private Integer netWeightValue;
     @OneToMany(mappedBy = "netWeight")
     private Set<ProductQuantity> productQuantities;
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    @JsonIgnore
+    private ProductCart productCart;
 
     public NetWeight() {
     }

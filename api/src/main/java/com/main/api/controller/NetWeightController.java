@@ -99,7 +99,7 @@ public class NetWeightController {
         return netWeightRepository.findNetWeightByNetWeightValue(netWeightValue);
     }
 
-    private NetWeightDto generateNetWeightDto(NetWeight netWeight) {
+    static NetWeightDto generateNetWeightDto(NetWeight netWeight) {
         return new NetWeightDto(netWeight.getNetWeightId(), netWeight.getNetWeightLabel(), netWeight.getNetWeightValue());
     }
 }
