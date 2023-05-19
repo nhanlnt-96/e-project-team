@@ -1,4 +1,4 @@
-import { SvgIcons } from 'assets/icons/svgIcons';
+import AddToCartButton from 'components/productCard/AddToCartButton';
 import AddToFavoriteButton from 'components/productCard/AddToFavoriteButton';
 import React, { ComponentPropsWithoutRef, ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -48,7 +48,7 @@ const CardHoverFeatures: React.FC<IProps> = ({ viewDetailPath, className = '', p
         label='View details'
         onClick={() => navigate(viewDetailPath)}
       />
-      <FeatureButton icon={React.cloneElement(SvgIcons.ShoppingCart, { className: 'w-8 h-8' })} label='Add to cart' />
+      <AddToCartButton productData={productData} />
       <AddToFavoriteButton productId={productData.productId} />
     </div>
   );

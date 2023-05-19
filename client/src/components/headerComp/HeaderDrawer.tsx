@@ -1,6 +1,6 @@
 import { Drawer } from 'antd';
 import HeaderLink from 'components/headerComp/HeaderLink';
-import HeaderToolbar from 'components/headerComp/HeaderToolbar';
+import HeaderToolbar from 'components/headerComp/headerToolbar';
 import Logo from 'components/logo';
 import React, { useState } from 'react';
 
