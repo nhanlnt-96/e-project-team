@@ -8,6 +8,7 @@ import updateAccountReducer from './authenticate/updateAccountSlice';
 import verifyEmailReducer from './authenticate/verifyEmailSlice';
 import addToCartReducer from './cartManage/addToCartSlice';
 import getCurrentCartReducer from './cartManage/getCurrentCartSlice';
+import removeFromCartReducer from './cartManage/removeFromCartSlice';
 import getAllCategoryReducer from './categoryManage/getAllCategorySlice';
 import getAllNetWeightReducer from './netWeightManage/getAllNetWeightSlice';
 import addProductFavoriteReducer from './productFavorite/addProductFavoriteSlice';
@@ -38,7 +39,8 @@ export const store = configureStore({
     addProductFavoriteReducer: addProductFavoriteReducer,
     removeProductFavoriteReducer: removeProductFavoriteReducer,
     getCurrentCartReducer: getCurrentCartReducer,
-    addToCartReducer: addToCartReducer
+    addToCartReducer: addToCartReducer,
+    removeFromCartReducer: removeFromCartReducer
   }
 });
 

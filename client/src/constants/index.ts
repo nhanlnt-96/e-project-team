@@ -20,9 +20,13 @@ export enum AllowNumber {
 }
 
 export enum RouteBasePath {
+  CLIENT_HOME_PAGE_BASE_PATH = '/',
   CLIENT_FIND_A_TEA_BASE_PATH = 'find-a-tea',
   CLIENT_PRODUCT_PAGE_BASE_PATH = 'shop',
-  CLIENT_CART_PAGE_BASE_PATH = 'cart',
+  CLIENT_ABOUT_US_PAGE_BASE_PATH = 'about-us',
+  CLIENT_CONTACT_US_PAGE_BASE_PATH = 'contact-us',
+
+  CLIENT_CART_PAGE_BASE_PATH = '/cart',
 
   LOGIN_BASE_PATH = '/authenticate',
   REGISTER_PAGE_BASE_PATH = 'register',

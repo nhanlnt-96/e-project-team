@@ -334,7 +334,7 @@ public class ProductController {
             productImageDto.add(new ProductImageDto(productImage.getImageId(), productImage.getImageName(), productImage.getStorageName()));
         }
 
-        return productImageDto;
+        return productImageDto.stream().sorted(Comparator.comparing(ProductImageDto::getImageId)).collect(Collectors.toList());
     }
 
     private ProductImage handleUploadImage(MultipartFile multipartFile, Product product) throws IOException {
@@ -365,6 +365,6 @@ public class ProductController {
         for (ProductQuantity productQuantity : productQuantitiesData) {
             productQuantities.add(new ProductQuantityDto(productQuantity.getQuantityId(), productQuantity.getQuantity(), productQuantity.getPrice(), productQuantity.getNetWeight()));
         }
-        return productQuantities;
+        return productQuantities.stream().sorted(Comparator.comparing(i -> i.getNetWeightDto().getNetWeightValue())).collect(Collectors.toList());
     }
 }

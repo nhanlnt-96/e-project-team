@@ -1,3 +1,5 @@
+import { RouteBasePath } from 'constants/index';
+
 interface IHeaderLink {
   label: string;
   path: string;
@@ -6,18 +8,18 @@ interface IHeaderLink {
 export const headerLinks: IHeaderLink[] = [
   {
     label: 'Homepage',
-    path: '/'
+    path: RouteBasePath.CLIENT_HOME_PAGE_BASE_PATH
   },
   {
     label: 'Find a Tea',
-    path: '/find-a-tea'
+    path: `/${RouteBasePath.CLIENT_FIND_A_TEA_BASE_PATH}`
   },
   {
     label: 'About us',
-    path: '/about-us'
+    path: `/${RouteBasePath.CLIENT_ABOUT_US_PAGE_BASE_PATH}`
   },
   {
     label: 'Contact us',
-    path: '/contact-us'
+    path: `/${RouteBasePath.CLIENT_CONTACT_US_PAGE_BASE_PATH}`
   }
 ];

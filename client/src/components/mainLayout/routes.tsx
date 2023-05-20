@@ -44,6 +44,8 @@ const AccountManagePage = lazy(() => import('pages/adminPage/accountManagePage')
 const MyFavoritePage = lazy(() => import('pages/myAccountPage/myFavorite'));
 const AccountDetailPage = lazy(() => import('pages/adminPage/accountManagePage/accountDetailPage'));
 const AccountListingPage = lazy(() => import('pages/adminPage/accountManagePage/accountListingPage'));
+const CartPage = lazy(() => import('pages/cartPage'));
+const CartSummaryPage = lazy(() => import('pages/cartPage/cartSummaryPage'));
 
 export const routes: IRoutes[] = [
   {
@@ -137,6 +139,21 @@ export const routes: IRoutes[] = [
         isPrivate: true,
         requiredRole: [Roles.USER_ROLE],
         element: <MyFavoritePage />
+      }
+    ]
+  },
+  {
+    path: RouteBasePath.CLIENT_CART_PAGE_BASE_PATH,
+    isPrivate: true,
+    element: <CartPage />,
+    requiredRole: [Roles.USER_ROLE],
+    children: [
+      {
+        path: '',
+        isIndex: true,
+        isPrivate: true,
+        requiredRole: [Roles.USER_ROLE],
+        element: <CartSummaryPage />
       }
     ]
   },

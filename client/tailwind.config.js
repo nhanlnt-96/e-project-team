@@ -11,7 +11,8 @@ module.exports = {
       '3xl': '1920px'
     },
     fontFamily: {
-      'playfair-display': '\'Playfair Display\', serif'
+      'playfair-display': '\'Playfair Display\', serif',
+      jost: '\'Jost\', sans-serif'
     },
     extend: {
       colors: {

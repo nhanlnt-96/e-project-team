@@ -17,20 +17,30 @@ const initialState: IAddToCartSlice = {
   error: null
 };
 
-export const addToCartThunk = createAsyncThunk('cartManage/addToCart', async (addToCartData: IAddToCartData, { dispatch, rejectWithValue }) => {
-  try {
-    const response = await addToCartService(addToCartData);
-    if (response) {
-      toast.success('Added product to cart');
+export const addToCartThunk = createAsyncThunk(
+  'cartManage/addToCart',
+  async (
+    addToCartData: IAddToCartData & {
+      isUpdateCart?: boolean;
+    },
+    { dispatch, rejectWithValue }
+  ) => {
+    try {
+      const response = await addToCartService(addToCartData);
+      if (response) {
+        if (!addToCartData.isUpdateCart) toast.success('Added product to cart');
 
-      dispatch(getCurrentCartThunk());
+        dispatch(getCurrentCartThunk());
 
-      return response;
+        return response;
+      }
+    } catch (error) {
+      toast.error(error as string);
+
+      return rejectWithValue(error);
     }
-  } catch (error) {
-    return rejectWithValue(error);
   }
-});
+);
 
 const addToCartSlice = createSlice({
   name: 'cartManage/addToCart',

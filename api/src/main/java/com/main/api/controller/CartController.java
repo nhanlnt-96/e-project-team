@@ -3,6 +3,7 @@ package com.main.api.controller;
 import com.main.api.dao.*;
 import com.main.api.dto.CartDto;
 import com.main.api.dto.ProductCartDto;
+import com.main.api.dto.ProductQuantityDto;
 import com.main.api.entity.*;
 import com.main.api.model.CartModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,13 +120,16 @@ public class CartController {
     }
 
     private ProductCartDto generateItemProductCartDto(ProductCart productCart) {
-        return new ProductCartDto(productCart.getProduct().getProductId(), productCart.getProduct().getDescription(), productCart.getProduct().getProductName(), ProductController.handleGenerateImageDto(productCart.getProduct().getProductImages()), ProductCategoryController.generateCategoryData(productCart.getProduct().getCategory()), NetWeightController.generateNetWeightDto(productCart.getNetWeight()), productCart.getQuantity());
+        Long netWeightId = productCart.getNetWeight().getNetWeightId();
+        ProductQuantity productQuantity = productCart.getProduct().getProductQuantities().stream().filter(product -> product.getNetWeight().getNetWeightId().equals(netWeightId)).findFirst().orElse(null);
+        assert productQuantity != null;
+        return new ProductCartDto(productCart.getProduct().getProductId(), productCart.getProduct().getDescription(), productCart.getProduct().getProductName(), ProductController.handleGenerateImageDto(productCart.getProduct().getProductImages()), ProductCategoryController.generateCategoryData(productCart.getProduct().getCategory()), NetWeightController.generateNetWeightDto(productCart.getNetWeight()), new ProductQuantityDto(productQuantity.getQuantityId(), productQuantity.getQuantity(), productQuantity.getPrice(), productQuantity.getNetWeight()), productCart.getQuantity());
     }
 
     private CartDto generateCartDto(Cart cart, List<ProductCartDto> productCartDto) {
         CartDto cartDto = new CartDto();
         cartDto.setId(cart.getId());
-        cartDto.setProductCartDtoList(productCartDto);
+        cartDto.setProductCartDtoList(productCartDto.stream().sorted(Comparator.comparing(ProductCartDto::getProductName)).collect(Collectors.toList()));
         cartDto.setUserId(cart.getUser().getUserId());
 
         return cartDto;

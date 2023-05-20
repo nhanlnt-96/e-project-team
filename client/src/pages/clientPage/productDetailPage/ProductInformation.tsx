@@ -1,12 +1,12 @@
 import ButtonComp from 'components/buttonComp';
 import AddToFavoriteButton from 'components/productCard/AddToFavoriteButton';
-import SelectComp from 'components/selectComp';
-import { AllowNumber } from 'constants/index';
-import React, { useEffect, useMemo, useState } from 'react';
-import { IProductData, IProductQuantity } from 'services/product';
+import ProductNetWeightSelect from 'pages/clientPage/productDetailPage/ProductNetWeightSelect';
+import ProductQuantitySelect from 'pages/clientPage/productDetailPage/ProductQuantitySelect';
+import React, { useMemo, useState } from 'react';
+import { IProductData } from 'services/product';
 import { convertPrice } from 'utils/convertPrice';
 
-interface ISelectData {
+export interface ISelectData {
   value: number;
   label: string;
 }
@@ -15,70 +15,18 @@ interface IProps {
   productData: IProductData;
 }
 
-const ProductInformation: React.FC<IProps> = ({ productData }) => {
-  const [netWeightOptions, setNetWeightOptions] = useState<ISelectData[]>([]);
-  const [quantityOptions, setQuantityOptions] = useState<ISelectData[]>([]);
+export interface IProductQuantityData {
+  productId: string;
+  quantity: number;
+  netWeightId: number;
+}
 
-  const [productQuantityData, setProductQuantityData] = useState<{
-    productId: string;
-    quantity: number;
-    netWeightId: number;
-  }>({
+const ProductInformation: React.FC<IProps> = ({ productData }) => {
+  const [productQuantityData, setProductQuantityData] = useState<IProductQuantityData>({
     productId: String(productData.productId),
     quantity: 0,
     netWeightId: 0
   });
-
-  useEffect(() => {
-    if (productData?.productQuantityDtoList.length) {
-      const netWeights: ISelectData[] = [];
-      for (const item of productData.productQuantityDtoList as IProductQuantity[]) {
-        netWeights.push({
-          value: item.netWeightDto?.netWeightId as number,
-          label: item.netWeightDto?.netWeightLabel as string
-        });
-      }
-
-      setNetWeightOptions(netWeights);
-    }
-  }, [productData?.productQuantityDtoList]);
-
-  useEffect(() => {
-    if (netWeightOptions.length)
-      setProductQuantityData((prevState) => ({
-        ...prevState,
-        netWeightId: netWeightOptions[0].value
-      }));
-  }, [netWeightOptions]);
-
-  useEffect(() => {
-    if (productData?.productQuantityDtoList.length && productQuantityData.netWeightId) {
-      const productQuantity = productData.productQuantityDtoList.find((item) => item.netWeightDto?.netWeightId === productQuantityData.netWeightId);
-      if (productQuantity) {
-        const quantities: ISelectData[] = [];
-        for (let i = 0; i < productQuantity.quantity; i++) {
-          const value = i + 1;
-          if (value <= AllowNumber.MAXIMUM_QUANTITY_SELECT) {
-            quantities.push({
-              value: value,
-              label: String(value)
-            });
-          }
-        }
-
-        setQuantityOptions(quantities);
-      }
-    }
-  }, [productData?.productQuantityDtoList, productQuantityData.netWeightId]);
-
-  useEffect(() => {
-    if (quantityOptions.length) {
-      setProductQuantityData((prevState) => ({
-        ...prevState,
-        quantity: quantityOptions[0].value
-      }));
-    }
-  }, [quantityOptions]);
 
   const netWeightLabel = useMemo(() => {
     return (
@@ -110,9 +58,10 @@ const ProductInformation: React.FC<IProps> = ({ productData }) => {
           <div className='flex flex-wrap gap-3'>
             <div className='flex-1 space-y-2'>
               <label>Net Weight</label>
-              <SelectComp
+              <ProductNetWeightSelect
+                productId={productData.productId}
+                setProductQuantityData={setProductQuantityData}
                 value={productQuantityData.netWeightId}
-                options={netWeightOptions}
                 onChange={(value) =>
                   setProductQuantityData((prevState) => ({
                     ...prevState,
@@ -123,9 +72,11 @@ const ProductInformation: React.FC<IProps> = ({ productData }) => {
             </div>
             <div className='flex-1 space-y-2'>
               <label>Quantity</label>
-              <SelectComp
+              <ProductQuantitySelect
+                productId={productData.productId}
+                netWeightId={productQuantityData.netWeightId}
+                setProductQuantityData={setProductQuantityData}
                 value={productQuantityData.quantity}
-                options={quantityOptions}
                 onChange={(value) =>
                   setProductQuantityData((prevState) => ({
                     ...prevState,
