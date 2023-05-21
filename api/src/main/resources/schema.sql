@@ -234,9 +234,63 @@ VALUES (72, '<h4 class="mb-0">ABOUT THIS PRODUCT</h4>
 <h4 class="mb-0">TEA PREPARATION</h4>
 <ul>
 <li>Pour 95&deg;C water over 2.5g of tea leaves per cup and infuse for 3 minutes. Remove leaves and serve.</li>
-</ul>', 'OKAYTI EXCELLENCE SFTGFOP1', 8);
+</ul>', 'Okayti Excellence SFTGFOP1', 8);
 INSERT INTO plant_x_db.product (product_id, description, product_name, category_id)
-VALUES (73, 'test create product', 'test create', 8);
+VALUES (75, '<h4 class="mb-0">ABOUT THIS PRODUCT</h4>
+<ul>
+<li>A fragrant fantasy, this aromatic green tea blend of TWG Tea\'s signature 1837 Tea is a voyage, boasting a lofty fruit and flower bouquet that leaves a delicious aftertaste of red fruits and caramel with a light touch of astringency. A delightful tea for any time of the day and perfect paired with desserts.</li>
+</ul>
+<h4 class="mb-0">TEA VARIETY</h4>
+<ul>
+<li>Green Teas</li>
+<li>Exclusive Tea Blends</li>
+</ul>
+<h4 class="mb-0">TEA PREPARATION</h4>
+<ul>
+<li>Pour 95&deg;C water over 2.5g of tea leaves per cup and infuse for 3 minutes. Remove leaves and serve.</li>
+</ul>', '1837 Green Tea ', 8);
+INSERT INTO plant_x_db.product (product_id, description, product_name, category_id)
+VALUES (76, '<h4 class="mb-0">ABOUT THIS PRODUCT</h4>
+<ul>
+<li>TWG Tea\'s renowned signature tea, 1837 Black is a unique blend of black tea with notes of fruits and flowers from the Bermuda triangle, which leaves a lingering aftertaste of ripe berries, anise, and caramel. A timeless classic.</li>
+</ul>
+<h4 class="mb-0">TEA VARIETY</h4>
+<ul>
+<li>Black Teas</li>
+<li>Exclusive Tea Blends</li>
+</ul>
+<h4 class="mb-0">TEA PREPARATION</h4>
+<ul>
+<li>Pour 95&deg;C water over 2.5g of tea leaves per cup and infuse for 3 minutes. Remove leaves and serve.</li>
+</ul>', '1837 Black Tea', 8);
+INSERT INTO plant_x_db.product (product_id, description, product_name, category_id)
+VALUES (77, '<h4 class="mb-0">ABOUT THIS PRODUCT</h4>
+<ul>
+<li>A twist on TWG Tea\'s renowned signature tea, 1837 White is an ethereal blend of white tea with notes of fruits and flowers from the Bermuda triangle, which leaves a lingering aftertaste of wild berries and anise. A crystalline and sophisticated tea for the evening.</li>
+</ul>
+<h4 class="mb-0">TEA VARIETY</h4>
+<ul>
+<li>White Teas</li>
+<li>Exclusive Tea Blends</li>
+</ul>
+<h4 class="mb-0">TEA PREPARATION</h4>
+<ul>
+<li>Pour 95&deg;C water over 2.5g of tea leaves per cup and infuse for 3 to 5 minutes. Remove leaves and serve.</li>
+</ul>', '1837 White Tea', 8);
+INSERT INTO plant_x_db.product (product_id, description, product_name, category_id)
+VALUES (78, '<h4 class="mb-0">ABOUT THIS PRODUCT</h4>
+<ul>
+<li>A perfect balance between the strength of high-grown Ceylon black tea and the subtlety of a rare South Africa red tea. The deep copper-coloured infusion yields a robust and sweet aroma.</li>
+</ul>
+<h4 class="mb-0">TEA VARIETY</h4>
+<ul class="pl-0 alignPreparation">
+<li>Grand Classic Tea Blends</li>
+</ul>
+<h4 class="mb-0">TEA PREPARATION</h4>
+<ul>
+<li>Pour 95&deg;C water over 2.5g of tea leaves per cup and infuse for 2 to 3 minutes. Remove leaves and serve.</li>
+</ul>', 'Ace Of Hearts Tea ', 8);
+
 
 -- insert product image data
 INSERT INTO plant_x_db.product_image (image_id, image_name, storage_name, product_id)
@@ -244,18 +298,61 @@ VALUES (89, '27024edd-917d-47d1-9a1a-38b828a3fb33-T17_1.jpg', 'products', 72);
 INSERT INTO plant_x_db.product_image (image_id, image_name, storage_name, product_id)
 VALUES (90, 'b056a497-57b5-4dde-ac00-ed4ef1daf308-T17.jpg', 'products', 72);
 INSERT INTO plant_x_db.product_image (image_id, image_name, storage_name, product_id)
-VALUES (98, 'aa086556-1d0f-46a4-8a67-9be21d5e62a7-Screenshot-from-2023-04-14-09-19-13.png', 'products', 73);
+VALUES (103, 'b0426e44-ef32-437f-b8de-ad874423defc-T6036.jpg', 'products', 75);
+INSERT INTO plant_x_db.product_image (image_id, image_name, storage_name, product_id)
+VALUES (104, 'b5b10582-3d14-43a0-abdf-09f679cea0d2-T6033.jpg', 'products', 76);
+INSERT INTO plant_x_db.product_image (image_id, image_name, storage_name, product_id)
+VALUES (105, 'bbf9706e-0ab9-4708-ae25-10b6c4c8809f-T6031.jpg', 'products', 77);
+INSERT INTO plant_x_db.product_image (image_id, image_name, storage_name, product_id)
+VALUES (106, 'fd3da67e-0589-4753-81bc-9b581895fff2-T4037.jpg', 'products', 78);
 
 -- insert product quantity
 INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
-VALUES (33, 1, 72, 20, 73);
+VALUES (33, 1, 72, 2, 73);
 INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
 VALUES (34, 2, 72, 12, 146);
 INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
 VALUES (37, 8, 72, 5, 365);
 INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
-VALUES (38, 7, 72, 2, 1460);
+VALUES (38, 7, 72, 5, 1460);
 INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
-VALUES (39, 1, 73, 10, 10);
+VALUES (42, 1, 75, 10, 12);
 INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
-VALUES (40, 2, 73, 10, 20);
+VALUES (43, 2, 75, 10, 23);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (44, 8, 75, 5, 57);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (45, 7, 75, 2, 225);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (46, 9, 75, 5, 113);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (47, 1, 76, 10, 12);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (48, 2, 76, 10, 23);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (49, 8, 76, 5, 57);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (50, 9, 76, 5, 113);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (51, 7, 76, 5, 225);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (52, 1, 77, 20, 20);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (53, 2, 77, 20, 40);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (54, 8, 77, 15, 99);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (55, 9, 77, 12, 198);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (56, 7, 77, 6, 395);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (57, 1, 78, 20, 10);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (58, 2, 78, 20, 19);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (59, 8, 78, 20, 48);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (60, 9, 78, 15, 95);
+INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
+VALUES (61, 7, 78, 10, 190);
+
