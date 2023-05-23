@@ -53,6 +53,8 @@ export enum RouteBasePath {
   ADMIN_ACCOUNT_DETAIL_PAGE_BASE_PATH = 'account-detail',
   ADMIN_CREATE_NEW_ACCOUNT_PAGE_BASE_PATH = 'create-new-account',
 
+  ADMIN_NEWS_MANAGE_PAGE_BASE_PATH = '/admin/news-manage',
+
   PAGE_NOT_FOUND = '/page-not-found'
 }
 

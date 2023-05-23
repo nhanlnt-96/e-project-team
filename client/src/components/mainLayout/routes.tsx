@@ -47,6 +47,7 @@ const AccountDetailPage = lazy(() => import('pages/adminPage/accountManagePage/a
 const AccountListingPage = lazy(() => import('pages/adminPage/accountManagePage/accountListingPage'));
 const CartPage = lazy(() => import('pages/cartPage'));
 const CartSummaryPage = lazy(() => import('pages/cartPage/cartSummaryPage'));
+const NewsManagePage = lazy(() => import('pages/adminPage/newsManagePage'));
 
 export const routes: IRoutes[] = [
   {
@@ -243,6 +244,13 @@ export const routes: IRoutes[] = [
         isPrivate: true
       }
     ]
+  },
+  {
+    path: RouteBasePath.ADMIN_NEWS_MANAGE_PAGE_BASE_PATH,
+    isPrivate: true,
+    requiredRole: [Roles.ADMIN_ROLE, Roles.EDITOR_ROLE],
+    element: <NewsManagePage />,
+    children: []
   },
   {
     path: '*',

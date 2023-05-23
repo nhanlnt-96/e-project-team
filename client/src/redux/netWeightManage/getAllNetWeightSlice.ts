@@ -18,7 +18,7 @@ export const getAllNetWeightThunk = createAsyncThunk('netWeightManage/getAllNetW
   return await getAllNetWeightService();
 });
 
-export const getAllNetWeightSlice = createSlice({
+const getAllNetWeightSlice = createSlice({
   name: 'netWeightManage/getAllNetWeight',
   initialState: initialState,
   reducers: {},
