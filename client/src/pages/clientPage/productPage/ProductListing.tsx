@@ -2,7 +2,7 @@ import Loading from 'components/loading';
 import ProductCard from 'components/productCard';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { IProductData, productSearchService } from 'services/product';
+import { getProductByCategorySlugService,IProductData } from 'services/product';
 
 const ProductListing: React.FC = () => {
   const { categorySlug } = useParams();
@@ -10,7 +10,7 @@ const ProductListing: React.FC = () => {
   const [isFetchingData, setIsFetchingData] = useState<boolean>(true);
 
   useEffect(() => {
-    productSearchService(categorySlug as string)
+    getProductByCategorySlugService(categorySlug as string)
       .then((response) => setProductData(response))
       .catch((error) => {
         console.log(error);

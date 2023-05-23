@@ -28,6 +28,8 @@ export enum RouteBasePath {
 
   CLIENT_CART_PAGE_BASE_PATH = '/cart',
 
+  CLIENT_SEARCH_PAGE_BASE_PATH = '/search',
+
   LOGIN_BASE_PATH = '/authenticate',
   REGISTER_PAGE_BASE_PATH = 'register',
   VERIFY_EMAIL_PAGE_BASE_PATH = 'verify-email/:token',

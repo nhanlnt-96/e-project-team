@@ -149,9 +149,17 @@ public class ProductController {
         return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/product-search")
+    @GetMapping("/get-product-by-category-slug")
     public ResponseEntity<List<ProductDto>> getProductByCategory(@RequestParam(value = "categorySlug", defaultValue = "all") String categorySlug) {
         List<Product> productList = productRepository.findAll(Specification.where(ProductSpecification.filterByCategorySlug(categorySlug)));
+        List<ProductDto> productDtoList = productList.stream().map(product -> new ProductDto(product, handleGenerateImageDto(product.getProductImages()), product.getCategory(), generateProductQuantityDto(new ArrayList<>(product.getProductQuantities())))).collect(Collectors.toList());
+
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/product-search")
+    public ResponseEntity<List<ProductDto>> productSearch(@RequestParam(value = "productName", defaultValue = "all") String productName) {
+        List<Product> productList = productRepository.findAll(Specification.where(ProductSpecification.searchByName(productName)));
         List<ProductDto> productDtoList = productList.stream().map(product -> new ProductDto(product, handleGenerateImageDto(product.getProductImages()), product.getCategory(), generateProductQuantityDto(new ArrayList<>(product.getProductQuantities())))).collect(Collectors.toList());
 
         return new ResponseEntity<>(productDtoList, HttpStatus.OK);

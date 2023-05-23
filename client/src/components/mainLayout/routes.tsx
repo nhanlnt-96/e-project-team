@@ -3,6 +3,7 @@ import CreateNewAccountPage from 'pages/adminPage/accountManagePage/createNewAcc
 import LoginPage from 'pages/authenticate/login';
 import RegisterPage from 'pages/authenticate/register';
 import ResetPasswordPage from 'pages/authenticate/resetPassword';
+import SearchPage from 'pages/clientPage/searchPage';
 import PageNotFound from 'pages/pageNotFound';
 import { lazy, ReactElement } from 'react';
 
@@ -81,6 +82,13 @@ export const routes: IRoutes[] = [
         isPrivate: false,
         requiredRole: [],
         element: <ProductDetailPage />
+      },
+      {
+        path: RouteBasePath.CLIENT_SEARCH_PAGE_BASE_PATH,
+        isIndex: false,
+        isPrivate: false,
+        requiredRole: [],
+        element: <SearchPage />
       }
     ]
   },
