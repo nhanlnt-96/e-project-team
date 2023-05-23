@@ -30,6 +30,7 @@ const UpdateNewsButton: React.FC<IProps> = ({ newsData }) => {
       };
       if (values.newsTitle !== newsData.newsTitle) updateData.newsTitle = values.newsTitle;
       if (values.newsBody !== newsData.newsBody) updateData.newsBody = values.newsBody;
+      if (values.newsCoverImgFile) updateData.newsCoverImgFile = values.newsCoverImgFile;
       try {
         const response = await updateNewsService(updateData);
         if (response) {

@@ -1,20 +1,28 @@
 package com.main.api.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.api.dao.NewsRepository;
 import com.main.api.dto.NewsDto;
 import com.main.api.entity.News;
 import com.main.api.model.NewsModel;
+import com.main.api.model.ProductModel;
+import com.main.api.utils.FileManage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.NoResultException;
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import javax.validation.Validator;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,18 +30,40 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = {"http://localhost:3000"}, allowCredentials = "true")
 public class NewsController {
     final private NewsRepository newsRepository;
+    private final Validator validator;
+    private static final String storageName = "news";
 
-    public NewsController(NewsRepository newsRepository) {
+    public NewsController(NewsRepository newsRepository, Validator validator) {
         this.newsRepository = newsRepository;
+        this.validator = validator;
     }
 
     @PostMapping("/create")
     @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
-    public ResponseEntity<NewsDto> createNews(@Valid @RequestBody NewsModel.CreateNews newsData) {
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseEntity<NewsDto> createNews(@RequestParam("newsData") String newsData, @RequestParam("newsCoverImgFile") MultipartFile newsCoverImgFile) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        NewsModel.CreateNews createNews = mapper.readValue(newsData, NewsModel.CreateNews.class);
+        Set<ConstraintViolation<NewsModel.CreateNews>> constraintViolation = validator.validate(createNews);
+
+        if (!constraintViolation.isEmpty()) {
+            StringBuilder errors = new StringBuilder();
+            constraintViolation.stream().forEach((error) -> {
+                String message = error.getMessage();
+                errors.append(message + ";");
+            });
+            throw new NoResultException(errors.toString());
+        }
         Date currentDate = new Date();
-        News checkNewsExist = findNewsByTitle(newsData.getNewsTitle());
+        News checkNewsExist = findNewsByTitle(createNews.getNewsTitle());
         if (checkNewsExist != null) throw new NoResultException("News title already exist");
-        News news = new News(newsData.getNewsTitle(), newsData.getNewsBody(), currentDate);
+        String newsCoverImg = "";
+        try {
+            newsCoverImg = handleUploadImage(newsCoverImgFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        News news = new News(createNews.getNewsTitle(), createNews.getNewsBody(), newsCoverImg, currentDate);
         News saveNewsResponse = newsRepository.save(news);
         if (saveNewsResponse.getId() != 0) {
             return new ResponseEntity<>(generateNewsDto(saveNewsResponse), HttpStatus.CREATED);
@@ -56,24 +86,60 @@ public class NewsController {
 
     @DeleteMapping("/remove-news/{newsId}")
     @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<String> removeNews(@PathVariable("newsId") Long newsId) {
         News news = newsRepository.findById(newsId).orElseThrow(() -> new NoResultException("News does not exist"));
+        try {
+            String[] splitFileName = news.getNewsCoverImg().split("/");
+            FileManage.handleRemoveImage(splitFileName[0], splitFileName[1]);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         newsRepository.delete(news);
         return new ResponseEntity<>("Removed news", HttpStatus.OK);
     }
 
     @PutMapping("/update")
     @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
-    public ResponseEntity<NewsDto> updateNews(@Valid @RequestBody NewsModel.UpdateNews newsData) {
-        News checkNewsExist = newsRepository.findById(newsData.getNewsId()).orElseThrow(() -> new NoResultException("News does not exist"));
-        if (newsData.getNewsTitle() != null) {
-            News checkNewsExistByTitle = findNewsByTitle(newsData.getNewsTitle());
-            if (checkNewsExistByTitle != null && !Objects.equals(checkNewsExistByTitle.getId(), newsData.getNewsId()))
-                throw new NoResultException("News title already exist");
-            checkNewsExist.setNewsTitle(newsData.getNewsTitle());
-        }
-        if (newsData.getNewsBody() != null) checkNewsExist.setNewsBody(newsData.getNewsBody());
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseEntity<NewsDto> updateNews(@RequestParam("newsData") String newsData, @RequestParam("newsCoverImgFile") @Nullable MultipartFile newsCoverImgFile) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        NewsModel.UpdateNews updateNews = mapper.readValue(newsData, NewsModel.UpdateNews.class);
+        Set<ConstraintViolation<NewsModel.UpdateNews>> constraintViolation = validator.validate(updateNews);
 
+        if (!constraintViolation.isEmpty()) {
+            StringBuilder errors = new StringBuilder();
+            constraintViolation.stream().forEach((error) -> {
+                String message = error.getMessage();
+                errors.append(message + ";");
+            });
+            throw new NoResultException(errors.toString());
+        }
+        News checkNewsExist = newsRepository.findById(updateNews.getNewsId()).orElseThrow(() -> new NoResultException("News does not exist"));
+        if (updateNews.getNewsTitle() != null) {
+            News checkNewsExistByTitle = findNewsByTitle(updateNews.getNewsTitle());
+            if (checkNewsExistByTitle != null && !Objects.equals(checkNewsExistByTitle.getId(), updateNews.getNewsId()))
+                throw new NoResultException("News title already exist");
+            checkNewsExist.setNewsTitle(updateNews.getNewsTitle());
+        }
+        if (updateNews.getNewsBody() != null) checkNewsExist.setNewsBody(updateNews.getNewsBody());
+        if (newsCoverImgFile != null) {
+            if (newsCoverImgFile.getOriginalFilename() != null) {
+                try {
+                    String[] splitFileName = checkNewsExist.getNewsCoverImg().split("/");
+                    FileManage.handleRemoveImage(splitFileName[0], splitFileName[1]);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                String newsCoverImg = "";
+                try {
+                    newsCoverImg = handleUploadImage(newsCoverImgFile);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                checkNewsExist.setNewsCoverImg(newsCoverImg);
+            }
+        }
         News updateNewsResponse = newsRepository.saveAndFlush(checkNewsExist);
         return new ResponseEntity<>(generateNewsDto(updateNewsResponse), HttpStatus.OK);
     }
@@ -83,6 +149,12 @@ public class NewsController {
     }
 
     private NewsDto generateNewsDto(News newsData) {
-        return new NewsDto(newsData.getId(), newsData.getNewsTitle(), newsData.getNewsBody(), newsData.getCreatedAt());
+        return new NewsDto(newsData.getId(), newsData.getNewsTitle(), newsData.getNewsBody(), newsData.getNewsCoverImg(), newsData.getCreatedAt());
+    }
+
+    private String handleUploadImage(MultipartFile multipartFile) throws IOException {
+        String fileName = FileManage.handleUploadImage(storageName, multipartFile);
+
+        return storageName + "/" + fileName;
     }
 }

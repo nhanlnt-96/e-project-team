@@ -10,15 +10,17 @@ public class NewsDto {
     private Long id;
     private String newsTitle;
     private String newsBody;
+    private String newsCoverImg;
     private Date createdAt;
 
     public NewsDto() {
     }
 
-    public NewsDto(Long id, String newsTitle, String newsBody, Date createdAt) {
+    public NewsDto(Long id, String newsTitle, String newsBody, String newsCoverImg, Date createdAt) {
         this.id = id;
         this.newsTitle = newsTitle;
         this.newsBody = newsBody;
+        this.newsCoverImg = newsCoverImg;
         this.createdAt = createdAt;
     }
 
@@ -44,6 +46,14 @@ public class NewsDto {
 
     public void setNewsBody(String newsBody) {
         this.newsBody = newsBody;
+    }
+
+    public String getNewsCoverImg() {
+        return newsCoverImg;
+    }
+
+    public void setNewsCoverImg(String newsCoverImg) {
+        this.newsCoverImg = newsCoverImg;
     }
 
     public Date getCreatedAt() {

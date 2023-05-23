@@ -1,5 +1,7 @@
+import ImagePreview from 'components/imageUpload/ImagePreview';
 import React from 'react';
 import { INewsData } from 'services/news';
+import { imageLinkGeneration } from 'utils/imageLinkGeneration';
 
 interface IProps {
   newsData: INewsData;
@@ -19,6 +21,10 @@ const NewsDetailForm: React.FC<IProps> = ({ newsData }) => {
       <div className='w-full flex justify-between space-x-2'>
         <p className='text-gray-500 shrink-0'>Created At</p>
         <p className='text-right'>{newsData.createdAt}</p>
+      </div>
+      <div className='w-full flex flex-col space-y-2'>
+        <p className='text-gray-500 shrink-0'>News Cover Image Uploaded</p>
+        <ImagePreview uri={imageLinkGeneration(newsData.newsCoverImg, '')} />
       </div>
       <div className='w-full flex flex-col space-y-2'>
         <p className='text-gray-500 shrink-0'>News Body</p>

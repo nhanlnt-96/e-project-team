@@ -151,11 +151,12 @@ create table product_cart
 -- auto-generated definition
 create table news
 (
-    id         int auto_increment
+    id             int auto_increment
         primary key,
-    news_title varchar(255) not null,
-    news_body  longtext     not null,
-    created_at datetime     not null
+    news_title     varchar(255) not null,
+    news_body      longtext     not null,
+    created_at     datetime     not null,
+    news_cover_img varchar(255) not null
 );
 
 -- insert role data
@@ -367,11 +368,29 @@ INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity
 VALUES (61, 7, 78, 10, 190);
 
 -- insert news
-INSERT INTO plant_x_db.news (id, news_title, news_body, created_at)
-VALUES (3, 'Our Commitment', '<p style="text-align: left;" align="center"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://twgtea.com/Files/Images/TWG-Tea/News/Commitment-main.jpg" alt="our commitment" width="804" height="503"></p>
-<p style="text-align: center;" align="center">TWG Tea is committed to aligning the interests of business and society as much as possible. This includes formalising and sustaining our commitment to responsible corporate governance. We have appointed an internal ESG team to help identify more ways for us to extend our commitment to contributing towards a sustainable future.</p>
-<p style="text-align: center;" align="center">Our long-term commitment to responsible tea sourcing has led to the establishment of dedicated TWG Tea gardens on the estates of iconic partners. TWG Tea also supports reforestation programmes through our partners. In Rwanda, our partner tea estate planted over 157,000 trees in 2020 alone as part of reforestation efforts.</p>
-<p style="text-align: center;" align="center">TWG Tea currently has 70 Tea Salons &amp; Boutiques in 17 countries. Standard operating procedures in all Tea Salons &amp; Boutiques are applied across the globe to contribute towards our efforts to operate sustainably. Water conservation is practised in all TWG Tea Salons. We have designed proprietary water dispensers for our premises which automatically turn the water off when it is not in use, greatly minimising water wastage. This helps us to conserve approximately 5,800,000 litres of water &mdash; equivalent to two Olympic sized swimming pools &mdash; each year.</p>
-<p style="text-align: center;" align="center">We are also committed to reducing single-use disposable items. At our Tea Salons, teas are prepared using reusable cotton filters. By preparing pots of tea using loose leaf tea and reusable cotton tea filters, we avoid using 80 million teabags globally each year. TWG Tea has also eliminated the use of plastic straws and serves iced teas with proprietary glass straws which customers can bring home free of charge, encouraging the reuse of an item which is often perceived as single-use.</p>
-<p style="text-align: center;" align="center">With the rise of eCommerce, TWG Tea has also adopted responsible warehousing and back-end logistics practices. The brand has created customised 100% recycled and biodegradable carton boxes to protect customer orders and reduce the need for additional cushioning inside delivery boxes. Lowering the extra volumetric weight of packing materials also reduces the brand&rsquo;s carbon footprint. Furthermore, the brand has moved away from plastic packing materials, moving to exclusively biodegradable materials for all deliveries &ndash; only with the exception of our most fragile tea accessories.</p>',
-        '2023-05-23 11:58:08');
+INSERT INTO plant_x_db.news (id, news_title, news_body, created_at, news_cover_img) VALUES (6, 'OUR COMMITMENT', '<p align="center">TWG Tea is committed to aligning the interests of business and society as much as possible. This includes formalising and sustaining our commitment to responsible corporate governance. We have appointed an internal ESG team to help identify more ways for us to extend our commitment to contributing towards a sustainable future.</p>
+<p align="center">&nbsp;</p>
+<p align="center">Our long-term commitment to responsible tea sourcing has led to the establishment of dedicated TWG Tea gardens on the estates of iconic partners. TWG Tea also supports reforestation programmes through our partners. In Rwanda, our partner tea estate planted over 157,000 trees in 2020 alone as part of reforestation efforts.</p>
+<p align="center">&nbsp;</p>
+<p align="center">TWG Tea currently has 70 Tea Salons &amp; Boutiques in 17 countries. Standard operating procedures in all Tea Salons &amp; Boutiques are applied across the globe to contribute towards our efforts to operate sustainably. Water conservation is practised in all TWG Tea Salons. We have designed proprietary water dispensers for our premises which automatically turn the water off when it is not in use, greatly minimising water wastage. This helps us to conserve approximately 5,800,000 litres of water &mdash; equivalent to two Olympic sized swimming pools &mdash; each year.</p>
+<p align="center">&nbsp;</p>
+<p align="center">We are also committed to reducing single-use disposable items. At our Tea Salons, teas are prepared using reusable cotton filters. By preparing pots of tea using loose leaf tea and reusable cotton tea filters, we avoid using 80 million teabags globally each year. TWG Tea has also eliminated the use of plastic straws and serves iced teas with proprietary glass straws which customers can bring home free of charge, encouraging the reuse of an item which is often perceived as single-use.</p>
+<p align="center">&nbsp;</p>
+<p align="center">With the rise of eCommerce, TWG Tea has also adopted responsible warehousing and back-end logistics practices. The brand has created customised 100% recycled and biodegradable carton boxes to protect customer orders and reduce the need for additional cushioning inside delivery boxes. Lowering the extra volumetric weight of packing materials also reduces the brand&rsquo;s carbon footprint. Furthermore, the brand has moved away from plastic packing materials, moving to exclusively biodegradable materials for all deliveries &ndash; only with the exception of our most fragile tea accessories.</p>', '2023-05-23 13:09:34', 'news/3c7c304d-2814-4927-864e-18e8e69992a3-Commitment-main.jpg');
+INSERT INTO plant_x_db.news (id, news_title, news_body, created_at, news_cover_img) VALUES (7, 'INFUSED FOR SUCCESS', '<p align="center"><em>Celebrating the alchemy of tea in its various forms: a transformative sip, a cocoon of calm, a celebration of craftsmanship. Whether it&rsquo;s the first sip to signal a new day, an invigorating cup between meetings, or a nightcap that nurtures &ndash; there&rsquo;s always time for tea.</em></p>
+<p align="center">&nbsp;</p>
+<p align="center"><strong>The Morning Rush</strong></p>
+<p align="center">Tea creates a particular experience for each drinker. Take for instance, the first cup of tea in the morning. Your mind is only just awake &ndash; occupying the liminal space between dream and reality. The notifications are buzzing, snatching the last peaceful moments of slumber. You can feel the day&rsquo;s agenda demanding your attention: emails, tasks, deadlines, the unanswered text from last night.</p>
+<p align="center"><em>Take a sip.</em></p>
+<p align="center">The aroma envelops you &ndash; a visceral blend of black tea with enigmatic notes of fruits and flowers from the Bermuda triangle. With each transformative sip, you settle into the lingering aftertaste of ripe berries, anise, and caramel. You feel your to-do list slipping away, even for a minute. You watch the tea leaves unfurl and marvel at how seemingly humble ingredients can produce an alchemy of emotions. The steam rises &ndash; like incense &ndash; as your hands embrace the warm, ceramic cup. Contemplate, and appreciate, life in between each poignant sip of our signature&nbsp;<strong>1837 Black Tea</strong>.</p>
+<p align="center">&nbsp;</p>
+<p align="center"><strong>The Afternoon Ritual</strong></p>
+<p align="center">You&rsquo;re back at the office, apr&egrave;s-lunch. As you settle down at your desk, you infuse another cup. For a measured moment of calm, and a boost of creativity, you gravitate towards a diplomatic blend to command your state of mind. The rhythmic taps of the keyboard, the cadence of endless conference calls &ndash; disrupted by a deliberate pause &ndash; and the familiar roar of a kettle.</p>
+<p align="center"><em>Take a sip.</em></p>
+<p align="center">The inaugural sip transports you: a journey in grace, grounding you in a cocoon of calm, to create the necessary headspace. Amidst the multiple meetings marked on your calendar, you savour the ambrosial white tea, layered with the unexpected delicacy of fruits and fragrant roses &ndash;&nbsp;<strong>White House Tea</strong>&nbsp;is a decidedly modern blend that also means business.</p>
+<p align="center">&nbsp;</p>
+<p align="center"><strong>The Inspired Nightcap</strong></p>
+<p align="center">Contemplate your day with a smouldering infusion designed for transformation and renewal. Although tea has amassed a reputation of boldness, a theine-free iteration envelops your senses in an olfactory atmosphere to gently close your evening. As you surrender your battles for the solitude of night, consider the tea leaves &ndash; sourced directly from tea gardens &ndash; and their voyage from the tea plant to your teacup.</p>
+<p align="center"><em>Take a sip.</em></p>
+<p align="center">In the moonlit hour, this mysterious black tea unfurls into a magical infusion. A firm testament to artisanal creativity and innovation, explore the depths of&nbsp;<strong>Midnight Hour Tea</strong>, an exercise in duality layered with the pronounced intensity of tropical fruits. Celebrate the craftsmanship and the art of the leaf &ndash; savour the terroir and history behind every inspired sip.</p>', '2023-05-23 13:29:31', 'news/09d4e675-a7bd-4590-afb5-fdb322c0209f-ITD-main.jpg');
+

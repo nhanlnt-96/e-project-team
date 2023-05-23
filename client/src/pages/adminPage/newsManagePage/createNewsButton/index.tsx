@@ -21,7 +21,8 @@ const CreateNewsButton: React.FC = () => {
     try {
       const newsData: ICreateNews = {
         newsTitle: values.newsTitle,
-        newsBody: values.newsBody
+        newsBody: values.newsBody,
+        newsCoverImgFile: values.newsCoverImgFile as File
       };
       const response = await createNewsService(newsData);
       if (response) {

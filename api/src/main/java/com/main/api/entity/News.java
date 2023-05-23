@@ -18,15 +18,18 @@ public class News {
     private String newsTitle;
     @Column(name = "news_body")
     private String newsBody;
+    @Column(name = "news_cover_img")
+    private String newsCoverImg;
     @Column(name = "created_at")
     private Date createdAt;
 
     public News() {
     }
 
-    public News(String newsTitle, String newsBody, Date createdAt) {
+    public News(String newsTitle, String newsBody, String newsCoverImg, Date createdAt) {
         this.newsTitle = newsTitle;
         this.newsBody = newsBody;
+        this.newsCoverImg = newsCoverImg;
         this.createdAt = createdAt;
     }
 }
