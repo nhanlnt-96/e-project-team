@@ -148,6 +148,16 @@ create table product_cart
         foreign key (product_id) references product (product_id)
 );
 
+-- auto-generated definition
+create table news
+(
+    id         int auto_increment
+        primary key,
+    news_title varchar(255) not null,
+    news_body  longtext     not null,
+    created_at datetime     not null
+);
+
 -- insert role data
 INSERT INTO plant_x_db.role (id, role_name)
 VALUES (1, 'ROLE_ADMIN');
@@ -356,3 +366,12 @@ VALUES (60, 9, 78, 15, 95);
 INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity, price)
 VALUES (61, 7, 78, 10, 190);
 
+-- insert news
+INSERT INTO plant_x_db.news (id, news_title, news_body, created_at)
+VALUES (3, 'Our Commitment', '<p style="text-align: left;" align="center"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://twgtea.com/Files/Images/TWG-Tea/News/Commitment-main.jpg" alt="our commitment" width="804" height="503"></p>
+<p style="text-align: center;" align="center">TWG Tea is committed to aligning the interests of business and society as much as possible. This includes formalising and sustaining our commitment to responsible corporate governance. We have appointed an internal ESG team to help identify more ways for us to extend our commitment to contributing towards a sustainable future.</p>
+<p style="text-align: center;" align="center">Our long-term commitment to responsible tea sourcing has led to the establishment of dedicated TWG Tea gardens on the estates of iconic partners. TWG Tea also supports reforestation programmes through our partners. In Rwanda, our partner tea estate planted over 157,000 trees in 2020 alone as part of reforestation efforts.</p>
+<p style="text-align: center;" align="center">TWG Tea currently has 70 Tea Salons &amp; Boutiques in 17 countries. Standard operating procedures in all Tea Salons &amp; Boutiques are applied across the globe to contribute towards our efforts to operate sustainably. Water conservation is practised in all TWG Tea Salons. We have designed proprietary water dispensers for our premises which automatically turn the water off when it is not in use, greatly minimising water wastage. This helps us to conserve approximately 5,800,000 litres of water &mdash; equivalent to two Olympic sized swimming pools &mdash; each year.</p>
+<p style="text-align: center;" align="center">We are also committed to reducing single-use disposable items. At our Tea Salons, teas are prepared using reusable cotton filters. By preparing pots of tea using loose leaf tea and reusable cotton tea filters, we avoid using 80 million teabags globally each year. TWG Tea has also eliminated the use of plastic straws and serves iced teas with proprietary glass straws which customers can bring home free of charge, encouraging the reuse of an item which is often perceived as single-use.</p>
+<p style="text-align: center;" align="center">With the rise of eCommerce, TWG Tea has also adopted responsible warehousing and back-end logistics practices. The brand has created customised 100% recycled and biodegradable carton boxes to protect customer orders and reduce the need for additional cushioning inside delivery boxes. Lowering the extra volumetric weight of packing materials also reduces the brand&rsquo;s carbon footprint. Furthermore, the brand has moved away from plastic packing materials, moving to exclusively biodegradable materials for all deliveries &ndash; only with the exception of our most fragile tea accessories.</p>',
+        '2023-05-23 11:58:08');
