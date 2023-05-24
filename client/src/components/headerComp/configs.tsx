@@ -15,6 +15,10 @@ export const headerLinks: IHeaderLink[] = [
     path: `/${RouteBasePath.CLIENT_FIND_A_TEA_BASE_PATH}`
   },
   {
+    label: 'News',
+    path: RouteBasePath.CLIENT_NEWS_PAGE_BASE_PATH
+  },
+  {
     label: 'About us',
     path: `/${RouteBasePath.CLIENT_ABOUT_US_PAGE_BASE_PATH}`
   },

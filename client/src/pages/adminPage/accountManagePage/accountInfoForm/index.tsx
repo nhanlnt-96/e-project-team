@@ -2,6 +2,7 @@ import ButtonComp from 'components/buttonComp';
 import DobPicker, { dobDateFormat } from 'components/dobPicker';
 import GenderSelect from 'components/genderSelect';
 import InputComp from 'components/inputComp';
+import { VerifyEmailStatus } from 'constants/index';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { handleDisplayErrorMsg } from 'helpers/formik';
@@ -45,8 +46,11 @@ const AccountInfoForm: React.FC<IProps> = ({ onFormSubmit, userData }) => {
           {userData ? (
             <div className='flex justify-between'>
               <label htmlFor='email'>Email</label>
-              userData.verifyEmail === VerifyEmailStatus.VERIFIED_EMAIL ? (<span className='font-medium block text-green'>Email is verified</span>) :
-              (<span className='font-medium block text-antd-status-warning'>Email is not verified</span>)
+              {userData.verifyEmail === VerifyEmailStatus.VERIFIED_EMAIL ? (
+                <span className='font-medium block text-green'>Email is verified</span>
+              ) : (
+                <span className='font-medium block text-antd-status-warning'>Email is not verified</span>
+              )}
             </div>
           ) : (
             <label htmlFor='email'>Email</label>

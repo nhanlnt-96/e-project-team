@@ -1,13 +1,11 @@
 package com.main.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.api.dao.NewsRepository;
 import com.main.api.dto.NewsDto;
 import com.main.api.entity.News;
 import com.main.api.model.NewsModel;
-import com.main.api.model.ProductModel;
 import com.main.api.utils.FileManage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
-import javax.validation.Valid;
 import javax.validation.Validator;
 import java.io.IOException;
 import java.util.*;
@@ -73,8 +70,8 @@ public class NewsController {
 
     @GetMapping("/get-all-news")
     public ResponseEntity<List<NewsDto>> getAllNews() {
-        List<News> newsList = newsRepository.findAll();
-        List<NewsDto> newsDtoList = newsList.stream().map(this::generateNewsDto).sorted(Comparator.comparing(NewsDto::getCreatedAt)).collect(Collectors.toList());
+        List<News> newsList = newsRepository.findByOrderByCreatedAtDesc();
+        List<NewsDto> newsDtoList = newsList.stream().map(this::generateNewsDto).collect(Collectors.toList());
         return new ResponseEntity<>(newsDtoList, HttpStatus.OK);
     }
 

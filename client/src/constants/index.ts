@@ -26,6 +26,9 @@ export enum RouteBasePath {
   CLIENT_ABOUT_US_PAGE_BASE_PATH = 'about-us',
   CLIENT_CONTACT_US_PAGE_BASE_PATH = 'contact-us',
 
+  CLIENT_NEWS_PAGE_BASE_PATH = '/news',
+  CLIENT_NEWS_DETAIL_PAGE_BASE_PATH = 'news-detail',
+
   CLIENT_CART_PAGE_BASE_PATH = '/cart',
 
   CLIENT_SEARCH_PAGE_BASE_PATH = '/search',

@@ -48,6 +48,9 @@ const AccountListingPage = lazy(() => import('pages/adminPage/accountManagePage/
 const CartPage = lazy(() => import('pages/cartPage'));
 const CartSummaryPage = lazy(() => import('pages/cartPage/cartSummaryPage'));
 const NewsManagePage = lazy(() => import('pages/adminPage/newsManagePage'));
+const NewsPageLayout = lazy(() => import('pages/newsPage'));
+const NewsListingPage = lazy(() => import('pages/newsPage/newsListingPage'));
+const NewsDetailPage = lazy(() => import('pages/newsPage/newsDetailPage'));
 
 export const routes: IRoutes[] = [
   {
@@ -90,6 +93,28 @@ export const routes: IRoutes[] = [
         isPrivate: false,
         requiredRole: [],
         element: <SearchPage />
+      }
+    ]
+  },
+  {
+    path: RouteBasePath.CLIENT_NEWS_PAGE_BASE_PATH,
+    element: <NewsPageLayout />,
+    isPrivate: false,
+    requiredRole: [],
+    children: [
+      {
+        path: '',
+        isIndex: true,
+        isPrivate: false,
+        requiredRole: [],
+        element: <NewsListingPage />
+      },
+      {
+        path: `${RouteBasePath.CLIENT_NEWS_DETAIL_PAGE_BASE_PATH}/:newsId`,
+        isIndex: false,
+        isPrivate: false,
+        requiredRole: [],
+        element: <NewsDetailPage />
       }
     ]
   },
