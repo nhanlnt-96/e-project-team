@@ -362,7 +362,7 @@ public class ProductController {
         return productRepository.findById(productId).orElse(null);
     }
 
-    private ProductQuantity handleSaveProductQuantity(Product product, NetWeight netWeightData, Integer quantity, Integer price) {
+    private ProductQuantity handleSaveProductQuantity(Product product, NetWeight netWeightData, Integer quantity, Double price) {
         ProductQuantity productQuantityData = new ProductQuantity(quantity, price, product, netWeightData);
         ProductQuantity saveProductQuantityResponse = productQuantityRepository.save(productQuantityData);
         return saveProductQuantityResponse.getQuantityId() != 0 ? saveProductQuantityResponse : null;

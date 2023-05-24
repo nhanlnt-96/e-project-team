@@ -18,7 +18,7 @@ public class ProductQuantity {
     @Column(name = "quantity")
     private Integer quantity;
     @Column(name = "price")
-    private Integer price;
+    private Double price;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
@@ -29,7 +29,7 @@ public class ProductQuantity {
     public ProductQuantity() {
     }
 
-    public ProductQuantity(Integer quantity, Integer price, Product product, NetWeight netWeight) {
+    public ProductQuantity(Integer quantity, Double price, Product product, NetWeight netWeight) {
         this.quantity = quantity;
         this.price = price;
         this.product = product;

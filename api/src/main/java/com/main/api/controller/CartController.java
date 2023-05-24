@@ -116,10 +116,10 @@ public class CartController {
     }
 
     private List<ProductCartDto> generateListProductCartDto(Set<ProductCart> productCarts) {
-        return productCarts.stream().map(this::generateItemProductCartDto).collect(Collectors.toList());
+        return productCarts.stream().map(CartController::generateItemProductCartDto).collect(Collectors.toList());
     }
 
-    private ProductCartDto generateItemProductCartDto(ProductCart productCart) {
+    public static ProductCartDto generateItemProductCartDto(ProductCart productCart) {
         Long netWeightId = productCart.getNetWeight().getNetWeightId();
         ProductQuantity productQuantity = productCart.getProduct().getProductQuantities().stream().filter(product -> product.getNetWeight().getNetWeightId().equals(netWeightId)).findFirst().orElse(null);
         assert productQuantity != null;

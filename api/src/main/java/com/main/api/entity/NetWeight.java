@@ -26,6 +26,8 @@ public class NetWeight {
     @PrimaryKeyJoinColumn
     @JsonIgnore
     private ProductCart productCart;
+    @OneToMany(mappedBy = "netWeight")
+    private Set<OrderItem> orderItems;
 
     public NetWeight() {
     }

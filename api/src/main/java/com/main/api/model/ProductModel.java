@@ -12,12 +12,12 @@ public class ProductModel {
         private Integer quantity;
         @NotNull(message = "price can not be null.")
 //        @Min(value = 1, message = "price can not be smaller than 1.")
-        private Integer price;
+        private Double price;
 
         public ProductQuantityList() {
         }
 
-        public ProductQuantityList(Long netWeightId, Integer quantity, Integer price) {
+        public ProductQuantityList(Long netWeightId, Integer quantity, Double price) {
             this.netWeightId = netWeightId;
             this.quantity = quantity;
             this.price = price;
@@ -39,11 +39,11 @@ public class ProductModel {
             this.quantity = quantity;
         }
 
-        public Integer getPrice() {
+        public Double getPrice() {
             return price;
         }
 
-        public void setPrice(Integer price) {
+        public void setPrice(Double price) {
             this.price = price;
         }
     }

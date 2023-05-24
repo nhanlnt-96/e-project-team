@@ -7,13 +7,13 @@ import lombok.Data;
 public class ProductQuantityDto {
     private Long quantityId;
     private Integer quantity;
-    private Integer price;
+    private Double price;
     private NetWeightDto netWeightDto;
 
     public ProductQuantityDto() {
     }
 
-    public ProductQuantityDto(Long quantityId, Integer quantity, Integer price, NetWeight netWeight) {
+    public ProductQuantityDto(Long quantityId, Integer quantity, Double price, NetWeight netWeight) {
         this.quantityId = quantityId;
         this.quantity = quantity;
         this.price = price;
@@ -36,11 +36,11 @@ public class ProductQuantityDto {
         this.quantity = quantity;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

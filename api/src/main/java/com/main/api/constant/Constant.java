@@ -1,5 +1,7 @@
 package com.main.api.constant;
 
+import javax.servlet.http.PushBuilder;
+
 public class Constant {
     public static String ADMIN_ROLE = "ROLE_ADMIN";
     public static String USER_ROLE = "ROLE_USER";
@@ -9,4 +11,11 @@ public class Constant {
     public static Integer VERIFIED_EMAIL = 1;
     public static String CHANGE_PASSWORD_TOKEN_NAME = "change-password";
     public static String VERIFY_EMAIL_TOKEN_NAME = "verify-email";
+    public static Integer SHIPPING_DELIVERED = 0;
+    public static Integer SHIPPING_SHIPPING = 0;
+    public static Integer SHIPPING_CANCEL = 0;
+    public static Integer PAYMENT_METHOD_COD = 0;
+    public static Integer PAYMENT_METHOD_MASTERCARD = 1;
+    public static Integer PAYMENT_STATUS_PAIED = 0;
+    public static Integer PAYMENT_STATUS_PENDING = 1;
 }
