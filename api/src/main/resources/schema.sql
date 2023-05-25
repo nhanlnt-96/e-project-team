@@ -14,6 +14,14 @@ create table user
 );
 
 -- auto-generated definition
+create table role
+(
+    id        int auto_increment
+        primary key,
+    role_name varchar(255) not null
+);
+
+-- auto-generated definition
 create table user_role
 (
     user_id int not null,
@@ -22,14 +30,6 @@ create table user_role
         foreign key (role_id) references role (id),
     constraint user_role_user_id_fk
         foreign key (user_id) references user (id)
-);
-
--- auto-generated definition
-create table role
-(
-    id        int auto_increment
-        primary key,
-    role_name varchar(255) not null
 );
 
 -- auto-generated definition
@@ -217,10 +217,10 @@ VALUES (2, 'ROLE_USER');
 
 -- insert user data
 INSERT INTO plant_x_db.user (id, address_detail, phone_number, email, password, full_name, verify_email, dob, gender)
-VALUES (12, null, '0981939841', 'nhanlnt@hotmail.com', '$2a$10$fMGy7Z7MkLfF2sWIoRxgBeuZYjHobPJ6UxC0rjte.If4ooo57QaP6',
+VALUES (12, null, '0981939841', 'admin@mail.com', '$2a$12$UF.OaiswMXRL0yaZD5yJN.QPFeOQKtQ15rquohgPANT/DBuVfCj6i',
         'Admin Account', 0, '2023-05-05 21:23:05', 1);
 INSERT INTO plant_x_db.user (id, address_detail, phone_number, email, password, full_name, verify_email, dob, gender)
-VALUES (13, null, '123456789', 'chumuru@gmail.com', '$2a$10$spYN0yrxJwp/zJrxzrSWmeKWqlIlTJhZeyWieq04y0ucocrAaM46y',
+VALUES (13, null, '123456789', 'customer@gmail.com', '$2a$12$UF.OaiswMXRL0yaZD5yJN.QPFeOQKtQ15rquohgPANT/DBuVfCj6i',
         'User Account', 1, '2023-05-05 21:23:05', 1);
 
 -- inset user role data
