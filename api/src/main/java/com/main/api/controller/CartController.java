@@ -66,11 +66,15 @@ public class CartController {
 
     @GetMapping("/get-current-cart")
     @RolesAllowed("ROLE_USER")
-    public ResponseEntity<CartDto> getCurrentCart() {
+    public ResponseEntity<?> getCurrentCart() {
         User userData = getUserData();
         Cart cart = getCartByUserId(userData.getUserId());
-        List<ProductCartDto> productCartDtoList = generateListProductCartDto(cart.getProductCarts());
-        return new ResponseEntity<>(generateCartDto(cart, productCartDtoList), HttpStatus.OK);
+        if (cart != null) {
+            List<ProductCartDto> productCartDtoList = generateListProductCartDto(cart.getProductCarts());
+            return new ResponseEntity<>(generateCartDto(cart, productCartDtoList), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Cart is empty", HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("/remove-from-cart")

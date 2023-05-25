@@ -21,7 +21,7 @@ public class Cart {
     private Date createdAt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
     private Set<ProductCart> productCarts;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 

@@ -159,6 +159,56 @@ create table news
     news_cover_img varchar(255) not null
 );
 
+-- auto-generated definition
+create table orders
+(
+    id               int auto_increment
+        primary key,
+    shipping_status  int          not null comment '0:delivered;1:shipping;2:cancel',
+    user_id          int          not null,
+    created_at       datetime     not null,
+    payment_method   int          not null comment '0:cod;1:paypal',
+    payment_status   int          not null comment '0:paid;1:pending',
+    shipping_address varchar(255) not null,
+    receiver_name    varchar(255) not null,
+    receiver_phone   varchar(255) not null,
+    constraint orders_user_id_fk
+        foreign key (user_id) references user (id)
+);
+
+-- auto-generated definition
+create table order_item
+(
+    id            int auto_increment
+        primary key,
+    order_id      int not null,
+    product_id    int not null,
+    net_weight_id int not null,
+    quantity      int not null,
+    price         int not null,
+    constraint order_item_net_weight_id_fk
+        foreign key (net_weight_id) references net_weight (id),
+    constraint order_item_orders_id_fk
+        foreign key (order_id) references orders (id),
+    constraint order_item_product_product_id_fk
+        foreign key (product_id) references product (product_id)
+);
+
+-- auto-generated definition
+create table payment_info
+(
+    id                 int auto_increment
+        primary key,
+    order_id           int          not null,
+    payment_id         varchar(255) not null,
+    payment_created    datetime     not null,
+    payee_email        varchar(255) not null,
+    payee_name         varchar(255) not null,
+    payment_capture_id varchar(255) not null,
+    constraint payment_info_orders_id_fk
+        foreign key (order_id) references orders (id)
+);
+
 -- insert role data
 INSERT INTO plant_x_db.role (id, role_name)
 VALUES (1, 'ROLE_ADMIN');
@@ -368,7 +418,8 @@ INSERT INTO plant_x_db.product_quantity (id, net_weight_id, product_id, quantity
 VALUES (61, 7, 78, 10, 190);
 
 -- insert news
-INSERT INTO plant_x_db.news (id, news_title, news_body, created_at, news_cover_img) VALUES (6, 'OUR COMMITMENT', '<p align="center">TWG Tea is committed to aligning the interests of business and society as much as possible. This includes formalising and sustaining our commitment to responsible corporate governance. We have appointed an internal ESG team to help identify more ways for us to extend our commitment to contributing towards a sustainable future.</p>
+INSERT INTO plant_x_db.news (id, news_title, news_body, created_at, news_cover_img)
+VALUES (6, 'OUR COMMITMENT', '<p align="center">TWG Tea is committed to aligning the interests of business and society as much as possible. This includes formalising and sustaining our commitment to responsible corporate governance. We have appointed an internal ESG team to help identify more ways for us to extend our commitment to contributing towards a sustainable future.</p>
 <p align="center">&nbsp;</p>
 <p align="center">Our long-term commitment to responsible tea sourcing has led to the establishment of dedicated TWG Tea gardens on the estates of iconic partners. TWG Tea also supports reforestation programmes through our partners. In Rwanda, our partner tea estate planted over 157,000 trees in 2020 alone as part of reforestation efforts.</p>
 <p align="center">&nbsp;</p>
@@ -376,8 +427,10 @@ INSERT INTO plant_x_db.news (id, news_title, news_body, created_at, news_cover_i
 <p align="center">&nbsp;</p>
 <p align="center">We are also committed to reducing single-use disposable items. At our Tea Salons, teas are prepared using reusable cotton filters. By preparing pots of tea using loose leaf tea and reusable cotton tea filters, we avoid using 80 million teabags globally each year. TWG Tea has also eliminated the use of plastic straws and serves iced teas with proprietary glass straws which customers can bring home free of charge, encouraging the reuse of an item which is often perceived as single-use.</p>
 <p align="center">&nbsp;</p>
-<p align="center">With the rise of eCommerce, TWG Tea has also adopted responsible warehousing and back-end logistics practices. The brand has created customised 100% recycled and biodegradable carton boxes to protect customer orders and reduce the need for additional cushioning inside delivery boxes. Lowering the extra volumetric weight of packing materials also reduces the brand&rsquo;s carbon footprint. Furthermore, the brand has moved away from plastic packing materials, moving to exclusively biodegradable materials for all deliveries &ndash; only with the exception of our most fragile tea accessories.</p>', '2023-05-23 13:09:34', 'news/3c7c304d-2814-4927-864e-18e8e69992a3-Commitment-main.jpg');
-INSERT INTO plant_x_db.news (id, news_title, news_body, created_at, news_cover_img) VALUES (7, 'INFUSED FOR SUCCESS', '<p align="center"><em>Celebrating the alchemy of tea in its various forms: a transformative sip, a cocoon of calm, a celebration of craftsmanship. Whether it&rsquo;s the first sip to signal a new day, an invigorating cup between meetings, or a nightcap that nurtures &ndash; there&rsquo;s always time for tea.</em></p>
+<p align="center">With the rise of eCommerce, TWG Tea has also adopted responsible warehousing and back-end logistics practices. The brand has created customised 100% recycled and biodegradable carton boxes to protect customer orders and reduce the need for additional cushioning inside delivery boxes. Lowering the extra volumetric weight of packing materials also reduces the brand&rsquo;s carbon footprint. Furthermore, the brand has moved away from plastic packing materials, moving to exclusively biodegradable materials for all deliveries &ndash; only with the exception of our most fragile tea accessories.</p>',
+        '2023-05-23 13:09:34', 'news/3c7c304d-2814-4927-864e-18e8e69992a3-Commitment-main.jpg');
+INSERT INTO plant_x_db.news (id, news_title, news_body, created_at, news_cover_img)
+VALUES (7, 'INFUSED FOR SUCCESS', '<p align="center"><em>Celebrating the alchemy of tea in its various forms: a transformative sip, a cocoon of calm, a celebration of craftsmanship. Whether it&rsquo;s the first sip to signal a new day, an invigorating cup between meetings, or a nightcap that nurtures &ndash; there&rsquo;s always time for tea.</em></p>
 <p align="center">&nbsp;</p>
 <p align="center"><strong>The Morning Rush</strong></p>
 <p align="center">Tea creates a particular experience for each drinker. Take for instance, the first cup of tea in the morning. Your mind is only just awake &ndash; occupying the liminal space between dream and reality. The notifications are buzzing, snatching the last peaceful moments of slumber. You can feel the day&rsquo;s agenda demanding your attention: emails, tasks, deadlines, the unanswered text from last night.</p>
@@ -392,5 +445,14 @@ INSERT INTO plant_x_db.news (id, news_title, news_body, created_at, news_cover_i
 <p align="center"><strong>The Inspired Nightcap</strong></p>
 <p align="center">Contemplate your day with a smouldering infusion designed for transformation and renewal. Although tea has amassed a reputation of boldness, a theine-free iteration envelops your senses in an olfactory atmosphere to gently close your evening. As you surrender your battles for the solitude of night, consider the tea leaves &ndash; sourced directly from tea gardens &ndash; and their voyage from the tea plant to your teacup.</p>
 <p align="center"><em>Take a sip.</em></p>
-<p align="center">In the moonlit hour, this mysterious black tea unfurls into a magical infusion. A firm testament to artisanal creativity and innovation, explore the depths of&nbsp;<strong>Midnight Hour Tea</strong>, an exercise in duality layered with the pronounced intensity of tropical fruits. Celebrate the craftsmanship and the art of the leaf &ndash; savour the terroir and history behind every inspired sip.</p>', '2023-05-23 13:29:31', 'news/09d4e675-a7bd-4590-afb5-fdb322c0209f-ITD-main.jpg');
+<p align="center">In the moonlit hour, this mysterious black tea unfurls into a magical infusion. A firm testament to artisanal creativity and innovation, explore the depths of&nbsp;<strong>Midnight Hour Tea</strong>, an exercise in duality layered with the pronounced intensity of tropical fruits. Celebrate the craftsmanship and the art of the leaf &ndash; savour the terroir and history behind every inspired sip.</p>',
+        '2023-05-23 13:29:31', 'news/09d4e675-a7bd-4590-afb5-fdb322c0209f-ITD-main.jpg');
 
+-- inserts order
+INSERT INTO plant_x_db.orders (id, shipping_status, user_id, created_at, payment_method, payment_status, shipping_address, receiver_name, receiver_phone) VALUES (30, 1, 18, '2023-05-25 12:32:37', 1, 0, 'Ho Chi Minh City', 'Nhan', '0981939841');
+
+-- insert order_item
+INSERT INTO plant_x_db.order_item (id, order_id, product_id, net_weight_id, quantity, price) VALUES (49, 30, 77, 2, 3, 40);
+
+-- insert payment info
+INSERT INTO plant_x_db.payment_info (id, order_id, payment_id, payment_created, payee_email, payee_name, payment_capture_id) VALUES (7, 30, '0UB36269SE356922M', '2023-05-25 08:08:24', 'sb-fpmrp26057867@business.example.com', 'John Doe', '3K453259RD931131D');

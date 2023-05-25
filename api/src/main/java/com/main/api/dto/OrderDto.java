@@ -1,12 +1,7 @@
 package com.main.api.dto;
 
-import com.main.api.entity.OrderItem;
-import com.main.api.entity.User;
-
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public class OrderDto {
     private Long id;
@@ -17,12 +12,13 @@ public class OrderDto {
     private String receiverName;
     private String receiverPhone;
     private Date createdAt;
+    PaymentInfoDto paymentInfoDto;
     List<OrderItemDto> orderItems;
 
     public OrderDto() {
     }
 
-    public OrderDto(Long id, Integer shippingStatus, Integer paymentMethod, Integer paymentStatus, String shippingAddress, String receiverName, String receiverPhone, Date createdAt, List<OrderItemDto> orderItems) {
+    public OrderDto(Long id, Integer shippingStatus, Integer paymentMethod, Integer paymentStatus, String shippingAddress, String receiverName, String receiverPhone, Date createdAt, List<OrderItemDto> orderItems, PaymentInfoDto paymentInfoDto) {
         this.id = id;
         this.shippingStatus = shippingStatus;
         this.paymentMethod = paymentMethod;
@@ -32,6 +28,7 @@ public class OrderDto {
         this.receiverPhone = receiverPhone;
         this.createdAt = createdAt;
         this.orderItems = orderItems;
+        this.paymentInfoDto = paymentInfoDto;
     }
 
     public Long getId() {
@@ -104,5 +101,13 @@ public class OrderDto {
 
     public void setOrderItems(List<OrderItemDto> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public PaymentInfoDto getPaymentInfoDto() {
+        return paymentInfoDto;
+    }
+
+    public void setPaymentInfoDto(PaymentInfoDto paymentInfoDto) {
+        this.paymentInfoDto = paymentInfoDto;
     }
 }

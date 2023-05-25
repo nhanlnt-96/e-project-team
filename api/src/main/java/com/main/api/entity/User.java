@@ -47,10 +47,12 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     Set<ProductFavorite> productFavorites;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     @JsonIgnore
     private Cart cart;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    Set<Order> orders;
 
     public User() {
     }
