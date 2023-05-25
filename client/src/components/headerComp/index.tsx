@@ -12,7 +12,7 @@ const { Header } = Layout;
 
 const HeaderComponent = forwardRef<HTMLElement>((_, ref) => {
   return (
-    <Header ref={ref} className='sticky top-0 w-full p-0 z-50 bg-black'>
+    <Header ref={ref} className='sticky top-0 w-full p-0 z-[999] bg-black'>
       <Container isWideScreen={false} className='h-full border-b border-white flex justify-between items-center text-white'>
         <HeaderLink />
         <HeaderDrawer />

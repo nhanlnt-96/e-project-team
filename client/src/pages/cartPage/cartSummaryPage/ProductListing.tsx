@@ -43,10 +43,13 @@ const ProductListing: React.FC<IProps> = ({ productInCart }) => {
     <div className='w-full'>
       {productInCart.length ? (
         productInCart.map((product) => (
-          <div key={product.productId} className='relative flex justify-start items-center py-6 border-b border-black space-x-3 first:border-t'>
+          <div
+            key={product.productId}
+            className='relative flex justify-start items-center py-6 border-b border-black flex-col space-y-3 sm:space-y-0 sm:flex-row sm:space-x-3 first:border-t'
+          >
             <button
               type='button'
-              className='absolute outline-none top-6 right-6 focus:ring-0 hover:text-antd-status-error'
+              className='absolute outline-none top-3 right-3 md:top-6 md:right-6 focus:ring-0 hover:text-antd-status-error'
               onClick={() => handleRemoveFromCart(product.productId, product.netWeightDto.netWeightId)}
             >
               {React.cloneElement(SvgIcons.XMark, { className: 'w-5 h-5' })}
@@ -59,7 +62,7 @@ const ProductListing: React.FC<IProps> = ({ productInCart }) => {
               />
             </div>
             <div className='w-full space-y-4'>
-              <h6 className='font-bold uppercase'>{product.productName}</h6>
+              <h6 className='font-bold text-center uppercase sm:text-left'>{product.productName}</h6>
               <div className='w-full flex justify-start items-center space-x-2 sm:w-1/2'>
                 <div className='flex-1 space-y-2'>
                   <label htmlFor='quantity'>Quantity</label>

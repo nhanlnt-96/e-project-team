@@ -1,7 +1,16 @@
 import { useEffectOnce } from 'hooks/useEffectOnce';
-import React, { useRef } from 'react';
+import React, { Dispatch, SetStateAction, useRef } from 'react';
+import { toast } from 'react-toastify';
 
-const PayPalButton: React.FC<IProps> = ({ description, amount, currency = 'USD' }) => {
+interface IProps {
+  description: string;
+  amount: number;
+  currency?: string;
+  className?: string;
+  setApprovePayPalSuccess: Dispatch<SetStateAction<any>>;
+}
+
+const PayPalButton: React.FC<IProps> = ({ description, amount, setApprovePayPalSuccess, currency = 'USD', className = '' }) => {
   const payPalRef = useRef<HTMLDivElement>(null);
 
   useEffectOnce(() => {
@@ -28,22 +37,16 @@ const PayPalButton: React.FC<IProps> = ({ description, amount, currency = 'USD' 
         onApprove: async (data: any, actions: any) => {
           const order = await actions.order.capture();
 
-          console.log(order);
+          setApprovePayPalSuccess(order);
         },
         onError: (error: any) => {
-          console.log(error);
+          toast.error(error);
         }
       })
       .render(payPalRef?.current);
   });
 
-  return <div ref={payPalRef} className='w-full flex justify-center items-center'></div>;
+  return <div ref={payPalRef} className={`w-full flex justify-center items-center ${className}`}></div>;
 };
-
-interface IProps {
-  description: string;
-  amount: number;
-  currency?: string;
-}
 
 export default PayPalButton;

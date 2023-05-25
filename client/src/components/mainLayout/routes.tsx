@@ -3,6 +3,7 @@ import CreateNewAccountPage from 'pages/adminPage/accountManagePage/createNewAcc
 import LoginPage from 'pages/authenticate/login';
 import RegisterPage from 'pages/authenticate/register';
 import ResetPasswordPage from 'pages/authenticate/resetPassword';
+import CheckoutPage from 'pages/cartPage/checkoutPage';
 import SearchPage from 'pages/clientPage/searchPage';
 import PageNotFound from 'pages/pageNotFound';
 import { lazy, ReactElement } from 'react';
@@ -188,6 +189,13 @@ export const routes: IRoutes[] = [
         isPrivate: true,
         requiredRole: [Roles.USER_ROLE],
         element: <CartSummaryPage />
+      },
+      {
+        path: RouteBasePath.CLIENT_CHECKOUT_PAGE_BASE_PATH,
+        isIndex: false,
+        isPrivate: true,
+        requiredRole: [Roles.USER_ROLE],
+        element: <CheckoutPage />
       }
     ]
   },

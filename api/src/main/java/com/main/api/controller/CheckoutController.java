@@ -83,8 +83,6 @@ public class CheckoutController {
             List<OrderItem> orderItems = currentCart.getProductCarts().stream().map(product -> generateOrderItem(product, createOrderResponse)).collect(Collectors.toList());
             List<OrderItem> saveDataResponse = orderItemRepository.saveAll(orderItems);
             if (saveDataResponse.size() > 0) {
-                // INFO: remove current cart
-                cartRepository.delete(currentCart);
                 // INFO: update product quantity
                 for (ProductCart productCart : currentCart.getProductCarts()) {
                     Product productData = productRepository.findById(productCart.getProduct().getProductId()).orElseThrow(() -> new NoResultException("Product does not exist"));
@@ -98,6 +96,8 @@ public class CheckoutController {
                         productQuantityRepository.saveAndFlush(productQuantity);
                     }
                 }
+                // INFO: remove current cart
+                cartRepository.delete(currentCart);
 
                 return new ResponseEntity<>(generateOrderDto(orderData, saveDataResponse, paymentInfoDto), HttpStatus.CREATED);
             }

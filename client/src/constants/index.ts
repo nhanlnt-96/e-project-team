@@ -30,6 +30,7 @@ export enum RouteBasePath {
   CLIENT_NEWS_DETAIL_PAGE_BASE_PATH = 'news-detail',
 
   CLIENT_CART_PAGE_BASE_PATH = '/cart',
+  CLIENT_CHECKOUT_PAGE_BASE_PATH = 'checkout',
 
   CLIENT_SEARCH_PAGE_BASE_PATH = '/search',
 
@@ -80,6 +81,14 @@ export enum Roles {
 export enum LocalStorageName {
   ACCESS_TOKEN_NAME = 'wingTeaAccessToken',
   USER_DATA_NAME = 'wingTeaUserData'
+}
+
+export enum Checkout {
+  SHIPPING_STATUS_DELIVERED = 0,
+  SHIPPING_STATUS_SHIPPING = 1,
+  SHIPPING_STATUS_CANCEL = 2,
+  PAYMENT_METHOD_COD = 0,
+  PAYMENT_METHOD_PAYPAL = 1
 }
 
 export const FULL_NAME_REGEX = new RegExp(/^\p{Lu}\p{L}*\s((\p{Lu}\p{L}*)+\s)*\p{Lu}\p{L}*$/gu);
