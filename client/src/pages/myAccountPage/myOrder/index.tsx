@@ -1,6 +1,8 @@
 import { Collapse } from 'antd';
 import CollapseComp from 'components/collapseComp';
+import Loading from 'components/loading';
 import { useEffectOnce } from 'hooks/useEffectOnce';
+import OrderDetail from 'pages/myAccountPage/myOrder/OrderDetail';
 import React from 'react';
 import { getOrderThunk } from 'redux/checkoutManage/getOrderSlice';
 import { getOrderSelector } from 'redux/checkoutManage/selector';
@@ -17,7 +19,22 @@ const MyOrder = () => {
   });
 
   return (
-    <div className='w-full space-y-8'>{orderData.length ? <CollapseComp></CollapseComp> : <p className='text-center'>No product to show</p>}</div>
+    <>
+      <div className='w-full space-y-8'>
+        {orderData.length ? (
+          <CollapseComp>
+            {orderData.map((order) => (
+              <Panel key={order.orderId} header={`Order #${order.orderId}`}>
+                <OrderDetail orderData={order} />
+              </Panel>
+            ))}
+          </CollapseComp>
+        ) : (
+          <p className='text-center'>No order to show</p>
+        )}
+      </div>
+      {isLoading ? <Loading isLoadingMask /> : <></>}
+    </>
   );
 };
 
