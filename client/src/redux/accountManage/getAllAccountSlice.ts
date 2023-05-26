@@ -34,7 +34,7 @@ export const getAllAccountSlice = createSlice({
     builder.addCase(getAllAccountThunk.fulfilled, (state, action) => {
       state.isLoading = false;
 
-      state.accountData = action.payload.map((account) => generateUserDataObject(account));
+      state.accountData = action.payload.map((account: any) => generateUserDataObject(account));
 
       state.error = null;
     });

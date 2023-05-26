@@ -79,8 +79,9 @@ export enum Roles {
 }
 
 export enum LocalStorageName {
-  ACCESS_TOKEN_NAME = 'wingTeaAccessToken',
-  USER_DATA_NAME = 'wingTeaUserData'
+  ACCESS_TOKEN_NAME = 'twgTeaAccessToken',
+  USER_DATA_NAME = 'twgTeaUserData',
+  RECENTLY_VIEWED_PRODUCTS = 'twgTeaRecentlyViewedProducts'
 }
 
 export enum Checkout {

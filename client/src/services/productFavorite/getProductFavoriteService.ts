@@ -7,7 +7,7 @@ export interface IProductFavoriteResponse {
   productDtoList: IProductData[];
 }
 
-const getProductFavoriteService = async (): Promise<IProductFavoriteResponse> =>
+const getProductFavoriteService = async (): Promise<any> =>
   await axiosInstance.get(`${PRODUCT_FAVORITE_ENDPOINT}/get-product-favorite`);
 
 export default getProductFavoriteService;

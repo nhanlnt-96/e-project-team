@@ -19,3 +19,5 @@ export { default as updateProductService } from './updateProductService';
 export { default as removeProductQuantityService } from './removeProductQuantityService';
 
 export { default as productSearchByNameService } from './productSearchByNameService';
+
+export { default as getNewestProductService } from './getNewestProductService';

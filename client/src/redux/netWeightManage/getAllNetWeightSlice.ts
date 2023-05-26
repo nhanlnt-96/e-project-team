@@ -32,7 +32,7 @@ const getAllNetWeightSlice = createSlice({
     builder.addCase(getAllNetWeightThunk.fulfilled, (state, action) => {
       state.isLoading = false;
 
-      state.netWeightData = action.payload.map((netWeight) => generateNetWeightObject(netWeight));
+      state.netWeightData = action.payload.map((netWeight: any) => generateNetWeightObject(netWeight));
 
       state.error = null;
     });

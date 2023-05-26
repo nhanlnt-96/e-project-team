@@ -7,7 +7,7 @@ export interface ILoginData {
   password: string;
 }
 
-const loginService = async (data: ILoginData): Promise<ILoggedData> =>
+const loginService = async (data: ILoginData): Promise<any> =>
   await axiosInstance.post(`${AUTHENTICATE_API_ENDPOINT}/login`, {
     email: data.email,
     password: data.password

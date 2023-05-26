@@ -31,7 +31,7 @@ export const getAllProductSlice = createSlice({
     });
 
     builder.addCase(getAllProductThunk.fulfilled, (state, action) => {
-      state.productData = action.payload.map((product) => generateProductDataObject(product));
+      state.productData = action.payload.map((product: any) => generateProductDataObject(product));
 
       state.isLoading = false;
 

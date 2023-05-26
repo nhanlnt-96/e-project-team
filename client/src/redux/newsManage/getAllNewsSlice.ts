@@ -32,7 +32,7 @@ const getAllNewsSlice = createSlice({
     builder.addCase(getAllNewsThunk.fulfilled, (state, action) => {
       state.isLoading = false;
 
-      state.newsData = action.payload.map((news) => generateNewsDataObject(news));
+      state.newsData = action.payload.map((news: any) => generateNewsDataObject(news));
 
       state.error = null;
     });

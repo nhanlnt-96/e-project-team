@@ -9,7 +9,7 @@ const FindATeaPage = () => {
   return (
     <PageContainer pageContainerClassName='space-y-4 max-w-screen-xl mx-auto md:space-y-6'>
       <div className='w-full'>
-        <ImageResponsive width={1220} height={434} imageProps={{ src: FindATeaBanner, alt: 'wing tea find a tea' }} />
+        <ImageResponsive width={1220} height={434} imageProps={{ src: FindATeaBanner, alt: 'twg tea find a tea' }} />
       </div>
       <Title title='Find a tea' subtitle='Find the perfect tea blend.' />
       <CategoryListing />

@@ -91,9 +91,11 @@ public class ProductController {
         }
 
         try {
+            Date currentDate = new Date();
             ProductCategory productCategory = productCategoryRepository.findById(createProductData.getCategoryId()).get();
             Product productData = new Product(createProductData.getDescription(), createProductData.getProductName());
             productData.setCategory(productCategory);
+            productData.setCreatedAt(currentDate);
 
             Product saveProductResponse = productRepository.save(productData);
             if (saveProductResponse.getProductId() != 0) {
@@ -293,7 +295,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("remove-product-image")
+    @DeleteMapping("/remove-product-image")
     @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<String> removeProductImage(@RequestParam(value = "productId") Long productId, @RequestParam(value = "imageId") Long imageId) {
@@ -318,7 +320,7 @@ public class ProductController {
         return new ResponseEntity<>("Removed image.", HttpStatus.OK);
     }
 
-    @DeleteMapping("remove-product-quantity")
+    @DeleteMapping("/remove-product-quantity")
     @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<String> removeProductQuantity(@RequestParam(value = "quantityId") Long quantityId) {
@@ -334,6 +336,14 @@ public class ProductController {
         productQuantityRepository.delete(checkProductQuantityExist);
 
         return new ResponseEntity<>("Removed product quantity", HttpStatus.OK);
+    }
+
+    @GetMapping("/get-newest-products")
+    public ResponseEntity<List<ProductDto>> getNewestProduct() {
+        List<Product> productList = productRepository.findTop10ByOrderByCreatedAtDesc();
+        List<ProductDto> productDtoList = productList.stream().map(product -> new ProductDto(product, handleGenerateImageDto(product.getProductImages()), product.getCategory(), generateProductQuantityDto(new ArrayList<>(product.getProductQuantities())))).collect(Collectors.toList());
+
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
     public static List<ProductImageDto> handleGenerateImageDto(Set<ProductImage> productImages) {

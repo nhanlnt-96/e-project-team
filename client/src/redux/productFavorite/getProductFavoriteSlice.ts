@@ -38,7 +38,7 @@ const getProductFavoriteSlice = createSlice({
     builder.addCase(getProductFavoriteThunk.fulfilled, (state, action) => {
       state.isLoading = false;
 
-      state.productFavoriteData = action.payload.productDtoList.map((product) => generateProductDataObject(product));
+      state.productFavoriteData = action.payload.productDtoList.map((product: any) => generateProductDataObject(product));
     });
 
     builder.addCase(getProductFavoriteThunk.rejected, (state, action) => {

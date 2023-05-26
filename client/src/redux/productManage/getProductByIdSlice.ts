@@ -21,7 +21,7 @@ const fetchProductDetail = async (productId: number) => {
   return generateProductDataObject(productData);
 };
 
-export const getProductByIdThunk = createAsyncThunk('productManage/fetchProductById', async (productId: number): Promise<IProductData> => {
+export const getProductByIdThunk = createAsyncThunk('productManage/fetchProductById', async (productId: number): Promise<any> => {
   return await fetchProductDetail(productId);
 });
 

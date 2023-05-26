@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -20,6 +21,8 @@ public class Product {
     private String description;
     @Column(name = "product_name")
     private String productName;
+    @Column(name = "created_at")
+    private Date createdAt;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private ProductCategory category;
