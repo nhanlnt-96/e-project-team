@@ -1,0 +1,72 @@
+@import "assets/styles/index";
+
+.checkout-page {
+  &__payment-method {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    gap: 20px;
+    @include md {
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    &__radio {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid $taupe-gray;
+      cursor: pointer;
+      padding: 16px;
+      @include lg {
+        padding: 32px;
+      }
+
+      &:hover {
+        border-color: $black;
+      }
+
+      & > input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      &:has(input:checked) {
+        border-color: $black;
+      }
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        text-transform: uppercase;
+        @include sm {
+          font-size: 20px;
+        }
+      }
+
+      .subtitle {
+        font-size: 16px;
+        margin-top: 8px;
+        margin-bottom: 12px;
+      }
+
+      .icon {
+        width: 40px;
+      }
+    }
+
+    .paypal-payment-button {
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+}

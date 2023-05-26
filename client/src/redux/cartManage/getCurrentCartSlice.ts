@@ -37,7 +37,7 @@ const getCurrentCartSlice = createSlice({
     builder.addCase(getCurrentCartThunk.fulfilled, (state, action) => {
       state.isLoading = false;
 
-      state.cartData = generateCartDataObject(action.payload);
+      state.cartData = typeof action.payload === 'object' ? generateCartDataObject(action.payload) : null;
     });
 
     builder.addCase(getCurrentCartThunk.rejected, (state, action) => {

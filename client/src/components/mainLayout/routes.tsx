@@ -3,6 +3,7 @@ import CreateNewAccountPage from 'pages/adminPage/accountManagePage/createNewAcc
 import LoginPage from 'pages/authenticate/login';
 import RegisterPage from 'pages/authenticate/register';
 import ResetPasswordPage from 'pages/authenticate/resetPassword';
+import CheckoutPage from 'pages/cartPage/checkoutPage';
 import SearchPage from 'pages/clientPage/searchPage';
 import PageNotFound from 'pages/pageNotFound';
 import { lazy, ReactElement } from 'react';
@@ -51,6 +52,7 @@ const NewsManagePage = lazy(() => import('pages/adminPage/newsManagePage'));
 const NewsPageLayout = lazy(() => import('pages/newsPage'));
 const NewsListingPage = lazy(() => import('pages/newsPage/newsListingPage'));
 const NewsDetailPage = lazy(() => import('pages/newsPage/newsDetailPage'));
+const MyOrderPage = lazy(() => import('pages/myAccountPage/myOrder'));
 
 export const routes: IRoutes[] = [
   {
@@ -169,10 +171,17 @@ export const routes: IRoutes[] = [
       },
       {
         path: RouteBasePath.MY_FAVORITES_PAGE_BASE_PATH,
-        isIndex: true,
+        isIndex: false,
         isPrivate: true,
         requiredRole: [Roles.USER_ROLE],
         element: <MyFavoritePage />
+      },
+      {
+        path: RouteBasePath.MY_ORDERS_PAGE_BASE_PATH,
+        isIndex: false,
+        isPrivate: true,
+        requiredRole: [Roles.USER_ROLE],
+        element: <MyOrderPage />
       }
     ]
   },
@@ -188,6 +197,13 @@ export const routes: IRoutes[] = [
         isPrivate: true,
         requiredRole: [Roles.USER_ROLE],
         element: <CartSummaryPage />
+      },
+      {
+        path: RouteBasePath.CLIENT_CHECKOUT_PAGE_BASE_PATH,
+        isIndex: false,
+        isPrivate: true,
+        requiredRole: [Roles.USER_ROLE],
+        element: <CheckoutPage />
       }
     ]
   },

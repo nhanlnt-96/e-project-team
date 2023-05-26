@@ -10,7 +10,7 @@ export const myAccountTabsItems = [
     label: 'My Favorites'
   },
   {
-    key: RouteBasePath.MY_ORDERS_PAGE_BASE_PATH,
+    key: `${RouteBasePath.MY_ACCOUNT_PAGE_BASE_PATH}/${RouteBasePath.MY_ORDERS_PAGE_BASE_PATH}`,
     label: 'My Orders'
   }
 ];

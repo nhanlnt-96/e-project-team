@@ -6,6 +6,7 @@ import com.main.api.entity.Product;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 public class OrderItemDto {
@@ -13,17 +14,21 @@ public class OrderItemDto {
     private Integer quantity;
     private Double price;
     private String productName;
+    private Long productId;
     private String netWeightLabel;
+    private ProductCategoryDto productCategoryDto;
 
     public OrderItemDto() {
     }
 
-    public OrderItemDto(Long id, Integer quantity, Double price, String productName, String netWeightLabel) {
+    public OrderItemDto(Long id, Integer quantity, Double price, String productName, String netWeightLabel, ProductCategoryDto productCategoryDto, Long productId) {
         this.id = id;
         this.quantity = quantity;
         this.price = price;
         this.productName = productName;
         this.netWeightLabel = netWeightLabel;
+        this.productCategoryDto = productCategoryDto;
+        this.productId = productId;
     }
 
     public Long getId() {
@@ -64,5 +69,21 @@ public class OrderItemDto {
 
     public void setNetWeightLabel(String netWeightLabel) {
         this.netWeightLabel = netWeightLabel;
+    }
+
+    public ProductCategoryDto getProductCategoryDto() {
+        return productCategoryDto;
+    }
+
+    public void setProductCategoryDto(ProductCategoryDto productCategoryDto) {
+        this.productCategoryDto = productCategoryDto;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 }

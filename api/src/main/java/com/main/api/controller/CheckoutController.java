@@ -2,10 +2,7 @@ package com.main.api.controller;
 
 import com.main.api.constant.Constant;
 import com.main.api.dao.*;
-import com.main.api.dto.OrderDto;
-import com.main.api.dto.OrderItemDto;
-import com.main.api.dto.PaymentInfoDto;
-import com.main.api.dto.ProductCartDto;
+import com.main.api.dto.*;
 import com.main.api.entity.*;
 import com.main.api.model.CheckoutModel;
 import org.hibernate.annotations.Check;
@@ -83,8 +80,6 @@ public class CheckoutController {
             List<OrderItem> orderItems = currentCart.getProductCarts().stream().map(product -> generateOrderItem(product, createOrderResponse)).collect(Collectors.toList());
             List<OrderItem> saveDataResponse = orderItemRepository.saveAll(orderItems);
             if (saveDataResponse.size() > 0) {
-                // INFO: remove current cart
-                cartRepository.delete(currentCart);
                 // INFO: update product quantity
                 for (ProductCart productCart : currentCart.getProductCarts()) {
                     Product productData = productRepository.findById(productCart.getProduct().getProductId()).orElseThrow(() -> new NoResultException("Product does not exist"));
@@ -98,6 +93,8 @@ public class CheckoutController {
                         productQuantityRepository.saveAndFlush(productQuantity);
                     }
                 }
+                // INFO: remove current cart
+                cartRepository.delete(currentCart);
 
                 return new ResponseEntity<>(generateOrderDto(orderData, saveDataResponse, paymentInfoDto), HttpStatus.CREATED);
             }
@@ -157,7 +154,7 @@ public class CheckoutController {
     }
 
     private OrderItemDto generateOrderItemDto(OrderItem orderItem) {
-        return new OrderItemDto(orderItem.getId(), orderItem.getQuantity(), orderItem.getPrice(), orderItem.getProduct().getProductName(), orderItem.getNetWeight().getNetWeightLabel());
+        return new OrderItemDto(orderItem.getId(), orderItem.getQuantity(), orderItem.getPrice(), orderItem.getProduct().getProductName(), orderItem.getNetWeight().getNetWeightLabel(), new ProductCategoryDto(orderItem.getProduct().getCategory()), orderItem.getProduct().getProductId());
     }
 
     private OrderDto generateOrderDto(Order order, List<OrderItem> orderItem, PaymentInfoDto paymentInfoDto) {
@@ -165,16 +162,20 @@ public class CheckoutController {
         return new OrderDto(order.getId(), order.getShippingStatus(), order.getPaymentMethod(), order.getPaymentStatus(), order.getShippingAddress(), order.getReceiverName(), order.getReceiverPhone(), order.getCreatedAt(), orderItemDtos, paymentInfoDto);
     }
 
-    private PaymentInfoDto generatePaymentInfoDto(PaymentInfo paymentInfo) {
-        PaymentInfoDto paymentInfoDto = new PaymentInfoDto();
-        paymentInfoDto.setId(paymentInfo.getId());
-        paymentInfoDto.setOrderId(paymentInfo.getOrder().getId());
-        paymentInfoDto.setPaymentId(paymentInfo.getPaymentId());
-        paymentInfoDto.setPaymentCreated(paymentInfo.getPaymentCreated());
-        paymentInfoDto.setPayeeName(paymentInfo.getPayeeName());
-        paymentInfoDto.setPayeeEmail(paymentInfo.getPayeeEmail());
-        paymentInfoDto.setPaymentCaptureId(paymentInfo.getPaymentCaptureId());
+    private PaymentInfoDto generatePaymentInfoDto(@Nullable PaymentInfo paymentInfo) {
+        if (paymentInfo != null) {
+            PaymentInfoDto paymentInfoDto = new PaymentInfoDto();
+            paymentInfoDto.setId(paymentInfo.getId());
+            paymentInfoDto.setOrderId(paymentInfo.getOrder().getId());
+            paymentInfoDto.setPaymentId(paymentInfo.getPaymentId());
+            paymentInfoDto.setPaymentCreated(paymentInfo.getPaymentCreated());
+            paymentInfoDto.setPayeeName(paymentInfo.getPayeeName());
+            paymentInfoDto.setPayeeEmail(paymentInfo.getPayeeEmail());
+            paymentInfoDto.setPaymentCaptureId(paymentInfo.getPaymentCaptureId());
 
-        return paymentInfoDto;
+            return paymentInfoDto;
+        } else {
+            return null;
+        }
     }
 }
