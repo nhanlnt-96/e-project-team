@@ -165,16 +165,20 @@ public class CheckoutController {
         return new OrderDto(order.getId(), order.getShippingStatus(), order.getPaymentMethod(), order.getPaymentStatus(), order.getShippingAddress(), order.getReceiverName(), order.getReceiverPhone(), order.getCreatedAt(), orderItemDtos, paymentInfoDto);
     }
 
-    private PaymentInfoDto generatePaymentInfoDto(PaymentInfo paymentInfo) {
-        PaymentInfoDto paymentInfoDto = new PaymentInfoDto();
-        paymentInfoDto.setId(paymentInfo.getId());
-        paymentInfoDto.setOrderId(paymentInfo.getOrder().getId());
-        paymentInfoDto.setPaymentId(paymentInfo.getPaymentId());
-        paymentInfoDto.setPaymentCreated(paymentInfo.getPaymentCreated());
-        paymentInfoDto.setPayeeName(paymentInfo.getPayeeName());
-        paymentInfoDto.setPayeeEmail(paymentInfo.getPayeeEmail());
-        paymentInfoDto.setPaymentCaptureId(paymentInfo.getPaymentCaptureId());
+    private PaymentInfoDto generatePaymentInfoDto(@Nullable PaymentInfo paymentInfo) {
+        if (paymentInfo != null) {
+            PaymentInfoDto paymentInfoDto = new PaymentInfoDto();
+            paymentInfoDto.setId(paymentInfo.getId());
+            paymentInfoDto.setOrderId(paymentInfo.getOrder().getId());
+            paymentInfoDto.setPaymentId(paymentInfo.getPaymentId());
+            paymentInfoDto.setPaymentCreated(paymentInfo.getPaymentCreated());
+            paymentInfoDto.setPayeeName(paymentInfo.getPayeeName());
+            paymentInfoDto.setPayeeEmail(paymentInfo.getPayeeEmail());
+            paymentInfoDto.setPaymentCaptureId(paymentInfo.getPaymentCaptureId());
 
-        return paymentInfoDto;
+            return paymentInfoDto;
+        } else {
+            return null;
+        }
     }
 }
