@@ -21,7 +21,16 @@ export const generateOrderItemObject = (data: any): IOrderItem => ({
   price: _.get(data, 'price', ''),
   netWeightLabel: _.get(data, 'netWeightLabel', ''),
   productName: _.get(data, 'productName', ''),
-  quantity: _.get(data, 'quantity', '')
+  productId: _.get(data, 'productId', ''),
+  quantity: _.get(data, 'quantity', ''),
+  productCategoryDto: {
+    categoryId: _.get(data?.productCategoryDto, 'categoryId', ''),
+    categoryName: _.get(data?.productCategoryDto, 'categoryName', ''),
+    categorySlug: _.get(data?.productCategoryDto, 'categorySlug', ''),
+    categoryImageName: _.get(data?.productCategoryDto, 'categoryImageName', ''),
+    storageName: _.get(data?.productCategoryDto, 'storageName', ''),
+    categoryDescription: _.get(data?.productCategoryDto, 'categoryDescription', '')
+  }
 });
 
 export const generateOrderDataObject = (data: any): IOrderData => ({

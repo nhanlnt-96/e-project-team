@@ -1,8 +1,8 @@
+import DataTable from 'components/datatable';
 import Title from 'components/title';
 import { useEffectOnce } from 'hooks/useEffectOnce';
 import { columns } from 'pages/adminPage/accountManagePage/configs';
 import CreateNewAccButton from 'pages/adminPage/accountManagePage/createNewAccountPage/CreateNewAccButton';
-import DataTable from 'pages/adminPage/components/datatable';
 import SectionContainer from 'pages/adminPage/components/sectionContainer';
 import React, { useMemo } from 'react';
 import { getAllAccountThunk } from 'redux/accountManage/getAllAccountSlice';

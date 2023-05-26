@@ -1,3 +1,5 @@
+import { ICategoryData } from 'services/category';
+
 export interface IPaymentInfo {
   paymentId: string;
   paymentCreated: string;
@@ -19,12 +21,20 @@ export interface IOrderItem {
   quantity: number;
   price: number;
   productName: string;
+  productId: number;
   netWeightLabel: string;
+  productCategoryDto: ICategoryData;
 }
 
 export interface IOrderPaymentInfo extends IPaymentInfo {
   id: number;
   orderId: number;
+}
+
+export interface IShippingInfo {
+  shippingAddress: string;
+  receiverName: string;
+  receiverPhone: string;
 }
 
 export interface IOrderData {

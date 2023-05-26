@@ -18,6 +18,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getCurrentCartThunk } from 'redux/cartManage/getCurrentCartSlice';
 import { getCurrentCartSelector } from 'redux/cartManage/selector';
+import { getOrderThunk } from 'redux/checkoutManage/getOrderSlice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { createOrderService, ICreatedOrderData } from 'services/checkout';
 
@@ -58,6 +59,8 @@ const CheckoutPage = () => {
     setIsOpenModal(false);
 
     dispatch(getCurrentCartThunk());
+
+    dispatch(getOrderThunk());
 
     navigate(RouteBasePath.CLIENT_HOME_PAGE_BASE_PATH);
   };

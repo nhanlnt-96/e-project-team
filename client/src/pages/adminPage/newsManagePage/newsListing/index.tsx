@@ -1,5 +1,5 @@
+import DataTable from 'components/datatable';
 import { useEffectOnce } from 'hooks/useEffectOnce';
-import DataTable from 'pages/adminPage/components/datatable';
 import { columns } from 'pages/adminPage/newsManagePage/configs';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';

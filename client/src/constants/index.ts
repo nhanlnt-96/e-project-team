@@ -88,7 +88,9 @@ export enum Checkout {
   SHIPPING_STATUS_SHIPPING = 1,
   SHIPPING_STATUS_CANCEL = 2,
   PAYMENT_METHOD_COD = 0,
-  PAYMENT_METHOD_PAYPAL = 1
+  PAYMENT_METHOD_PAYPAL = 1,
+  PAYMENT_STATUS_PAID = 0,
+  PAYMENT_STATUS_PENDING = 1
 }
 
 export const FULL_NAME_REGEX = new RegExp(/^\p{Lu}\p{L}*\s((\p{Lu}\p{L}*)+\s)*\p{Lu}\p{L}*$/gu);

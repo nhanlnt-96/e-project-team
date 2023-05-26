@@ -1,6 +1,6 @@
+import DataTable from 'components/datatable';
 import Title from 'components/title';
 import { useEffectOnce } from 'hooks/useEffectOnce';
-import DataTable from 'pages/adminPage/components/datatable';
 import SectionContainer from 'pages/adminPage/components/sectionContainer';
 import AddNewProductButton from 'pages/adminPage/productManagePage/addNewProductPage/AddNewProductButton';
 import { columns } from 'pages/adminPage/productManagePage/configs';

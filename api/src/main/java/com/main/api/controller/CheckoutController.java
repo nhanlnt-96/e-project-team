@@ -2,10 +2,7 @@ package com.main.api.controller;
 
 import com.main.api.constant.Constant;
 import com.main.api.dao.*;
-import com.main.api.dto.OrderDto;
-import com.main.api.dto.OrderItemDto;
-import com.main.api.dto.PaymentInfoDto;
-import com.main.api.dto.ProductCartDto;
+import com.main.api.dto.*;
 import com.main.api.entity.*;
 import com.main.api.model.CheckoutModel;
 import org.hibernate.annotations.Check;
@@ -157,7 +154,7 @@ public class CheckoutController {
     }
 
     private OrderItemDto generateOrderItemDto(OrderItem orderItem) {
-        return new OrderItemDto(orderItem.getId(), orderItem.getQuantity(), orderItem.getPrice(), orderItem.getProduct().getProductName(), orderItem.getNetWeight().getNetWeightLabel());
+        return new OrderItemDto(orderItem.getId(), orderItem.getQuantity(), orderItem.getPrice(), orderItem.getProduct().getProductName(), orderItem.getNetWeight().getNetWeightLabel(), new ProductCategoryDto(orderItem.getProduct().getCategory()), orderItem.getProduct().getProductId());
     }
 
     private OrderDto generateOrderDto(Order order, List<OrderItem> orderItem, PaymentInfoDto paymentInfoDto) {

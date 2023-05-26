@@ -1,6 +1,6 @@
+import Datatable from 'components/datatable';
 import { useEffectOnce } from 'hooks/useEffectOnce';
 import { columns } from 'pages/adminPage/categoryManagePage/configs';
-import Datatable from 'pages/adminPage/components/datatable';
 import React, { useMemo } from 'react';
 import { getAllCategoryThunk } from 'redux/categoryManage/getAllCategorySlice';
 import { categoryDataSelector } from 'redux/categoryManage/selector';
