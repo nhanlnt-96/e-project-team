@@ -41,6 +41,6 @@ public class TokenController {
 
     public static boolean checkTokenExpired(Date tokenCreated) {
         Date currentDate = new Date();
-        return currentDate.getTime() - tokenCreated.getTime() < twoHoursInMil;
+        return currentDate.getTime() - tokenCreated.getTime() > twoHoursInMil;
     }
 }

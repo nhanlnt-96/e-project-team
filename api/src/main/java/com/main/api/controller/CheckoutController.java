@@ -1,11 +1,12 @@
 package com.main.api.controller;
 
+import com.main.api.configs.EmailService;
 import com.main.api.constant.Constant;
 import com.main.api.dao.*;
 import com.main.api.dto.*;
 import com.main.api.entity.*;
+import com.main.api.mailTemplate.MailTemplate;
 import com.main.api.model.CheckoutModel;
-import org.hibernate.annotations.Check;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
@@ -14,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import javax.mail.MessagingException;
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,8 +33,9 @@ public class CheckoutController {
     final private ProductQuantityRepository productQuantityRepository;
     final private ProductRepository productRepository;
     final private PaymentInfoRepository paymentInfoRepository;
+    final private EmailService emailService;
 
-    public CheckoutController(OrderRepository orderRepository, OrderItemRepository orderItemRepository, CartRepository cartRepository, UserRepository userRepository, ProductQuantityRepository productQuantityRepository, ProductRepository productRepository, PaymentInfoRepository paymentInfoRepository) {
+    public CheckoutController(OrderRepository orderRepository, OrderItemRepository orderItemRepository, CartRepository cartRepository, UserRepository userRepository, ProductQuantityRepository productQuantityRepository, ProductRepository productRepository, PaymentInfoRepository paymentInfoRepository, EmailService emailService) {
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
         this.cartRepository = cartRepository;
@@ -39,6 +43,7 @@ public class CheckoutController {
         this.productQuantityRepository = productQuantityRepository;
         this.productRepository = productRepository;
         this.paymentInfoRepository = paymentInfoRepository;
+        this.emailService = emailService;
     }
 
     @PostMapping("/create-order")
@@ -95,6 +100,14 @@ public class CheckoutController {
                 }
                 // INFO: remove current cart
                 cartRepository.delete(currentCart);
+
+                try {
+                    emailService.sendSimpleMessage(createOrderResponse.getUser().getEmail(), "Placed Order Successful", MailTemplate.OrderSuccessMail(createOrderResponse.getUser().getEmail(), createOrderResponse.getId(), createOrderResponse.getCreatedAt(), createOrderResponse.getPaymentMethod(), createOrderResponse.getShippingAddress()), true);
+                } catch (MessagingException messagingException) {
+                    System.out.println(messagingException.getMessage());
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
 
                 return new ResponseEntity<>(generateOrderDto(orderData, saveDataResponse, paymentInfoDto), HttpStatus.CREATED);
             }
