@@ -7,3 +7,5 @@ export { default as getUserProductFavoriteService } from './getUserProductFavori
 export { default as createNewAccountService } from './createNewAccountService';
 
 export * from './types';
+
+export { default as getOrderByUserService } from './getOrderByUserService';

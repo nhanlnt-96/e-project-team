@@ -4,6 +4,7 @@ import Loading from 'components/loading';
 import Title from 'components/title';
 import { useEffectOnce } from 'hooks/useEffectOnce';
 import AccountInformation from 'pages/adminPage/accountManagePage/accountDetailPage/AccountInformation';
+import OrderDetail from 'pages/adminPage/accountManagePage/accountDetailPage/OrderDetail';
 import ProductFavorite from 'pages/adminPage/accountManagePage/accountDetailPage/ProductFavorite';
 import SectionContainer from 'pages/adminPage/components/sectionContainer';
 import React, { useState } from 'react';
@@ -50,6 +51,9 @@ const AccountDetailPage = () => {
           </Panel>
           <Panel header='Product Favorite' key='2'>
             <ProductFavorite userId={Number.parseInt(userId as string)} />
+          </Panel>
+          <Panel header='Orders' key='3'>
+            <OrderDetail userId={Number.parseInt(userId as string)} />
           </Panel>
         </CollapseComp>
       </SectionContainer>
