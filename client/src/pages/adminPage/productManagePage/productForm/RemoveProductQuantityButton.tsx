@@ -1,23 +1,25 @@
 import { SvgIcons } from 'assets/icons/svgIcons';
 import ButtonComp from 'components/buttonComp';
 import ModalComp from 'components/modalComp';
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { removeProductQuantitySelector } from 'redux/productManage/selector';
 
 interface IProps {
   disabled: boolean;
   onRemoveProductQuantity: () => void;
+  isCloseModal?: boolean;
+  setIsCloseModal?: Dispatch<SetStateAction<boolean>>;
 }
 
-const RemoveProductQuantityButton: React.FC<IProps> = ({ disabled, onRemoveProductQuantity }) => {
+const RemoveProductQuantityButton: React.FC<IProps> = ({ disabled, onRemoveProductQuantity, isCloseModal = false, setIsCloseModal }) => {
   const { error, isSuccess, isRemoving } = useAppSelector(removeProductQuantitySelector);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleCloseModal = () => setIsOpen(false);
 
   useEffect(() => {
-    if (error || isSuccess) handleCloseModal();
-  }, [error, isSuccess]);
+    if (error || isSuccess || isCloseModal) handleCloseModal();
+  }, [error, isSuccess, isCloseModal]);
 
   return (
     <>
@@ -27,7 +29,11 @@ const RemoveProductQuantityButton: React.FC<IProps> = ({ disabled, onRemoveProdu
           type='button'
           className='text-antd-status-error h-[38px] hover:text-antd-status-error/50'
           disabled={disabled}
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            setIsOpen(true);
+
+            if (setIsCloseModal) setIsCloseModal(false);
+          }}
         >
           {SvgIcons.Trash}
         </button>

@@ -5,6 +5,7 @@ import { IProductData } from 'services/product';
 import * as Yup from 'yup';
 
 export interface IProductQuantityFormikValues {
+  index?: number;
   netWeightId: number;
   quantity: number;
   price: number;
@@ -33,7 +34,7 @@ const useProductFormik = (onSubmit: (values: IProductFormikValues) => void, prod
     enableReinitialize: true,
     validationSchema: Yup.object({
       productName: Yup.string().required('Product name can not be null.'),
-      productQuantityList: Yup.lazy((value) => {
+      productQuantityList: Yup.lazy(() => {
         if (productData?.productQuantityDtoList.length) {
           return Yup.array(
             Yup.object().shape({

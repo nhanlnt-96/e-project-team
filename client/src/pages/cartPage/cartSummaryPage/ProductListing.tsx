@@ -74,10 +74,14 @@ const ProductListing: React.FC<IProps> = ({ productInCart }) => {
                     onChange={(value) => handleChangeProductQuantity(product.productId, value, product.netWeightDto.netWeightId)}
                   />
                 </div>
-                <div className='flex-1 space-y-2'>
-                  <label htmlFor='netWeight'>Net Weight</label>
-                  <ProductNetWeightSelect id='netWeight' productId={product.productId} disabled={true} value={product.netWeightDto.netWeightId} />
-                </div>
+                {product.netWeightDto.netWeightValue !== 0 ? (
+                  <div className='flex-1 space-y-2'>
+                    <label htmlFor='netWeight'>Net Weight</label>
+                    <ProductNetWeightSelect id='netWeight' productId={product.productId} disabled={true} value={product.netWeightDto.netWeightId} />
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
               <p className='text-right font-medium'>{convertPrice(product.quantity * product.productQuantityDto.price)}</p>
             </div>

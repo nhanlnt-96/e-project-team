@@ -1,4 +1,5 @@
 import { SvgIcons } from 'assets/icons/svgIcons';
+import ButtonComp from 'components/buttonComp';
 import Loading from 'components/loading';
 import { FeatureButton } from 'components/productCard/CardHoverFeatures';
 import { RouteBasePath } from 'constants/index';
@@ -13,9 +14,10 @@ import { IProductData } from 'services/product';
 
 interface IProps {
   productData: IProductData;
+  isButton?: boolean;
 }
 
-const AddToCartButton: React.FC<IProps> = ({ productData }) => {
+const AddToCartButton: React.FC<IProps> = ({ productData, isButton = false }) => {
   const DEFAULT_QUANTITY_ADD_TO_CART = 1;
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -41,7 +43,13 @@ const AddToCartButton: React.FC<IProps> = ({ productData }) => {
   }, [productData, userData, cartData]);
 
   return !isLoading ? (
-    <FeatureButton icon={React.cloneElement(SvgIcons.ShoppingCart, { className: 'w-8 h-8' })} label='Add to cart' onClick={handleAddToCart} />
+    !isButton ? (
+      <FeatureButton icon={React.cloneElement(SvgIcons.ShoppingCart, { className: 'w-8 h-8' })} label='Add to cart' onClick={handleAddToCart} />
+    ) : (
+      <ButtonComp className='mx-auto' onClick={handleAddToCart}>
+        Add to Cart
+      </ButtonComp>
+    )
   ) : (
     <Loading isLoadingMask />
   );

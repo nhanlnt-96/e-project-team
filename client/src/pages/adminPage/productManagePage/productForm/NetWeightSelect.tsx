@@ -41,7 +41,7 @@ const NetWeightSelect: React.FC<IProps> = ({ ...props }) => {
     }
 
     return netWeightSelectData;
-  }, [netWeightData]);
+  }, [netWeightData, formik?.values.productQuantityList]);
 
   return <SelectComp {...props} loading={isLoading} options={netWeightSelect} />;
 };

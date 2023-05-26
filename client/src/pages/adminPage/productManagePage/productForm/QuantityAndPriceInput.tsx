@@ -32,13 +32,16 @@ const QuantityAndPriceInput: React.FC<IProps> = ({ productData }) => {
   });
 
   const handleAddQuantityPrice = useCallback(
-    (values: IQuantityPriceValue) => {
+    (values: IQuantityPriceValue, index: number) => {
       if (validateObject<IQuantityPriceValue>(values)) {
         const productQuantityListTemp = _.clone(formik.values.productQuantityList);
-        const quantityPriceExist = productQuantityListTemp.find((quantity) => quantity.netWeightId == values.netWeightId);
+
+        const quantityPriceExist = productQuantityListTemp.find(
+          (quantity) => quantity.netWeightId === values.netWeightId || quantity.index === index
+        );
 
         if (!quantityPriceExist) {
-          productQuantityListTemp.push(values);
+          productQuantityListTemp.push({ ...values, index });
         } else {
           const indexOfExistQuantityPrice = productQuantityListTemp.indexOf(quantityPriceExist);
 
@@ -60,7 +63,9 @@ const QuantityAndPriceInput: React.FC<IProps> = ({ productData }) => {
       {[...new Array(formik.values.productQuantityList.length + 1)].map((value, index) => (
         <QuantityAndPriceInputItem
           key={index}
-          onAddQuantityAndPrice={handleAddQuantityPrice}
+          formik={formik}
+          itemIndex={index}
+          onAddQuantityAndPrice={(values) => handleAddQuantityPrice(values, index)}
           defaultValues={formik.values.productQuantityList[index]}
           quantityId={
             productData?.productQuantityDtoList.find(

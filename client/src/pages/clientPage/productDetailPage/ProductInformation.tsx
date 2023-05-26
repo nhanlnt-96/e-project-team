@@ -1,4 +1,4 @@
-import ButtonComp from 'components/buttonComp';
+import AddToCartButton from 'components/productCard/AddToCartButton';
 import AddToFavoriteButton from 'components/productCard/AddToFavoriteButton';
 import ProductNetWeightSelect from 'pages/clientPage/productDetailPage/ProductNetWeightSelect';
 import ProductQuantitySelect from 'pages/clientPage/productDetailPage/ProductQuantitySelect';
@@ -56,20 +56,25 @@ const ProductInformation: React.FC<IProps> = ({ productData }) => {
         </h2>
         <div className='w-full flex flex-col space-y-4'>
           <div className='flex flex-wrap gap-3'>
-            <div className='flex-1 space-y-2'>
-              <label>Net Weight</label>
-              <ProductNetWeightSelect
-                productId={productData.productId}
-                setProductQuantityData={setProductQuantityData}
-                value={productQuantityData.netWeightId}
-                onChange={(value) =>
-                  setProductQuantityData((prevState) => ({
-                    ...prevState,
-                    netWeightId: value
-                  }))
-                }
-              />
-            </div>
+            {productData.productQuantityDtoList.length === 1 &&
+            productData.productQuantityDtoList.find((quantity) => quantity.netWeightDto?.netWeightValue === 0) ? (
+              <></>
+            ) : (
+              <div className='flex-1 space-y-2'>
+                <label>Net Weight</label>
+                <ProductNetWeightSelect
+                  productId={productData.productId}
+                  setProductQuantityData={setProductQuantityData}
+                  value={productQuantityData.netWeightId}
+                  onChange={(value) =>
+                    setProductQuantityData((prevState) => ({
+                      ...prevState,
+                      netWeightId: value
+                    }))
+                  }
+                />
+              </div>
+            )}
             <div className='flex-1 space-y-2'>
               <label>Quantity</label>
               <ProductQuantitySelect
@@ -91,7 +96,7 @@ const ProductInformation: React.FC<IProps> = ({ productData }) => {
             </div>
             <div className='flex-1 space-y-2'>
               <label className='hidden sm:block sm:invisible'>Add to cart</label>
-              <ButtonComp className='mx-auto'>Add to Cart</ButtonComp>
+              <AddToCartButton productData={productData} isButton={true} />
             </div>
           </div>
           <div className='w-full flex justify-center items-center sm:justify-start'>

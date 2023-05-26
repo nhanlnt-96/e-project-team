@@ -1,8 +1,10 @@
 import ButtonComp from 'components/buttonComp';
 import InputComp from 'components/inputComp';
+import { FormikProps } from 'formik';
 import _ from 'lodash';
 import NetWeightSelect from 'pages/adminPage/productManagePage/productForm/NetWeightSelect';
 import RemoveProductQuantityButton from 'pages/adminPage/productManagePage/productForm/RemoveProductQuantityButton';
+import { IProductFormikValues } from 'pages/adminPage/productManagePage/productForm/useProductFormik';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { removeProductQuantityThunk } from 'redux/productManage/removeProductQuantitySlice';
@@ -20,6 +22,8 @@ interface IProps {
   defaultValues?: IQuantityPriceValue;
   productId?: number;
   quantityId?: number;
+  formik: FormikProps<IProductFormikValues>;
+  itemIndex: number;
 }
 
 const initialQuantityPriceValues: IQuantityPriceValue = {
@@ -28,10 +32,11 @@ const initialQuantityPriceValues: IQuantityPriceValue = {
   price: 0
 };
 
-const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice, defaultValues, productId, quantityId }) => {
+const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice, defaultValues, productId, quantityId, formik, itemIndex }) => {
   const dispatch = useAppDispatch();
   const [quantityPriceValues, setQuantityPriceValues] = useState<IQuantityPriceValue>(initialQuantityPriceValues);
   const [isDisableField, setIsDisableField] = useState<boolean>(false);
+  const [isCloseModal, setIsCloseModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (defaultValues) {
@@ -43,6 +48,10 @@ const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice, de
 
       // INFO: disable field after set state for quantity price values
       setIsDisableField(true);
+    } else {
+      setIsDisableField(false);
+
+      setQuantityPriceValues(initialQuantityPriceValues);
     }
   }, [defaultValues]);
 
@@ -60,12 +69,27 @@ const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice, de
   const handleRemoveProductQuantity = useCallback(() => {
     if (productId && quantityId) {
       dispatch(removeProductQuantityThunk({ quantityId, productId }));
+    } else {
+      const productQuantityListTemp = _.clone(formik.values.productQuantityList);
+      const quantityPriceExist = productQuantityListTemp.find((quantity) => quantity.index === itemIndex);
+
+      if (quantityPriceExist) {
+        const indexOfExistQuantityPrice = productQuantityListTemp.indexOf(quantityPriceExist);
+
+        productQuantityListTemp.splice(indexOfExistQuantityPrice, 1);
+
+        formik.setFieldValue('productQuantityList', productQuantityListTemp);
+
+        setIsCloseModal(true);
+      }
     }
-  }, [quantityId, productId]);
+  }, [quantityId, productId, formik, itemIndex]);
 
   return (
     <div className='w-full flex space-x-4'>
       <RemoveProductQuantityButton
+        isCloseModal={isCloseModal}
+        setIsCloseModal={setIsCloseModal}
         disabled={!validateObject<IQuantityPriceValue>(quantityPriceValues)}
         onRemoveProductQuantity={handleRemoveProductQuantity}
       />
@@ -105,7 +129,7 @@ const QuantityAndPriceInputItem: React.FC<IProps> = ({ onAddQuantityAndPrice, de
           name='price'
           disabled={isDisableField}
           value={quantityPriceValues.price}
-          onChange={(event) => handleChangeQuantityAndPrice('price', Number.parseInt(event.target.value))}
+          onChange={(event) => handleChangeQuantityAndPrice('price', Number.parseFloat(event.target.value))}
         />
       </div>
       <div className='space-y-2'>
