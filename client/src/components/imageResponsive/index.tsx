@@ -46,7 +46,13 @@ const ImageResponsive: React.FC<IProps> = ({
   return (
     <div {...props} style={{ paddingBottom: `${paddingBottom}%` }} className={`w-full relative ${className} image-responsive`}>
       {isPreview ? (
-        <Image src={imagePlaceholderUrl ?? imageSrcProp} alt={imageProps.alt} className={`object-cover ${imageClassName || ''}`} />
+        <Image
+          src={imagePlaceholderUrl ?? imageSrcProp}
+          alt={imageProps.alt}
+          className={`object-cover ${imageClassName || ''}`}
+          onLoad={() => setIsLoadingImage(false)}
+          onError={handleLoadImageError}
+        />
       ) : (
         <>
           {isLoadingImage ? (

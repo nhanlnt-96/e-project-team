@@ -1,7 +1,7 @@
 import { SvgIcons } from 'assets/icons/svgIcons';
 import Loading from 'components/loading';
 import { FeatureButton } from 'components/productCard/CardHoverFeatures';
-import { RouteBasePath } from 'constants/index';
+import { Roles, RouteBasePath } from 'constants/index';
 import React, { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getAuthSelector } from 'redux/authenticate/selector';
@@ -40,7 +40,7 @@ const AddToFavoriteButton: React.FC<IProps> = ({ productId, variant = 'icon' }) 
     }
   }, [productId, findProductInList, userData, variant]);
 
-  return (
+  return !userData || userData?.role === Roles.USER_ROLE ? (
     <>
       {variant === 'icon' ? (
         <FeatureButton
@@ -61,6 +61,8 @@ const AddToFavoriteButton: React.FC<IProps> = ({ productId, variant = 'icon' }) 
       )}
       {isAddingProductFavorite || isRemovingProductFavorite ? <Loading isLoadingMask /> : <></>}
     </>
+  ) : (
+    <></>
   );
 };
 

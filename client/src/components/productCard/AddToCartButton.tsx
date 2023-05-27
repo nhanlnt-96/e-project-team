@@ -2,7 +2,7 @@ import { SvgIcons } from 'assets/icons/svgIcons';
 import ButtonComp from 'components/buttonComp';
 import Loading from 'components/loading';
 import { FeatureButton } from 'components/productCard/CardHoverFeatures';
-import { RouteBasePath } from 'constants/index';
+import { Roles, RouteBasePath } from 'constants/index';
 import React, { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getAuthSelector } from 'redux/authenticate/selector';
@@ -43,12 +43,16 @@ const AddToCartButton: React.FC<IProps> = ({ productData, isButton = false }) =>
   }, [productData, userData, cartData]);
 
   return !isLoading ? (
-    !isButton ? (
-      <FeatureButton icon={React.cloneElement(SvgIcons.ShoppingCart, { className: 'w-8 h-8' })} label='Add to cart' onClick={handleAddToCart} />
+    !userData || userData?.role === Roles.USER_ROLE ? (
+      !isButton ? (
+        <FeatureButton icon={React.cloneElement(SvgIcons.ShoppingCart, { className: 'w-8 h-8' })} label='Add to cart' onClick={handleAddToCart} />
+      ) : (
+        <ButtonComp className='mx-auto' onClick={handleAddToCart}>
+          Add to Cart
+        </ButtonComp>
+      )
     ) : (
-      <ButtonComp className='mx-auto' onClick={handleAddToCart}>
-        Add to Cart
-      </ButtonComp>
+      <></>
     )
   ) : (
     <Loading isLoadingMask />

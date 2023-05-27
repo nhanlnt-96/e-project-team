@@ -32,7 +32,7 @@ public class Product {
     private Set<ProductQuantity> productQuantities;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
     private Set<ProductFavorite> productFavorites;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     @JsonIgnore
     private ProductCart productCart;
