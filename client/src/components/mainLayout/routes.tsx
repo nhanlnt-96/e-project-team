@@ -51,6 +51,7 @@ const NewsPageLayout = lazy(() => import('pages/newsPage'));
 const NewsListingPage = lazy(() => import('pages/newsPage/newsListingPage'));
 const NewsDetailPage = lazy(() => import('pages/newsPage/newsDetailPage'));
 const MyOrderPage = lazy(() => import('pages/myAccountPage/myOrder'));
+const AboutUsPage = lazy(() => import('pages/clientPage/aboutUsPage'));
 
 export const routes: IRoutes[] = [
   {
@@ -87,6 +88,12 @@ export const routes: IRoutes[] = [
         isIndex: false,
         requiredRole: [],
         element: <SearchPage />
+      },
+      {
+        path: RouteBasePath.CLIENT_ABOUT_US_PAGE_BASE_PATH,
+        isIndex: false,
+        requiredRole: [],
+        element: <AboutUsPage />
       }
     ]
   },
