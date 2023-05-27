@@ -2,6 +2,7 @@ package com.main.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.main.api.constant.Constant;
 import com.main.api.dao.NewsRepository;
 import com.main.api.dto.NewsDto;
 import com.main.api.entity.News;
@@ -55,12 +56,21 @@ public class NewsController {
         News checkNewsExist = findNewsByTitle(createNews.getNewsTitle());
         if (checkNewsExist != null) throw new NoResultException("News title already exist");
         String newsCoverImg = "";
-        try {
-            newsCoverImg = handleUploadImage(newsCoverImgFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (!newsCoverImgFile.isEmpty() && newsCoverImgFile.getOriginalFilename() != null) {
+            try {
+                newsCoverImg = handleUploadImage(newsCoverImgFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            throw new NoResultException("News cover image can not be null");
         }
         News news = new News(createNews.getNewsTitle(), createNews.getNewsBody(), newsCoverImg, currentDate);
+        if (createNews.getIsAboutUsNews() != null) {
+            news.setIsAboutUsNews(createNews.getIsAboutUsNews());
+        } else {
+            news.setIsAboutUsNews(Constant.IS_NEWS);
+        }
         News saveNewsResponse = newsRepository.save(news);
         if (saveNewsResponse.getId() != 0) {
             return new ResponseEntity<>(generateNewsDto(saveNewsResponse), HttpStatus.CREATED);
@@ -71,8 +81,15 @@ public class NewsController {
     @GetMapping("/get-all-news")
     public ResponseEntity<List<NewsDto>> getAllNews() {
         List<News> newsList = newsRepository.findByOrderByCreatedAtDesc();
-        List<NewsDto> newsDtoList = newsList.stream().map(this::generateNewsDto).collect(Collectors.toList());
+        List<NewsDto> newsDtoList = newsList.stream().map(this::generateNewsDto).filter(news -> Objects.equals(news.getIsAboutUsNews(), Constant.IS_NEWS)).collect(Collectors.toList());
         return new ResponseEntity<>(newsDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-about-us")
+    public ResponseEntity<List<NewsDto>> getAllAboutUs() {
+        List<News> aboutUsList = newsRepository.findAllByIsAboutUsNews(Constant.IS_ABOUT_US_NEWS);
+        List<NewsDto> aboutUsDtoList = aboutUsList.stream().map(this::generateNewsDto).collect(Collectors.toList());
+        return new ResponseEntity<>(aboutUsDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/get-news/{newsId}")
@@ -120,6 +137,7 @@ public class NewsController {
             checkNewsExist.setNewsTitle(updateNews.getNewsTitle());
         }
         if (updateNews.getNewsBody() != null) checkNewsExist.setNewsBody(updateNews.getNewsBody());
+        if (updateNews.getIsAboutUsNews() != null) checkNewsExist.setIsAboutUsNews(updateNews.getIsAboutUsNews());
         if (newsCoverImgFile != null) {
             if (newsCoverImgFile.getOriginalFilename() != null) {
                 try {
@@ -146,7 +164,7 @@ public class NewsController {
     }
 
     private NewsDto generateNewsDto(News newsData) {
-        return new NewsDto(newsData.getId(), newsData.getNewsTitle(), newsData.getNewsBody(), newsData.getNewsCoverImg(), newsData.getCreatedAt());
+        return new NewsDto(newsData.getId(), newsData.getNewsTitle(), newsData.getNewsBody(), newsData.getNewsCoverImg(), newsData.getCreatedAt(), newsData.getIsAboutUsNews());
     }
 
     private String handleUploadImage(MultipartFile multipartFile) throws IOException {

@@ -16,4 +16,6 @@ public class Constant {
     public static Integer PAYMENT_METHOD_PAYPAL = 1;
     public static Integer PAYMENT_STATUS_PAID = 0;
     public static Integer PAYMENT_STATUS_PENDING = 1;
+    public static Integer IS_ABOUT_US_NEWS = 1;
+    public static Integer IS_NEWS = 0;
 }

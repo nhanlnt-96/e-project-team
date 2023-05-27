@@ -22,6 +22,8 @@ public class News {
     private String newsCoverImg;
     @Column(name = "created_at")
     private Date createdAt;
+    @Column(name = "is_about_us")
+    private Integer isAboutUsNews;
 
     public News() {
     }

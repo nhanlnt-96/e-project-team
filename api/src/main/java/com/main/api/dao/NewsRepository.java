@@ -8,5 +8,8 @@ import java.util.Optional;
 
 public interface NewsRepository extends JpaRepository<News, Long> {
     Optional<News> findByNewsTitle(String newsTitle);
+
     List<News> findByOrderByCreatedAtDesc();
+
+    List<News> findAllByIsAboutUsNews(Integer newsType);
 }

@@ -12,16 +12,18 @@ public class NewsDto {
     private String newsBody;
     private String newsCoverImg;
     private Date createdAt;
+    private Integer isAboutUsNews;
 
     public NewsDto() {
     }
 
-    public NewsDto(Long id, String newsTitle, String newsBody, String newsCoverImg, Date createdAt) {
+    public NewsDto(Long id, String newsTitle, String newsBody, String newsCoverImg, Date createdAt, Integer isAboutUsNews) {
         this.id = id;
         this.newsTitle = newsTitle;
         this.newsBody = newsBody;
         this.newsCoverImg = newsCoverImg;
         this.createdAt = createdAt;
+        this.isAboutUsNews = isAboutUsNews;
     }
 
     public Long getId() {
@@ -62,5 +64,13 @@ public class NewsDto {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Integer getIsAboutUsNews() {
+        return isAboutUsNews;
+    }
+
+    public void setIsAboutUsNews(Integer isAboutUsNews) {
+        this.isAboutUsNews = isAboutUsNews;
     }
 }
