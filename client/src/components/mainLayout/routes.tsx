@@ -142,7 +142,7 @@ export const routes: IRoutes[] = [
   },
   {
     path: RouteBasePath.MY_ACCOUNT_PAGE_BASE_PATH,
-    requiredRole: [Roles.USER_ROLE],
+    requiredRole: [Roles.USER_ROLE, Roles.ADMIN_ROLE, Roles.EDITOR_ROLE],
     element: <MyAccountPageLayout />,
     children: [
       {

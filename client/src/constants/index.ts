@@ -94,6 +94,11 @@ export enum Checkout {
   PAYMENT_STATUS_PENDING = 1
 }
 
+export enum News {
+  IS_ABOUT_US_NEWS = 1,
+  IS_NEWS = 0
+}
+
 export const FULL_NAME_REGEX = new RegExp(/^\p{Lu}\p{L}*\s((\p{Lu}\p{L}*)+\s)*\p{Lu}\p{L}*$/gu);
 
 export const PHONE_NUMBER_REGEX = new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g);

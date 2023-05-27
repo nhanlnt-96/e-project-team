@@ -1,8 +1,10 @@
 import ButtonComp from 'components/buttonComp';
+import CheckboxComp from 'components/checkboxComp';
 import EditorComp from 'components/editorComp';
 import ImageUpload from 'components/imageUpload';
 import ImagePreview from 'components/imageUpload/ImagePreview';
 import InputComp from 'components/inputComp';
+import { News } from 'constants/index';
 import { handleCheckErrorStatus, handleDisplayErrorMsg } from 'helpers/formik';
 import useNewsFormik, { INewsFormikValue } from 'pages/adminPage/newsManagePage/newsForm/useNewsFormik';
 import React from 'react';
@@ -44,6 +46,16 @@ const NewsForm: React.FC<IProps> = ({ onSubmit, isLoading, newsData }) => {
           status={handleCheckErrorStatus<INewsFormikValue>(formik, 'newsBody')}
         />
         {handleDisplayErrorMsg<INewsFormikValue>(formik, 'newsBody')}
+      </div>
+      <div className='w-full space-y-2'>
+        <CheckboxComp
+          id='isAboutUsNews'
+          name='isAboutUsNews'
+          value={formik.values.isAboutUsNews}
+          onChange={(event) => formik.setFieldValue('isAboutUsNews', event.target.checked ? News.IS_ABOUT_US_NEWS : News.IS_NEWS)}
+        >
+          Is About Us Content
+        </CheckboxComp>
       </div>
       {newsData?.newsCoverImg ? (
         <div className='w-full space-y-2'>

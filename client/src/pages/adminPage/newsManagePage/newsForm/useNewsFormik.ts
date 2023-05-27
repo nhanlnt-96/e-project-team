@@ -1,3 +1,4 @@
+import { News } from 'constants/index';
 import { useFormik } from 'formik';
 import _ from 'lodash';
 import { INewsData } from 'services/news';
@@ -7,6 +8,7 @@ export interface INewsFormikValue {
   newsTitle: string;
   newsBody: string;
   newsCoverImgFile: File | null;
+  isAboutUsNews: number;
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -14,7 +16,8 @@ const useNewsFormik = (onSubmit: (values: INewsFormikValue) => void, newsData?: 
   const initialValues: INewsFormikValue = {
     newsTitle: _.get(newsData, 'newsTitle', ''),
     newsBody: _.get(newsData, 'newsBody', ''),
-    newsCoverImgFile: null
+    newsCoverImgFile: null,
+    isAboutUsNews: News.IS_NEWS
   };
 
   return useFormik<INewsFormikValue>({

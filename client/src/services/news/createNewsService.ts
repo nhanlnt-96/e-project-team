@@ -7,7 +7,8 @@ const createNewsService = async (newsDataInput: ICreateNews) => {
 
   const newsData = {
     newsTitle: newsDataInput.newsTitle,
-    newsBody: newsDataInput.newsBody
+    newsBody: newsDataInput.newsBody,
+    isAboutUsNews: newsDataInput.isAboutUsNews
   };
 
   formData.append('newsCoverImgFile', newsDataInput.newsCoverImgFile);
