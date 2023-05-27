@@ -25,12 +25,15 @@ const UpdateNewsButton: React.FC<IProps> = ({ newsData }) => {
 
   const handleUpdateNews = useCallback(
     async (values: INewsFormikValue) => {
+      setIsUpdating(true);
+
       const updateData: IUpdateNews = {
         newsId: newsData.newsId
       };
       if (values.newsTitle !== newsData.newsTitle) updateData.newsTitle = values.newsTitle;
       if (values.newsBody !== newsData.newsBody) updateData.newsBody = values.newsBody;
       if (values.newsCoverImgFile) updateData.newsCoverImgFile = values.newsCoverImgFile;
+      if (values.isAboutUsNews !== newsData.isAboutUsNews) updateData.isAboutUsNews = values.isAboutUsNews;
       try {
         const response = await updateNewsService(updateData);
         if (response) {
@@ -42,6 +45,8 @@ const UpdateNewsButton: React.FC<IProps> = ({ newsData }) => {
         }
       } catch (error) {
         toast.error(error as string);
+      } finally {
+        setIsUpdating(false);
       }
     },
     [newsData.newsId]

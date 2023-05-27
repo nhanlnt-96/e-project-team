@@ -1,3 +1,4 @@
+import { Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Checkout, RouteBasePath } from 'constants/index';
 import React from 'react';
@@ -31,13 +32,20 @@ export const columns: ColumnsType<IOrderData> = [
   {
     title: 'Payment Status',
     dataIndex: 'paymentStatus',
-    render: (_, record) => (record.paymentStatus === Checkout.PAYMENT_STATUS_PAID ? 'Paid' : 'Pending')
+    render: (_, record) =>
+      record.paymentStatus === Checkout.PAYMENT_STATUS_PAID ? <Tag color='geekblue'>Paid</Tag> : <Tag color='gold'>Pending</Tag>
   },
   {
     title: 'Shipping Status',
     dataIndex: 'shippingStatus',
     render: (_, record) =>
-      record.shippingStatus === Checkout.SHIPPING_STATUS_SHIPPING ? 'Shipping' : Checkout.SHIPPING_STATUS_DELIVERED ? 'Delivered' : 'Cancel'
+      record.shippingStatus === Checkout.SHIPPING_STATUS_SHIPPING ? (
+        <Tag color='orange'>Shipping</Tag>
+      ) : Checkout.SHIPPING_STATUS_DELIVERED ? (
+        <Tag color='blue'>Delivered</Tag>
+      ) : (
+        <Tag color='volcano'>Cancel</Tag>
+      )
   },
   {
     title: 'Totals',

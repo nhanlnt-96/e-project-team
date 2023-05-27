@@ -81,13 +81,13 @@ public class NewsController {
     @GetMapping("/get-all-news")
     public ResponseEntity<List<NewsDto>> getAllNews() {
         List<News> newsList = newsRepository.findByOrderByCreatedAtDesc();
-        List<NewsDto> newsDtoList = newsList.stream().map(this::generateNewsDto).filter(news -> Objects.equals(news.getIsAboutUsNews(), Constant.IS_NEWS)).collect(Collectors.toList());
+        List<NewsDto> newsDtoList = newsList.stream().map(this::generateNewsDto).collect(Collectors.toList());
         return new ResponseEntity<>(newsDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/get-all-about-us")
     public ResponseEntity<List<NewsDto>> getAllAboutUs() {
-        List<News> aboutUsList = newsRepository.findAllByIsAboutUsNews(Constant.IS_ABOUT_US_NEWS);
+        List<News> aboutUsList = newsRepository.findAllByIsAboutUsNewsOrderByCreatedAtDesc(Constant.IS_ABOUT_US_NEWS);
         List<NewsDto> aboutUsDtoList = aboutUsList.stream().map(this::generateNewsDto).collect(Collectors.toList());
         return new ResponseEntity<>(aboutUsDtoList, HttpStatus.OK);
     }

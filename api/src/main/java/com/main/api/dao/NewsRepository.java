@@ -11,5 +11,5 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
     List<News> findByOrderByCreatedAtDesc();
 
-    List<News> findAllByIsAboutUsNews(Integer newsType);
+    List<News> findAllByIsAboutUsNewsOrderByCreatedAtDesc(Integer newsType);
 }

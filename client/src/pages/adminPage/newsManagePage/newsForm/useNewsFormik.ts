@@ -17,7 +17,7 @@ const useNewsFormik = (onSubmit: (values: INewsFormikValue) => void, newsData?: 
     newsTitle: _.get(newsData, 'newsTitle', ''),
     newsBody: _.get(newsData, 'newsBody', ''),
     newsCoverImgFile: null,
-    isAboutUsNews: News.IS_NEWS
+    isAboutUsNews: _.get(newsData, 'isAboutUsNews', News.IS_NEWS)
   };
 
   return useFormik<INewsFormikValue>({

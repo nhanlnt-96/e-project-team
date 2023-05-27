@@ -1,4 +1,5 @@
 import { ColumnsType } from 'antd/es/table';
+import { News } from 'constants/index';
 import RemoveNewsButton from 'pages/adminPage/newsManagePage/removeNewsButton';
 import UpdateNewsButton from 'pages/adminPage/newsManagePage/updateNewsButton';
 import ViewNewsDetailButton from 'pages/adminPage/newsManagePage/viewNewsDetailButton';
@@ -23,6 +24,12 @@ export const columns: ColumnsType<INewsData> = [
 
       return 0;
     }
+  },
+  {
+    title: 'News Type',
+    dataIndex: 'isAboutUsNews',
+    key: 'isAboutUsNews',
+    render: (_, record) => (record.isAboutUsNews === News.IS_ABOUT_US_NEWS ? 'About Us' : 'News')
   },
   {
     title: 'Created At',

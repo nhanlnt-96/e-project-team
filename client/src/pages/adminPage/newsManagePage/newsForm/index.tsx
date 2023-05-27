@@ -51,7 +51,7 @@ const NewsForm: React.FC<IProps> = ({ onSubmit, isLoading, newsData }) => {
         <CheckboxComp
           id='isAboutUsNews'
           name='isAboutUsNews'
-          value={formik.values.isAboutUsNews}
+          checked={formik.values.isAboutUsNews === News.IS_ABOUT_US_NEWS}
           onChange={(event) => formik.setFieldValue('isAboutUsNews', event.target.checked ? News.IS_ABOUT_US_NEWS : News.IS_NEWS)}
         >
           Is About Us Content

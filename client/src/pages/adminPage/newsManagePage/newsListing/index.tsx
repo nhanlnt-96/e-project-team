@@ -9,13 +9,13 @@ import { INewsData } from 'services/news';
 
 const NewsListing: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, newsData } = useAppSelector(getAllNewsSelector);
+  const { isLoading, allNewsData } = useAppSelector(getAllNewsSelector);
 
   useEffectOnce(() => {
-    if (!newsData.length) dispatch(getAllNewsThunk());
+    if (!allNewsData.length) dispatch(getAllNewsThunk());
   });
 
-  return <DataTable<INewsData> data={newsData} columns={columns} loading={isLoading} />;
+  return <DataTable<INewsData> data={allNewsData} columns={columns} loading={isLoading} />;
 };
 
 export default NewsListing;
