@@ -209,6 +209,30 @@ create table payment_info
         foreign key (order_id) references orders (id)
 );
 
+-- auto-generated definition
+create table store_info
+(
+    id           int auto_increment
+        primary key,
+    store_name   varchar(255) not null,
+    address      longtext     not null,
+    phone_number varchar(255) not null,
+    store_image  varchar(255) not null
+);
+
+-- auto-generated definition
+create table store_open_hour
+(
+    id        int auto_increment
+        primary key,
+    store_id  int          not null,
+    day       int          not null,
+    from_time varchar(255) not null,
+    to_time   varchar(255) not null,
+    constraint store_open_hour_store_info_id_fk
+        foreign key (store_id) references store_info (id)
+);
+
 -- insert role data
 INSERT INTO plant_x_db.role (id, role_name)
 VALUES (1, 'ROLE_ADMIN');
@@ -449,10 +473,23 @@ VALUES (7, 'INFUSED FOR SUCCESS', '<p align="center"><em>Celebrating the alchemy
         '2023-05-23 13:29:31', 'news/09d4e675-a7bd-4590-afb5-fdb322c0209f-ITD-main.jpg');
 
 -- inserts order
-INSERT INTO plant_x_db.orders (id, shipping_status, user_id, created_at, payment_method, payment_status, shipping_address, receiver_name, receiver_phone) VALUES (30, 1, 18, '2023-05-25 12:32:37', 1, 0, 'Ho Chi Minh City', 'Nhan', '0981939841');
+INSERT INTO plant_x_db.orders (id, shipping_status, user_id, created_at, payment_method, payment_status,
+                               shipping_address, receiver_name, receiver_phone)
+VALUES (30, 1, 18, '2023-05-25 12:32:37', 1, 0, 'Ho Chi Minh City', 'Nhan', '0981939841');
 
 -- insert order_item
-INSERT INTO plant_x_db.order_item (id, order_id, product_id, net_weight_id, quantity, price) VALUES (49, 30, 77, 2, 3, 40);
+INSERT INTO plant_x_db.order_item (id, order_id, product_id, net_weight_id, quantity, price)
+VALUES (49, 30, 77, 2, 3, 40);
 
 -- insert payment info
-INSERT INTO plant_x_db.payment_info (id, order_id, payment_id, payment_created, payee_email, payee_name, payment_capture_id) VALUES (7, 30, '0UB36269SE356922M', '2023-05-25 08:08:24', 'sb-fpmrp26057867@business.example.com', 'John Doe', '3K453259RD931131D');
+INSERT INTO plant_x_db.payment_info (id, order_id, payment_id, payment_created, payee_email, payee_name,
+                                     payment_capture_id)
+VALUES (7, 30, '0UB36269SE356922M', '2023-05-25 08:08:24', 'sb-fpmrp26057867@business.example.com', 'John Doe',
+        '3K453259RD931131D');
+
+-- inset store info
+INSERT INTO plant_x_db.store_info (id, store_name, address, phone_number, store_image) VALUES (2, 'TWG Tea at Takashimaya Vietnam Level 2', 'Takashimaya Vietnam, Level 2 – 202. 65, Le Loi Street, Ben Nghe Ward, District 1, Ho Chi Minh City', '+84 28 3821 2312', 'stores/df1190d2-0a25-430b-8e4f-9af8399bdcf1-Screenshot-from-2023-04-13-17-33-20.png');
+
+-- inset store open hour
+INSERT INTO plant_x_db.store_open_hour (id, store_id, day, from_time, to_time) VALUES (1, 2, 'Monday', '10am', '9pm');
+INSERT INTO plant_x_db.store_open_hour (id, store_id, day, from_time, to_time) VALUES (2, 2, 'Tuesday', '10am', '9pm');

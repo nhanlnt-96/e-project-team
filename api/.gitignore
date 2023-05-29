@@ -1,6 +1,3 @@
-# api upload folder ignore
-upload/*
-
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

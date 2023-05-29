@@ -204,7 +204,7 @@ public class UserController {
 
     @PostMapping("/get-verify-email-token")
     @Transactional(rollbackFor = Exception.class)
-    @RolesAllowed("ROLE_USER")
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN", "ROLE_EDITOR"})
     public ResponseEntity<String> getVerifyEmailToken() {
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User checkUserExist = userRepository.findByEmail(userEmail).orElseThrow(() -> new NoResultException("Account does not exist."));
@@ -234,7 +234,7 @@ public class UserController {
 
     @PutMapping("/verify-email")
     @Transactional(rollbackFor = Exception.class)
-    @RolesAllowed("ROLE_USER")
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN", "ROLE_EDITOR"})
     public ResponseEntity<?> verifyEmail(@Valid @RequestBody UserModel.VerifyEmail verifyEmailData) {
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         Token checkTokenExist = tokenRepository.findByTokenValue(verifyEmailData.getToken()).orElseThrow(() -> new NoResultException("Token does not exist"));

@@ -18,4 +18,14 @@ public class Constant {
     public static Integer PAYMENT_STATUS_PENDING = 1;
     public static Integer IS_ABOUT_US_NEWS = 1;
     public static Integer IS_NEWS = 0;
+
+    public enum DayOfWeek {
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday,
+        Saturday,
+        Sunday
+    }
 }

@@ -1,9 +1,10 @@
 package com.main.api.dto;
 
-import org.springframework.lang.Nullable;
+import lombok.Data;
 
 import java.util.Date;
 
+@Data
 public class PaymentInfoDto {
     private Long id;
     private Long orderId;
