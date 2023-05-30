@@ -76,7 +76,7 @@ const StoreOpenHourInputItem: React.FC<IProps> = ({ formik, onAddOpenHour, itemI
 
   const handleAddOrEditOpenTime = useCallback(() => {
     setIsDisableFields(true);
-    if (itemIndex) openHour.index = itemIndex;
+    if (String(itemIndex)) openHour.index = itemIndex;
     if (defaultValue) openHour.id = defaultValue.id;
 
     onAddOpenHour(openHour);
@@ -100,7 +100,7 @@ const StoreOpenHourInputItem: React.FC<IProps> = ({ formik, onAddOpenHour, itemI
           options={daySelect}
           value={openHour.day || null}
           onChange={(value) => handleChangeOpenHour('day', value)}
-          disabled={isDisableFields}
+          disabled={isDisableFields || Boolean(isHasStoreData && formik.values.storeOpenHours[itemIndex])}
         />
       </div>
       <div className='w-1/3 space-y-2'>
