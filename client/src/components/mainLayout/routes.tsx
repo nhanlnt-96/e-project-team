@@ -56,6 +56,7 @@ const StoreLocatorManagePage = lazy(() => import('pages/adminPage/storeLocatorMa
 const StoreLocatorListingPage = lazy(() => import('pages/adminPage/storeLocatorManagePage/storeListingPage'));
 const AddNewStorePage = lazy(() => import('pages/adminPage/storeLocatorManagePage/addNewStorePage'));
 const EditStorePage = lazy(() => import('pages/adminPage/storeLocatorManagePage/editStorePage'));
+const LocationPage = lazy(() => import('pages/clientPage/storeLocatorPage'));
 
 export const routes: IRoutes[] = [
   {
@@ -98,6 +99,12 @@ export const routes: IRoutes[] = [
         isIndex: false,
         requiredRole: [],
         element: <AboutUsPage />
+      },
+      {
+        path: RouteBasePath.CLIENT_LOCATION_PAGE_BASE_PATH,
+        isIndex: false,
+        requiredRole: [],
+        element: <LocationPage />
       }
     ]
   },

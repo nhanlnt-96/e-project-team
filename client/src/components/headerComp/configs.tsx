@@ -23,7 +23,7 @@ export const headerLinks: IHeaderLink[] = [
     path: `/${RouteBasePath.CLIENT_ABOUT_US_PAGE_BASE_PATH}`
   },
   {
-    label: 'Contact us',
-    path: `/${RouteBasePath.CLIENT_CONTACT_US_PAGE_BASE_PATH}`
+    label: 'Locations',
+    path: `/${RouteBasePath.CLIENT_LOCATION_PAGE_BASE_PATH}`
   }
 ];

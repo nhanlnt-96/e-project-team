@@ -24,7 +24,7 @@ export enum RouteBasePath {
   CLIENT_FIND_A_TEA_BASE_PATH = 'find-a-tea',
   CLIENT_PRODUCT_PAGE_BASE_PATH = 'shop',
   CLIENT_ABOUT_US_PAGE_BASE_PATH = 'about-us',
-  CLIENT_CONTACT_US_PAGE_BASE_PATH = 'contact-us',
+  CLIENT_LOCATION_PAGE_BASE_PATH = 'locations',
 
   CLIENT_NEWS_PAGE_BASE_PATH = '/news',
   CLIENT_NEWS_DETAIL_PAGE_BASE_PATH = 'news-detail',
