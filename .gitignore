@@ -34,9 +34,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-# api upload folder ignore
-api/upload/*
-
 ### STS ###
 .apt_generated
 .classpath

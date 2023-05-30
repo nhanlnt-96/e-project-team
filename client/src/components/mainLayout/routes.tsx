@@ -52,6 +52,10 @@ const NewsListingPage = lazy(() => import('pages/newsPage/newsListingPage'));
 const NewsDetailPage = lazy(() => import('pages/newsPage/newsDetailPage'));
 const MyOrderPage = lazy(() => import('pages/myAccountPage/myOrder'));
 const AboutUsPage = lazy(() => import('pages/clientPage/aboutUsPage'));
+const StoreLocatorManagePage = lazy(() => import('pages/adminPage/storeLocatorManagePage'));
+const StoreLocatorListingPage = lazy(() => import('pages/adminPage/storeLocatorManagePage/storeListingPage'));
+const AddNewStorePage = lazy(() => import('pages/adminPage/storeLocatorManagePage/addNewStorePage'));
+const EditStorePage = lazy(() => import('pages/adminPage/storeLocatorManagePage/editStorePage'));
 
 export const routes: IRoutes[] = [
   {
@@ -264,6 +268,31 @@ export const routes: IRoutes[] = [
     requiredRole: [Roles.ADMIN_ROLE, Roles.EDITOR_ROLE],
     element: <NewsManagePage />,
     children: []
+  },
+  {
+    path: RouteBasePath.ADMIN_STORE_LOCATOR_PAGE_BASE_PATH,
+    requiredRole: [Roles.ADMIN_ROLE, Roles.EDITOR_ROLE],
+    element: <StoreLocatorManagePage />,
+    children: [
+      {
+        path: '',
+        requiredRole: [Roles.ADMIN_ROLE, Roles.EDITOR_ROLE],
+        element: <StoreLocatorListingPage />,
+        isIndex: true
+      },
+      {
+        path: RouteBasePath.ADMIN_ADD_STORE_LOCATOR_PAGE_BASE_PATH,
+        requiredRole: [Roles.ADMIN_ROLE, Roles.EDITOR_ROLE],
+        element: <AddNewStorePage />,
+        isIndex: false
+      },
+      {
+        path: `${RouteBasePath.ADMIN_UPDATE_STORE_LOCATOR_PAGE_BASE_PATH}/:storeId`,
+        requiredRole: [Roles.ADMIN_ROLE, Roles.EDITOR_ROLE],
+        element: <EditStorePage />,
+        isIndex: false
+      }
+    ]
   },
   {
     path: '*',

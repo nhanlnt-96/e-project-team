@@ -1,0 +1,67 @@
+@import "assets/styles/index";
+
+:root {
+  --time-picker-dropdown-width: 100%;
+}
+
+.time-picker-comp {
+  width: 100%;
+  border: 1px solid $black;
+  height: $input-height;
+  border-radius: unset;
+
+  .ant-picker-input {
+    & > input {
+      &::placeholder {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  &__dropdown {
+    width: var(--time-picker-dropdown-width);
+
+    .ant-picker-panel {
+      width: 100%;
+    }
+
+    .ant-picker {
+      &-content {
+        .ant-picker-time-panel-column {
+          .ant-picker-time-panel-cell {
+            .ant-picker-time-panel-cell-inner {
+              margin: auto;
+            }
+          }
+        }
+      }
+
+      &-now {
+        display: none !important;
+      }
+
+      &-ok {
+        .ant-btn {
+          background-color: $black;
+          border-radius: unset;
+          border-color: $black;
+          color: $white;
+          transition: all 500ms ease-in-out;
+
+          &:hover {
+            background-color: $white;
+            color: $black;
+          }
+        }
+      }
+    }
+  }
+}
+
+:where(.css-dev-only-do-not-override-1lyb8t).ant-picker .ant-picker-input > input:hover {
+  border-color: $black;
+}
+
+:where(.css-dev-only-do-not-override-1lyb8t).ant-picker:hover, :where(.css-dev-only-do-not-override-1lyb8t).ant-picker-focused {
+  border-color: $black;
+}

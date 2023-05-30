@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.Validator;
 import java.io.IOException;
 import java.util.*;
@@ -107,7 +108,7 @@ public class StoreInfoController {
     @GetMapping("/get-all")
     public ResponseEntity<List<StoreInfoDto>> getAllStoreInfo() {
         List<StoreInfo> storeInfoList = storeInfoRepository.findAll();
-        List<StoreInfoDto> storeInfoDtoList = storeInfoList.stream().map(store -> generateStoreInfoDto(store, new ArrayList<>(store.getStoreOpenHours()))).collect(Collectors.toList());
+        List<StoreInfoDto> storeInfoDtoList = storeInfoList.stream().map(store -> generateStoreInfoDto(store, new ArrayList<>(store.getStoreOpenHours()).stream().sorted(Comparator.comparing(StoreOpenHour::getDay)).collect(Collectors.toList()))).collect(Collectors.toList());
         return new ResponseEntity<>(storeInfoDtoList, HttpStatus.OK);
     }
 
@@ -186,7 +187,7 @@ public class StoreInfoController {
                 List<StoreOpenHour> storeOpenHours = new ArrayList<>();
                 for (StoreInfoModel.UpdateStoreOpenHourItem item : updateStoreOpenHour.getStoreOpenHours()) {
                     StoreOpenHour storeOpenHourData = checkStoreInfoExist.getStoreOpenHours().stream().filter(hour -> Objects.equals(hour.getId(), item.getId())).findAny().orElse(null);
-                    if (item.getId() != null) throw new NoResultException("Store open hour does not exist");
+//                    if (item.getId() != null) throw new NoResultException("Store open hour does not exist");
                     if (!checkDayExist(item.getDay()))
                         throw new NoResultException("Day '" + item.getDay() + "' invalid");
                     Integer day = Constant.DayOfWeek.valueOf(item.getDay()).ordinal();
@@ -212,7 +213,26 @@ public class StoreInfoController {
 
         StoreInfo updateStoreInfoResponse = storeInfoRepository.saveAndFlush(checkStoreInfoExist);
 
-        return new ResponseEntity<>(generateStoreInfoDto(updateStoreInfoResponse, new ArrayList<>(updateStoreInfoResponse.getStoreOpenHours())), HttpStatus.OK);
+        return new ResponseEntity<>(generateStoreInfoDto(updateStoreInfoResponse, new ArrayList<>(updateStoreInfoResponse.getStoreOpenHours().stream().sorted(Comparator.comparing(StoreOpenHour::getDay)).collect(Collectors.toList()))), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-store-by-id/{storeId}")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
+    public ResponseEntity<StoreInfoDto> getStoreById(@PathVariable("storeId") Long storeId) {
+        StoreInfo storeInfo = storeInfoRepository.findById(storeId).orElseThrow(() -> new NoResultException("Store does not exist"));
+
+        return new ResponseEntity<>(generateStoreInfoDto(storeInfo, new ArrayList<>(storeInfo.getStoreOpenHours()).stream().sorted(Comparator.comparing(StoreOpenHour::getDay)).collect(Collectors.toList())), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/remove-store-working-hour")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_EDITOR"})
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseEntity<String> removeStoreWorkingHour(@Valid @RequestBody StoreInfoModel.RemoveStoreWorkingHour removeStoreWorkingHour) {
+        StoreOpenHour storeOpenHour = storeOpenHourRepository.findByIdAndStoreInfoId(removeStoreWorkingHour.getWorkingHourId(), removeStoreWorkingHour.getStoreId());
+        if (storeOpenHour == null)
+            throw new NoResultException("Working hour does not exist with store id " + removeStoreWorkingHour.getStoreId());
+        storeOpenHourRepository.delete(storeOpenHour);
+        return new ResponseEntity<>("Removed store working hour", HttpStatus.OK);
     }
 
     private Boolean checkDayExist(String day) {

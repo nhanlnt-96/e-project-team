@@ -233,4 +233,35 @@ public class StoreInfoModel {
             this.storeOpenHours = storeOpenHours;
         }
     }
+
+    public static class RemoveStoreWorkingHour {
+        @NotNull(message = "storeId can not be null")
+        Long storeId;
+        @NotNull(message = "workingHourId can not be null")
+        Long workingHourId;
+
+        public RemoveStoreWorkingHour() {
+        }
+
+        public RemoveStoreWorkingHour(Long storeId, Long workingHourId) {
+            this.storeId = storeId;
+            this.workingHourId = workingHourId;
+        }
+
+        public Long getStoreId() {
+            return storeId;
+        }
+
+        public void setStoreId(Long storeId) {
+            this.storeId = storeId;
+        }
+
+        public Long getWorkingHourId() {
+            return workingHourId;
+        }
+
+        public void setWorkingHourId(Long workingHourId) {
+            this.workingHourId = workingHourId;
+        }
+    }
 }

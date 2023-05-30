@@ -21,6 +21,10 @@ import getProductByIdReducer from './productManage/getProductByIdSlice';
 import removeProductImageReducer from './productManage/removeProductImageSlice';
 import removeProductQuantityReducer from './productManage/removeProductQuantitySlice';
 import updateProductReducer from './productManage/updateProductSlice';
+import getAllStoreLocatorReducer from './storeLocatorManage/getAllStoreLocatorSlice';
+import getStoreByIdReducer from './storeLocatorManage/getStoreByIdSlice';
+import removeWorkingHourReducer from './storeLocatorManage/removeWorkingHourSlice';
+import updateStoreLocatorReducer from './storeLocatorManage/updateStoreLocatorSlice';
 
 export const store = configureStore({
   reducer: {
@@ -44,7 +48,11 @@ export const store = configureStore({
     addToCartReducer: addToCartReducer,
     removeFromCartReducer: removeFromCartReducer,
     getAllNewsReducer: getAllNewsReducer,
-    getOrderReducer: getOrderReducer
+    getOrderReducer: getOrderReducer,
+    getAllStoreLocatorReducer: getAllStoreLocatorReducer,
+    getStoreByIdReducer: getStoreByIdReducer,
+    removeWorkingHourReducer: removeWorkingHourReducer,
+    updateStoreLocatorReducer: updateStoreLocatorReducer
   }
 });
 

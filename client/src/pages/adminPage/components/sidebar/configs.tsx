@@ -25,5 +25,9 @@ export const sidebarData: ISidebarData[] = [
   {
     label: 'News Manage',
     path: RouteBasePath.ADMIN_NEWS_MANAGE_PAGE_BASE_PATH
+  },
+  {
+    label: 'Store Locator Manage',
+    path: RouteBasePath.ADMIN_STORE_LOCATOR_PAGE_BASE_PATH
   }
 ];

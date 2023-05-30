@@ -59,6 +59,10 @@ export enum RouteBasePath {
 
   ADMIN_NEWS_MANAGE_PAGE_BASE_PATH = '/admin/news-manage',
 
+  ADMIN_STORE_LOCATOR_PAGE_BASE_PATH = '/admin/store-locator',
+  ADMIN_ADD_STORE_LOCATOR_PAGE_BASE_PATH = 'add-store-locator',
+  ADMIN_UPDATE_STORE_LOCATOR_PAGE_BASE_PATH = 'update-store-locator',
+
   PAGE_NOT_FOUND = '/page-not-found'
 }
 
@@ -97,6 +101,16 @@ export enum Checkout {
 export enum News {
   IS_ABOUT_US_NEWS = 1,
   IS_NEWS = 0
+}
+
+export enum DayOfWeek {
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+  Sunday
 }
 
 export const FULL_NAME_REGEX = new RegExp(/^\p{Lu}\p{L}*\s((\p{Lu}\p{L}*)+\s)*\p{Lu}\p{L}*$/gu);
