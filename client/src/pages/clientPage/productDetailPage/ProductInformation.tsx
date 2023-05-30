@@ -106,7 +106,7 @@ const ProductInformation: React.FC<IProps> = ({ productData }) => {
             </div>
             <div className='flex-1 space-y-2'>
               <label className='hidden sm:block sm:invisible'>Add to cart</label>
-              <AddToCartButton productData={productData} isButton={true} />
+              <AddToCartButton productData={productData} isButton={true} quantity={productQuantityData.quantity} />
             </div>
           </div>
           <div className='w-full flex justify-center items-center sm:justify-start'>
