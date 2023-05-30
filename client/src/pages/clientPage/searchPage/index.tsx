@@ -1,13 +1,16 @@
 import Loading from 'components/loading';
 import PageContainer from 'components/pageContainer';
 import ProductCard from 'components/productCard';
+import SEO from 'components/seo';
 import Title from 'components/title';
+import { useGetCurrentUrl } from 'hooks/useGetCurrentUrl';
 import SearchInput from 'pages/clientPage/searchPage/SearchInput';
 import React, { useState } from 'react';
 import { generateProductDataObject } from 'redux/productManage/utils';
 import { IProductData, productSearchByNameService } from 'services/product';
 
 const SearchPage = () => {
+  const pageUrl = useGetCurrentUrl();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSearchComplete, setIsSearchComplete] = useState<boolean>(false);
   const [productSearchData, setProductSearchData] = useState<IProductData[]>([]);
@@ -37,6 +40,7 @@ const SearchPage = () => {
 
   return (
     <>
+      <SEO title='TWG Tea | Search' url={pageUrl} />
       <PageContainer isWideScreen={false} pageContainerClassName='space-y-14'>
         <div className='w-full space-y-6 sm:space-y-10'>
           <Title title='Search' titleClassName='text-white' />

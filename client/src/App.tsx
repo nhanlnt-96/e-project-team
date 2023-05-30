@@ -1,6 +1,8 @@
 import { ConfigProvider } from 'antd';
 import MainLayout from 'components/mainLayout';
+import SEO from 'components/seo';
 import ToastifyProvider from 'components/toastifyProvider';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
   const theme = {
@@ -11,10 +13,13 @@ function App() {
   };
 
   return (
-    <ConfigProvider theme={theme}>
-      <ToastifyProvider />
-      <MainLayout />
-    </ConfigProvider>
+    <HelmetProvider>
+      <SEO />
+      <ConfigProvider theme={theme}>
+        <ToastifyProvider />
+        <MainLayout />
+      </ConfigProvider>
+    </HelmetProvider>
   );
 }
 

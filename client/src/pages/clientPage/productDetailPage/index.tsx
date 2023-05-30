@@ -1,8 +1,10 @@
 import Loading from 'components/loading';
 import PageContainer from 'components/pageContainer';
 import RecentlyViewedProducts from 'components/recentlyViewedProducts';
+import SEO from 'components/seo';
 import { LocalStorageName } from 'constants/index';
 import { useEffectOnce } from 'hooks/useEffectOnce';
+import { useGetCurrentUrl } from 'hooks/useGetCurrentUrl';
 import ProductDescription from 'pages/clientPage/productDetailPage/ProductDescription';
 import ProductImagePreview from 'pages/clientPage/productDetailPage/ProductImagePreview';
 import ProductInformation from 'pages/clientPage/productDetailPage/ProductInformation';
@@ -12,11 +14,13 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getProductByIdThunk } from 'redux/productManage/getProductByIdSlice';
 import { productDetailSelector } from 'redux/productManage/selector';
 import { IProductData } from 'services/product';
+import { imageLinkGeneration } from 'utils/imageLinkGeneration';
 
 const ProductDetailPage = () => {
   const dispatch = useAppDispatch();
   const { isLoading, productData, error } = useAppSelector(productDetailSelector);
   const { productId } = useParams();
+  const pageUrl = useGetCurrentUrl();
 
   useEffectOnce(() => {
     dispatch(getProductByIdThunk(Number.parseInt(productId as string)));
@@ -38,20 +42,28 @@ const ProductDetailPage = () => {
 
   return !isLoading ? (
     productData ? (
-      <PageContainer pageContainerClassName='space-y-4 max-w-screen-xl mx-auto md:space-y-6'>
-        <div className='w-full flex flex-col space-y-6 lg:space-y-0 lg:space-x-8 lg:flex-row'>
-          <div className='lg:w-5/12 text-whie'>
-            <ProductImagePreview productName={productData.productName} productImages={productData.images} />
+      <>
+        <SEO
+          title={`TWG Tea | ${productData.productName}`}
+          description={productData.productName}
+          url={pageUrl}
+          image={imageLinkGeneration(productData.images[0].storageName, productData.images[0].imageName)}
+        />
+        <PageContainer pageContainerClassName='space-y-4 max-w-screen-xl mx-auto md:space-y-6'>
+          <div className='w-full flex flex-col space-y-6 lg:space-y-0 lg:space-x-8 lg:flex-row'>
+            <div className='lg:w-5/12 text-whie'>
+              <ProductImagePreview productName={productData.productName} productImages={productData.images} />
+            </div>
+            <div className='lg:w-7/12 text-white space-y-6'>
+              <ProductInformation productData={productData} />
+            </div>
           </div>
-          <div className='lg:w-7/12 text-white space-y-6'>
-            <ProductInformation productData={productData} />
+          <ProductDescription description={productData.description} />
+          <div className='w-full !mt-10'>
+            <RecentlyViewedProducts slidesPerViewTablet={3} slidesPerViewDesktop={4} />
           </div>
-        </div>
-        <ProductDescription description={productData.description} />
-        <div className='w-full !mt-10'>
-          <RecentlyViewedProducts slidesPerViewTablet={3} slidesPerViewDesktop={4} />
-        </div>
-      </PageContainer>
+        </PageContainer>
+      </>
     ) : (
       <p>{error}</p>
     )
