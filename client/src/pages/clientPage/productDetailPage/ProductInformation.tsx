@@ -36,7 +36,10 @@ const ProductInformation: React.FC<IProps> = ({ productData }) => {
   }, [productData?.productQuantityDtoList, productQuantityData?.netWeightId]);
 
   const productPrice = useMemo(() => {
-    return productData?.productQuantityDtoList.find((item) => item.netWeightDto?.netWeightId === productQuantityData.netWeightId)?.price ?? 0;
+    return (
+      productData?.productQuantityDtoList.find((item) => item.netWeightDto?.netWeightId === productQuantityData.netWeightId)?.price ??
+      productData?.productQuantityDtoList?.[0]?.price
+    );
   }, [productData?.productQuantityDtoList, productQuantityData?.netWeightId]);
 
   const productTotalPrice = useMemo(() => {
@@ -52,7 +55,14 @@ const ProductInformation: React.FC<IProps> = ({ productData }) => {
       <div className='space-y-4'>
         <h6 className='uppercase font-medium text-xs text-secondary sm:text-sm'>{productData.category.categoryName}</h6>
         <h2 className='text-lg font-playfair-display sm:text-xl lg:text-2xl'>
-          {convertPrice(productPrice)} <span className='text-xs sm:text-sm lg:text-base'>per</span> {netWeightLabel}
+          {convertPrice(productPrice)}{' '}
+          {netWeightLabel ? (
+            <>
+              <span className='text-xs sm:text-sm lg:text-base'>per</span> {netWeightLabel}
+            </>
+          ) : (
+            <></>
+          )}
         </h2>
         <div className='w-full flex flex-col space-y-4'>
           <div className='flex flex-wrap gap-3'>
@@ -79,7 +89,7 @@ const ProductInformation: React.FC<IProps> = ({ productData }) => {
               <label>Quantity</label>
               <ProductQuantitySelect
                 productId={productData.productId}
-                netWeightId={productQuantityData.netWeightId}
+                netWeightId={productQuantityData.netWeightId || (productData?.productQuantityDtoList?.[0]?.netWeightDto?.netWeightId as number)}
                 setProductQuantityData={setProductQuantityData}
                 value={productQuantityData.quantity}
                 onChange={(value) =>

@@ -43,7 +43,7 @@ const AddToCartButton: React.FC<IProps> = ({ productData, isButton = false }) =>
   }, [productData, userData, cartData]);
 
   return !isLoading ? (
-    !userData || userData?.role === Roles.USER_ROLE ? (
+    !userData || userData?.role.includes(Roles.USER_ROLE) ? (
       !isButton ? (
         <FeatureButton icon={React.cloneElement(SvgIcons.ShoppingCart, { className: 'w-8 h-8' })} label='Add to cart' onClick={handleAddToCart} />
       ) : (

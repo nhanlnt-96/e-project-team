@@ -40,7 +40,7 @@ const AddToFavoriteButton: React.FC<IProps> = ({ productId, variant = 'icon' }) 
     }
   }, [productId, findProductInList, userData, variant]);
 
-  return !userData || userData?.role === Roles.USER_ROLE ? (
+  return !userData || userData?.role.includes(Roles.USER_ROLE) ? (
     <>
       {variant === 'icon' ? (
         <FeatureButton
