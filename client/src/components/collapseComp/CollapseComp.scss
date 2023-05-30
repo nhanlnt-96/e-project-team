@@ -1,0 +1,24 @@
+@import "assets/styles/index";
+
+.collapse-comp {
+  background-color: transparent;
+
+  .ant-collapse-header {
+    border-bottom: 1px solid $light-silver;
+  }
+
+  .ant-collapse-item {
+    border-bottom: 0;
+
+    .ant-collapse-header-text {
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+  }
+
+  .ant-collapse-content {
+    .ant-collapse-content-box {
+      padding-top: 16px !important;
+    }
+  }
+}

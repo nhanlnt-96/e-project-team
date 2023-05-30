@@ -1,0 +1,21 @@
+import HeaderComponent from 'components/headerComp';
+import PageContainer from 'components/pageContainer';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+
+const CartPageLayout = () => {
+  return (
+    <div className='w-full min-h-screen flex flex-col bg-black'>
+      <HeaderComponent />
+      <PageContainer pageContainerClassName='px-0 m-auto'>
+        <PageContainer pageContainerClassName='bg-white max-w-7xl sm:!px-10'>
+          <div className='w-full py-4'>
+            <Outlet />
+          </div>
+        </PageContainer>
+      </PageContainer>
+    </div>
+  );
+};
+
+export default CartPageLayout;

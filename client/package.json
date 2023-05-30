@@ -17,17 +17,20 @@
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
+    "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.2",
     "swiper": "^9.1.0",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0",
-    "yup": "^1.0.2"
+    "yup": "^1.1.1"
   },
   "scripts": {
-    "start": "concurrently 'react-scripts start' 'cd ../api && java -jar api-0.0.1-SNAPSHOT.jar' ",
+    "start": "react-scripts start",
+    "dev": "concurrently 'react-scripts start' 'cd ../api && java -jar api-0.0.1-SNAPSHOT.jar' ",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -53,6 +56,7 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/lodash": "^4.14.191",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "concurrently": "^8.0.1",
@@ -66,6 +70,7 @@
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "node-sass": "6.0.0",
     "prettier": "^2.8.4",
-    "tailwindcss": "^3.2.7"
+    "tailwindcss": "^3.2.7",
+    "uuid": "^9.0.0"
   }
 }

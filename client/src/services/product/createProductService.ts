@@ -1,29 +1,35 @@
-import _ from 'lodash';
-import {PRODUCT_API_ENDPOINT} from 'services/product/configs';
-import {ICreateProductData} from 'services/product/types';
-import {axiosInstance} from 'services/utils';
+import { PRODUCT_API_ENDPOINT } from 'services/product/configs';
+import { ICreateProductData } from 'services/product/types';
+import { axiosInstance } from 'services/utils';
 
 const createProductService = async (productData: ICreateProductData) => {
-    const formData = new FormData();
+  const formData = new FormData();
 
-    const createProductData = {
-        productName: productData.productName,
-        productPrice: productData.productPrice,
-        categoryId: productData.categoryId,
-        description: productData.description
-    };
+  const createProductData = {
+    productName: productData.productName,
+    categoryId: productData.categoryId,
+    description: productData.description
+  };
 
-    formData.append('createProductData', JSON.stringify(createProductData));
+  const productQuantityList = productData.productQuantityList.map((quantity) => ({
+    netWeightId: quantity.netWeightId,
+    quantity: quantity.quantity,
+    price: quantity.price
+  }));
 
-    if (_.isArray(productData.image)) {
-        for (const img of productData.image) {
-            formData.append('productImages[]', img);
-        }
-    } else {
-        formData.append('productImages', productData.image as File);
+  formData.append('createProductData', JSON.stringify(createProductData));
+
+  formData.append('productQuantityList', JSON.stringify(productQuantityList));
+
+  if (productData.image?.length) {
+    for (const img of productData.image) {
+      formData.append('productImages', img);
     }
+  } else {
+    formData.append('productImages', productData.image?.[0] as File);
+  }
 
-    return await axiosInstance.post(`${PRODUCT_API_ENDPOINT}/create-product`, formData, {headers: {'Content-Type': 'multipart/form-data'}});
+  return await axiosInstance.post(`${PRODUCT_API_ENDPOINT}/create-product`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 };
 
 export default createProductService;

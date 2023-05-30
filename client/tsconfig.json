@@ -47,6 +47,9 @@
       ],
       "helpers/*": [
         "helpers/*"
+      ],
+      "context/*": [
+        "context/*"
       ]
     }
   },

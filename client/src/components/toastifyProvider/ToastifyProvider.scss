@@ -1,0 +1,48 @@
+@import "assets/styles/index";
+
+.toastify-container {
+  .Toastify {
+    &__toast {
+      border-radius: 0;
+      color: $black;
+
+      &--success {
+        .Toastify__toast-body .Toastify__toast-icon {
+          & > svg {
+            fill: $antd-status-success;
+          }
+        }
+      }
+
+      &--error {
+        .Toastify__toast-body .Toastify__toast-icon {
+          & > svg {
+            fill: $antd-status-error;
+          }
+        }
+      }
+
+      &--warning {
+        .Toastify__toast-body .Toastify__toast-icon {
+          & > svg {
+            fill: $antd-status-warning;
+          }
+        }
+      }
+    }
+
+    &__progress-bar {
+      &--error {
+        background-color: $red;
+      }
+
+      &--warning {
+        background-color: $antd-status-warning;
+      }
+
+      &--success {
+        background-color: $antd-status-success;
+      }
+    }
+  }
+}

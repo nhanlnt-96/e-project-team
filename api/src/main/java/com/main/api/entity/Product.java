@@ -1,9 +1,11 @@
 package com.main.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -19,25 +21,27 @@ public class Product {
     private String description;
     @Column(name = "product_name")
     private String productName;
-    @Column(name = "product_price")
-    private Integer productPrice;
+    @Column(name = "created_at")
+    private Date createdAt;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private ProductCategory category;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
     private Set<ProductImage> productImages;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    private Set<ProductQuantity> productQuantities;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    private Set<ProductFavorite> productFavorites;
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    @JsonIgnore
+    private ProductCart productCart;
 
     public Product() {
     }
 
-    public Product(String description, String productName, Integer productPrice) {
+    public Product(String description, String productName) {
         this.description = description;
         this.productName = productName;
-        this.productPrice = productPrice;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" + "productId=" + productId + ", description='" + description + '\'' + ", productName='" + productName + '\'' + ", productPrice=" + productPrice + ", category=" + category + ", images=" + productImages + '}';
     }
 }

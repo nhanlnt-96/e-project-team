@@ -1,0 +1,36 @@
+@import "assets/styles/index";
+
+.checkbox-comp {
+  .ant-checkbox {
+    &-inner {
+      width: 24px;
+      height: 24px;
+      border-radius: unset;
+
+      &:after {
+        width: 6px;
+        left: 30%;
+        height: 10px;
+      }
+    }
+
+    &-checked {
+      .ant-checkbox-inner {
+        background-color: $black;
+      }
+    }
+  }
+}
+
+:where(.css-dev-only-do-not-override-1lyb8t).ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover .ant-checkbox-checked:not(.ant-checkbox-disabled) .ant-checkbox-inner {
+  background-color: $black;
+  border-color: $black;
+}
+
+:where(.css-dev-only-do-not-override-1lyb8t).ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover .ant-checkbox-checked:not(.ant-checkbox-disabled):after {
+  border-color: $black;
+}
+
+:where(.css-dev-only-do-not-override-1lyb8t).ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover .ant-checkbox-inner, :where(.css-dev-only-do-not-override-1lyb8t).ant-checkbox:not(.ant-checkbox-disabled):hover .ant-checkbox-inner {
+  border-color: $black;
+}

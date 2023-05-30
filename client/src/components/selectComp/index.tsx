@@ -11,7 +11,7 @@ export interface ISelectCompProps extends SelectProps {
 const SelectComp: React.FC<ISelectCompProps> = ({ status, ...props }) => {
   return (
     <div className='w-full select-comp'>
-      <Select {...props} className={`select-comp__container select-comp-status__${status}`} />
+      <Select {...props} className={`select-comp__container ${status ? `select-comp-status__${status}` : ''}`} />
     </div>
   );
 };

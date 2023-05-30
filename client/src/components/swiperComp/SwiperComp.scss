@@ -6,10 +6,11 @@
       &-prev, &-next {
         position: fixed;
         width: fit-content;
+        color: inherit;
 
         &:after {
           font-size: 14px;
-          color: #000000;
+          color: inherit;
         }
       }
 

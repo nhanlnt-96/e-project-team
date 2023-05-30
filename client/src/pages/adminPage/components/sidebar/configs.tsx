@@ -1,3 +1,5 @@
+import { RouteBasePath } from 'constants/index';
+
 interface ISidebarData {
   label: string;
   path: string;
@@ -5,11 +7,27 @@ interface ISidebarData {
 
 export const sidebarData: ISidebarData[] = [
   {
+    label: 'Account Manage',
+    path: RouteBasePath.ADMIN_ACCOUNT_MANAGE_PAGE_BASE_PATH
+  },
+  {
     label: 'Category Manage',
-    path: 'category-manage'
+    path: RouteBasePath.ADMIN_CATEGORY_MANAGE_PAGE_BASE_PATH
+  },
+  {
+    label: 'Net Weight Manage',
+    path: RouteBasePath.ADMIN_NET_WEIGHT_MANAGE_PAGE_BASE_PATH
   },
   {
     label: 'Product Manage',
-    path: 'product-manage'
+    path: RouteBasePath.ADMIN_PRODUCT_MANAGE_PAGE_BASE_PATH
+  },
+  {
+    label: 'News Manage',
+    path: RouteBasePath.ADMIN_NEWS_MANAGE_PAGE_BASE_PATH
+  },
+  {
+    label: 'Store Locator Manage',
+    path: RouteBasePath.ADMIN_STORE_LOCATOR_PAGE_BASE_PATH
   }
 ];

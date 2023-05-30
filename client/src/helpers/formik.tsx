@@ -1,6 +1,5 @@
 import { InputStatus } from 'antd/es/_util/statusUtils';
 import { FormikProps } from 'formik';
-import React from 'react';
 
 function handleCheckFormikErrors<T>(formik: FormikProps<T>, key: keyof T): boolean {
   return !!(formik.errors?.[key] && formik.touched?.[key]);
@@ -11,5 +10,11 @@ export function handleCheckErrorStatus<T>(formik: FormikProps<T>, key: keyof T):
 }
 
 export function handleDisplayErrorMsg<T>(formik: FormikProps<T>, key: keyof T): JSX.Element {
-  return handleCheckFormikErrors<T>(formik, key) ? <p className='text-red-700 text-sm font-light !mt-1'>{formik.errors?.[key] as string}</p> : <></>;
+  return handleCheckFormikErrors<T>(formik, key) ? <span className='form-error-message'>{formik.errors?.[key] as string}</span> : <></>;
+}
+
+export function handleDisableSubmitButton<T, I>(values: T, data: I): boolean {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return Object.entries(values).every(([key, value]) => value === data[key]);
 }

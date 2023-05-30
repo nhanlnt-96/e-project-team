@@ -11,7 +11,8 @@ module.exports = {
       '3xl': '1920px'
     },
     fontFamily: {
-      'playfair-display': '\'Playfair Display\', serif'
+      'playfair-display': '\'Playfair Display\', serif',
+      jost: '\'Jost\', sans-serif'
     },
     extend: {
       colors: {
@@ -20,7 +21,9 @@ module.exports = {
         'light-silver': '#d9d9d9',
         'antd-status-error': '#ff4d4f',
         'antd-status-warning': '#faad14',
-        'taupe-gray': '#8f8987'
+        'taupe-gray': '#8f8987',
+        green: '#52c41a',
+        secondary: '#f3d174'
       },
       padding: {
         'ratio-768-1024': 'calc(1024 / 768 * 100%)',

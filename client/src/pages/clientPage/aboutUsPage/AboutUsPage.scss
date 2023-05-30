@@ -1,0 +1,24 @@
+@import "assets/styles/index";
+
+.about-us-page {
+  &__item {
+    display: flex;
+    justify-items: center;
+    align-items: flex-start;
+    gap: 20px;
+    flex-direction: column-reverse;
+    @include md {
+      flex-direction: row;
+    }
+
+    &:nth-child(even) {
+      @include md {
+        flex-direction: row-reverse;
+      }
+    }
+
+    &-btn {
+      letter-spacing: 2px;
+    }
+  }
+}

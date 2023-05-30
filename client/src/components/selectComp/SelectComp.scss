@@ -1,4 +1,4 @@
-@import "src/assets/styles/index";
+@import "assets/styles/index";
 
 .select-comp {
   &__container {
@@ -8,17 +8,30 @@
       &-selector {
         border-color: #000000 !important;
         border-radius: unset;
-        height: 38px !important;
+        height: $input-height !important;
       }
 
       &-selection {
         &-item {
-          line-height: 38px !important;
+          line-height: $input-height !important;
         }
 
         &-search-input {
-          height: 38px !important;
+          height: $input-height !important;
         }
+
+        &-placeholder {
+          text-transform: uppercase;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+        }
+      }
+    }
+
+    &.ant-select-disabled {
+      .ant-select-selector {
+        border-color: $light-silver !important;
       }
     }
   }

@@ -1,0 +1,17 @@
+@import "assets/styles/index";
+
+.date-picker-comp {
+  .ant-picker-input {
+    & > input {
+      &::placeholder {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  &.ant-picker-disabled {
+    &:hover {
+      border-color: $light-silver !important;
+    }
+  }
+}

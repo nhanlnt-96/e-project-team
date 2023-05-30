@@ -17,6 +17,15 @@
         }
       }
 
+      &-body {
+        max-height: 600px;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
       &-footer {
         display: flex;
         justify-content: flex-end;

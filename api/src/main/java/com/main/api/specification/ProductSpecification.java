@@ -8,8 +8,8 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 
 public class ProductSpecification {
-    public static Specification<Product> searchByName(String name) {
-        return ((root, query, criteriaBuilder) -> name.equals("all") ? criteriaBuilder.conjunction() : criteriaBuilder.like(root.get("name"), "%" + name + "%"));
+    public static Specification<Product> searchByName(String productName) {
+        return ((root, query, criteriaBuilder) -> productName.equals("all") ? criteriaBuilder.conjunction() : criteriaBuilder.like(root.get("productName"), "%" + productName + "%"));
     }
 
     public static Specification<Product> filterByCategorySlug(String categorySlug) {
