@@ -15,9 +15,10 @@ import { IProductData } from 'services/product';
 interface IProps {
   productData: IProductData;
   isButton?: boolean;
+  quantity?: number;
 }
 
-const AddToCartButton: React.FC<IProps> = ({ productData, isButton = false }) => {
+const AddToCartButton: React.FC<IProps> = ({ productData, isButton = false, quantity }) => {
   const DEFAULT_QUANTITY_ADD_TO_CART = 1;
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -33,14 +34,18 @@ const AddToCartButton: React.FC<IProps> = ({ productData, isButton = false }) =>
       const addToCartData: IAddToCartData = {
         productId: productData.productId,
         netWeightId: productData.productQuantityDtoList[0].netWeightDto?.netWeightId as number,
-        quantity: !productExistInCart ? DEFAULT_QUANTITY_ADD_TO_CART : productExistInCart.quantity + DEFAULT_QUANTITY_ADD_TO_CART
+        quantity: quantity
+          ? quantity
+          : !productExistInCart
+          ? DEFAULT_QUANTITY_ADD_TO_CART
+          : productExistInCart.quantity + DEFAULT_QUANTITY_ADD_TO_CART
       };
 
       dispatch(addToCartThunk(addToCartData));
     } else {
       navigate(RouteBasePath.LOGIN_BASE_PATH, { state: { from: pathname } });
     }
-  }, [productData, userData, cartData]);
+  }, [productData, userData, cartData, quantity]);
 
   return !isLoading ? (
     !userData || userData?.role.includes(Roles.USER_ROLE) ? (
